@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">高應無線通</string>
+    <string name="app_title">KUAS Wifi Auto Login</string>
+    <string name="show_password">Show password</string>
+
+    <string name="ssid_kuas_wireless">kuas_wireless</string>
+    <string name="ssid_1_logout_url">http://172.16.49.254/auth/logout.html</string>
+    <string name="ssid_KUAS">KUAS</string>
+    <string name="ssid_KUAS_Dorm">KUAS-Dorm</string>
+
+    <string name="err_ssid_msg">請檢查是否連上 kuas_wireless 或是 KUAS</string>
+    <string name="err_ssid_msg_format" formatted="false">您目前連線的Wi-Fi是：%s\n%s</string>
+    <string name="_url_kuas_wireless">http://172.16.49.254/auth/index.html/u</string>
+    <string name="_url_KUAS">http://203.64.91.221/cgi-bin/login</string>
+    <string name="url_kuas_wireless">http://172.16.61.253/cgi-bin/ace_web_auth.cgi</string>
+    <string name="url_KUAS">http://172.16.61.253/cgi-bin/ace_web_auth.cgi</string>
+    <string name="url_KUAS_Dorm">http://www.google.com</string>
+
+    <string-array name="params_name">
+        <item>username</item>
+        <item>userpwd</item>
+        <item>login</item>
+        <item>orig_referer</item>
+    </string-array>
+
+    <string-array name="params_value">
+        <item></item>
+        <item></item>
+        <item>login</item>
+        <item></item>
+    </string-array>
+
+    <string name="logout">Log Out</string>
+    <string name="account_hint">高應大帳號</string>
+    <string name="password_hint">密碼</string>
+    <string name="timeout">連線逾時&#8230; 請檢查 WiFi 連線狀況&#8230;</string>
+    <string name="login_successfully">Wi-Fi 登入成功, 歡迎來到高雄應用科技大學！</string>
+    <string name="login_guest_successfully">賓客登入成功, 歡迎來到高雄應用科技大學！</string>
+    <string name="login_dorm_successfully">宿舍登入成功, 歡迎回到宿舍！</string>
+    <string name="no_account_password">請先輸入帳號與密碼</string>
+    <string name="login_error">登入失敗，請再嘗試一次。</string>
+    <string name="login_ready">您已經登入或是有可用網路了。</string>
+    <string name="url_KUAS_y">http://wlogin.kuas.edu.tw/login.htm</string>
+</resources>
