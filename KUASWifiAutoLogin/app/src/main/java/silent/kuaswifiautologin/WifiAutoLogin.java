@@ -47,7 +47,7 @@ public class WifiAutoLogin extends Activity {
     public static final String PREF_USERNAME = "USERNAME";
     public static final String PREF_PWD = "PASSWORD";
     public static final String TAG = "KUAS";
-    public static final int TIMEOUT = 1000;
+    public static final int TIMEOUT = 2500;
 
     private MaterialEditText usernameEditText;
     private MaterialEditText passwordEditText;
@@ -164,7 +164,11 @@ public class WifiAutoLogin extends Activity {
         }
     }
     public boolean checkAccountPassword() {
-        if (usernameEditText.getText().toString().compareTo("") == 0 || passwordEditText.getText().toString().compareTo("") == 0)
+        if (usernameEditText.getText().toString().compareTo("") == 0
+                || passwordEditText.getText().toString().compareTo("") == 0
+                || (usernameEditText.getText().toString().length() != 10
+                && usernameEditText.getText().toString().length() != 22
+                && usernameEditText.getText().toString().length() != 25))
             return false;
         else
             return true;
@@ -196,69 +200,76 @@ public class WifiAutoLogin extends Activity {
     }
 
     public void AutoLogin() {
-        String username = usernameEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-        if (username.compareTo("") != 0 && password.compareTo("") != 0) {
+        if (checkAccountPassword()) {
             Button loginButton = (Button) findViewById(R.id.SignIn);
             // AutoLogin when there have been saved account and password
             loginButton.performClick();
         }
     }
-    public void Loginkuas_wireless(String[] params_name, String[] params_value) throws IOException {
-        String url = getString(R.string.url_kuas_wireless);
-        // POST It!!
-        // Try kuas.edu.tw
-        HashMap<String, String> postDatas = new HashMap<>();
-        postDatas.put(params_name[0], params_value[0] + "@kuas.edu.tw");
-        postDatas.put(params_name[1], params_value[1]);
-        postDatas.put(params_name[2], params_value[2]);
-        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).execute();
 
-        // Try gm.kuas.edu.tw
-        postDatas.clear();
-        postDatas.put(params_name[0], params_value[0] + "@gm.kuas.edu.tw");
-        postDatas.put(params_name[1], params_value[1]);
-        postDatas.put(params_name[2], params_value[2]);
-        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).execute();
-
-        // Try if other school
-        //sendHttpPost(url,
-        // "username=" + params_value[0] +
-        // "&userpwd=" + params_value[1] +
-        // "&login=login");
-    }
     public void LoginKUAS(String[] params_name, String[] params_value) throws IOException {
         String url = getString(R.string.url_KUAS);
         HashMap<String, String> postDatas = new HashMap<>();
+        Document res;
         // POST It!!
         // Try kuas.edu.tw
-        if (params_value[0].length() > 4 && Integer.parseInt(params_value[0].substring(1, 4)) <= 102) {
+        if (params_value[1].length() > 4 && Integer.parseInt(params_value[1].substring(1, 4)) <= 102) {
             Log.v(TAG, "lower then 102");
-            postDatas.put(params_name[0], params_value[0] + "@kuas.edu.tw");
-            postDatas.put(params_name[1], params_value[1]);
+            postDatas.put(params_name[0], "1");
+            if (!params_value[1].contains("@kuas.edu.tw"))
+                postDatas.put(params_name[1], params_value[1] + "@kuas.edu.tw");
+            else
+                postDatas.put(params_name[1], params_value[1]);
+
             postDatas.put(params_name[2], params_value[2]);
-            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).execute();
+            postDatas.put(params_name[3], params_value[3]);
+            postDatas.put(params_name[4], "");
+            res = Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).get();
+//            System.out.println(res.body().toString());
+//            if (res.body().toString().contains("/login.php?reason=27&"))
+//                System.out.println("Login Success !");
         } else {
             Log.v(TAG, "upper then 102");
-            postDatas.put(params_name[0], params_value[0] + "@gm.kuas.edu.tw");
-            postDatas.put(params_name[1], params_value[1]);
+            postDatas.put(params_name[0], "@gm.kuas.edu.tw");
+            if (!params_value[1].contains("@gm.kuas.edu.tw"))
+                postDatas.put(params_name[1], params_value[1] + "@gm.kuas.edu.tw");
+            else
+                postDatas.put(params_name[1], params_value[1]);
             postDatas.put(params_name[2], params_value[2]);
-            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).execute();
+            postDatas.put(params_name[3], params_value[3]);
+            postDatas.put(params_name[4], params_value[4]);
+            res = Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).get();
+//            System.out.println(res.body().toString());
+//            if (res.body().toString().contains("/login.php?reason=27&"))
+//                System.out.println("Login Success !");
         }
     }
-    public void LoginKUAS_guest(String[] params_name) throws IOException {
+
+    public void LoginKUAS_guest(String[] params_name, String[] params_value) throws IOException {
         String url = getString(R.string.url_KUAS);
         // POST It!!
         HashMap<String, String> postDatas = new HashMap<>();
-        postDatas.put(params_name[0], "0937808285@guest");
-        postDatas.put(params_name[1], "1306");
-        postDatas.put(params_name[2], "login");
-        postDatas.put(params_name[3], "");
+        postDatas.put(params_name[0], "");
+        postDatas.put(params_name[1], params_value[1]);
+        postDatas.put(params_name[2], params_value[2]);
+        postDatas.put(params_name[3], params_value[3]);
+        postDatas.put(params_name[4], params_value[4]);
         Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).execute();
     }
+
+    public void LoginKUAS_cyber(String[] params_name, String[] params_value) throws IOException {
+        String url = getString(R.string.url_KUAS);
+        // POST It!!
+        HashMap<String, String> postDatas = new HashMap<>();
+        postDatas.put(params_name[0], "");
+        postDatas.put(params_name[1], params_value[1]);
+        postDatas.put(params_name[2], params_value[2]);
+        postDatas.put(params_name[3], params_value[3]);
+        postDatas.put(params_name[4], params_value[4]);
+        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).execute();
+    }
+
     public void loginBthOnclick(View view) {
-//        if (!checkAccountPassword())
-//            return;
         Log.v(TAG, "Checking SSID");
         // Check SSID
         if (!checkSSID())
@@ -279,14 +290,12 @@ public class WifiAutoLogin extends Activity {
                 String login_msg = getString(R.string.login_successfully);
                 String[] params_name = resources.getStringArray(R.array.params_name);
                 String[] params_value = resources.getStringArray(R.array.params_value);
-                params_value[0] = usernameEditText.getText().toString();
-                params_value[1] = passwordEditText.getText().toString();
                 // Connection Testing
                 Log.v(TAG, "Testing Connection");
                 if (isConnect()) {
                     showToast(getString(R.string.login_ready));
                     LoginHandler.sendEmptyMessage(-1);
-                    finish();
+                    //finish();
                     return;
                 }
                 Log.v(TAG, "End test connection");
@@ -295,16 +304,29 @@ public class WifiAutoLogin extends Activity {
                     Log.e(getString(R.string.app_name), "Config file error!");
 
                 try {
-                    // Check if using guest login
-                    if (params_value[0].compareTo("") == 0 ||
-                            params_value[1].compareTo("") == 0) {
-                        Log.v(TAG, "use guest login");
-                        login_msg = getString(R.string.login_guest_successfully);
-                        LoginKUAS_guest(params_name);
+                    // Check if using guest or cyber login
+                    if (!checkAccountPassword()) {
+                        if (usernameEditText.getText().toString().equals("") || passwordEditText.getText().toString().equals(""))
+                        {
+                            Log.v(TAG, "use guest login");
+                            login_msg = getString(R.string.login_guest_successfully);
+                            params_value[1] = "0937808285@guest@guest";
+                            params_value[2] = "1306";
+                            LoginKUAS_guest(params_name, params_value);
+                        }
+                        else
+                        {
+                            Log.v(TAG, "use cyber surfing login");
+                            login_msg = getString(R.string.login_cyber_successfully);
+                            params_value[1] = usernameEditText.getText().toString();
+                            params_value[2] = passwordEditText.getText().toString();
+                            LoginKUAS_cyber(params_name, params_value);
+                        }
                     } else {
+                        params_value[1] = usernameEditText.getText().toString();
+                        params_value[2] = passwordEditText.getText().toString();
                         LoginKUAS(params_name, params_value);
                     }
-                    Log.v(TAG, "CHECK IS CONNECT: " + isConnect());
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 } catch (ClientProtocolException e) {
@@ -333,20 +355,22 @@ public class WifiAutoLogin extends Activity {
             };
         }.start();
     }
+
     private Handler LoginHandler = new Handler() {
         @Override
         public void handleMessage(android.os.Message msg) {
-            switch (msg.what)
-            {
-                case -1:
-                    LoadingDialog.dismiss();
-                    break;
-                case 1:
-                    LoadingDialog.show();
-                    break;
-            }
-        };
+        switch (msg.what)
+        {
+            case -1:
+                LoadingDialog.dismiss();
+                break;
+            case 1:
+                LoadingDialog.show();
+                break;
+        }
     };
+};
+
     private void restorePrefs() {
         SharedPreferences setting = getSharedPreferences(PREF, 0);
         String username = setting.getString(PREF_USERNAME, "");
@@ -354,6 +378,7 @@ public class WifiAutoLogin extends Activity {
         usernameEditText.setText(username);
         passwordEditText.setText(password);
     }
+
     private void savePrefs() {
         SharedPreferences setting = getSharedPreferences(PREF, 0);
         setting.edit()
@@ -361,6 +386,7 @@ public class WifiAutoLogin extends Activity {
                 .putString(PREF_PWD, passwordEditText.getText().toString())
                 .apply();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -369,6 +395,7 @@ public class WifiAutoLogin extends Activity {
                     Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();
