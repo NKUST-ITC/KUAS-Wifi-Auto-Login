@@ -1,4 +1,4 @@
-package silent.network;
+package tw.edu.kuas.network;
 
 import android.content.Context;
 import android.net.wifi.WifiInfo;

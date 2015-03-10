@@ -1,48 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ripple="http://schemas.android.com/apk/res-auto"
-    xmlns:flatui="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <!-- Action-bar looking view -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_dimen"
-        android:background="@color/actionbar_color"
-        >
-        <com.andexert.library.RippleView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            ripple:rv_centered="true">
-            <ImageView
-                android:id="@+id/drawer_indicator"
-                android:layout_width="@dimen/actionbar_dimen"
-                android:layout_height="@dimen/actionbar_dimen"
-                android:scaleType="centerInside"
-                android:background="@drawable/drawer_selector"
-                android:layout_gravity="start"
-                />
-        </com.andexert.library.RippleView>
 
-        <TextView
-            android:id="@+id/indicator_style"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/actionbar_dimen"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:text="@string/app_title"
-            android:gravity="center"
-            android:background="@drawable/drawer_selector"
-            android:layout_gravity="left|center_vertical"
-            android:textColor="#ffffffff"
-            android:textSize="18sp"
-            android:layout_marginLeft="@dimen/actionbar_dimen" />
-    </FrameLayout>
-
-    <!-- Content -->
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -51,75 +12,63 @@
         >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@mipmap/bg">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:layout_width="wrap_content"
+            <TableLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/tablelayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/UserName"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="88dp"
-                android:layout_alignLeft="@+id/Password"
-                android:layout_alignStart="@+id/Password"
-                android:layout_alignRight="@+id/Password"
-                android:layout_alignEnd="@+id/Password"
-                android:hint="UserName"
-                app:baseColor="#0056d3"
-                app:primaryColor="@color/actionbar_color"
-                app:floatingLabel="highlight"
-                app:singleLineEllipsis="true"
-                android:textSize="18sp" />
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:id="@+id/Password"
-                android:layout_below="@+id/UserName"
                 android:layout_centerHorizontal="true"
-                android:hint="Password"
-                app:baseColor="#0056d3"
-                app:primaryColor="@color/actionbar_color"
-                app:floatingLabel="highlight"
-                app:singleLineEllipsis="true"
-                android:textSize="18sp" />
+                android:layout_marginLeft="60sp"
+                android:layout_marginRight="60sp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Username"
+                    android:hint="學號"
+                    android:textSize="15sp"
+                    android:autoText="false"
+                    android:background="@drawable/login_table_top"
+                    android:singleLine="true" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Password"
+                    android:hint="密碼"
+                    android:textSize="15sp"
+                    android:background="@drawable/login_table_bottom"
+                    android:password="true"
+                    android:singleLine="true" />
+            </TableLayout>
 
             <com.andexert.library.RippleView
                 android:id="@+id/more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/Password"
-                android:layout_alignLeft="@+id/Password"
-                android:layout_alignStart="@+id/Password"
-                android:layout_alignRight="@+id/Password"
-                android:layout_alignEnd="@+id/Password"
+                android:layout_below="@+id/tablelayout"
+                android:layout_alignLeft="@+id/tablelayout"
+                android:layout_alignStart="@+id/tablelayout"
+                android:layout_alignRight="@+id/tablelayout"
+                android:layout_alignEnd="@+id/tablelayout"
                 android:layout_alignParentTop="false"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginTop="10sp">
 
-                <com.cengalabs.flatui.views.FlatButton
-                    android:layout_width="wrap_content"
+                <Button
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/SignIn"
                     android:layout_below="@+id/Password"
-                    android:textSize="20sp"
-                    android:text="Sign In"
-                    flatui:fl_textAppearance="fl_light"
+                    android:textSize="16sp"
+                    android:text="登入"
                     android:enabled="true"
-                    android:width="200dp"
-                    android:background="@drawable/drawer_selector"
+                    android:background="@drawable/button_blue"
                     android:textColor="#ffffffff"
                     android:onClick="loginBthOnclick" />
             </com.andexert.library.RippleView>
         </RelativeLayout>
-
-        <ListView
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:gravity="center"
-            android:background="@color/white"
-            android:id="@+id/listView" />
     </android.support.v4.widget.DrawerLayout>
-
 </LinearLayout>

@@ -1,4 +1,4 @@
-package silent.loginservice;
+package tw.edu.kuas.loginservice;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
-import silent.kuaswifiautologin.R;
-import silent.network.NetworkStatus;
+import tw.edu.kuas.network.NetworkStatus;
+import tw.edu.kuas.wifiautologin.R;
 
 public class LoginService extends Service {
     private static final String TAG = "silent.loginservice.LoginService";

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KUASWifiAutoLogin.iml" filepath="$PROJECT_DIR$/KUASWifiAutoLogin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KUAS-WifiAutoLogin.iml" filepath="$PROJECT_DIR$/KUAS-WifiAutoLogin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

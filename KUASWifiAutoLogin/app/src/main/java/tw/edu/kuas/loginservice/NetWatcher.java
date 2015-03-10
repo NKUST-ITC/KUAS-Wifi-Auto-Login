@@ -1,9 +1,11 @@
-package silent.loginservice;
+package tw.edu.kuas.loginservice;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import tw.edu.kuas.loginservice.LoginService;
 
 public class NetWatcher extends BroadcastReceiver {
     private static final String TAG = "silent.loginservice.NetWatcher";

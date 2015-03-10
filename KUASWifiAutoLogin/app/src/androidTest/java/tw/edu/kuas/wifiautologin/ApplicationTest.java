@@ -1,4 +1,4 @@
-package silent.kuaswifiautologin;
+package tw.edu.kuas.wifiautologin;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

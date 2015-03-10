@@ -1,4 +1,4 @@
-package silent.kuaswifiautologin;
+package tw.edu.kuas.wifiautologin;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,23 +7,17 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alertdialogpro.ProgressDialogPro;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.apache.http.client.ClientProtocolException;
 import org.jsoup.Connection;
@@ -34,27 +28,18 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
-import silent.network.NetworkStatus;
-
-import static android.view.Gravity.START;
+import tw.edu.kuas.network.NetworkStatus;
 
 public class WifiAutoLogin extends Activity {
-    private DrawerArrowDrawable drawerArrowDrawable;
-    private float offset;
-    private boolean flipped;
-
     public static final String PREF = "ACCOUNT_PREF";
     public static final String PREF_USERNAME = "USERNAME";
     public static final String PREF_PWD = "PASSWORD";
     public static final String TAG = "KUAS";
-    public static final int TIMEOUT = 2500;
+    public static final int TIMEOUT = 1500;
 
-    private MaterialEditText usernameEditText;
-    private MaterialEditText passwordEditText;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
     private NetworkStatus networkStatus;
-
-    private ListView listView;
-    private String[] show_text = {"About"};
 
     private static final int NATIVE_THEME = Integer.MIN_VALUE;
     private int mTheme = -1;
@@ -62,10 +47,13 @@ public class WifiAutoLogin extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        usernameEditText = (MaterialEditText) findViewById(R.id.UserName);
-        passwordEditText = (MaterialEditText) findViewById(R.id.Password);
+        usernameEditText = (EditText) findViewById(R.id.Username);
+        passwordEditText = (EditText) findViewById(R.id.Password);
 
         networkStatus = new NetworkStatus(this);
 
@@ -79,57 +67,6 @@ public class WifiAutoLogin extends Activity {
         LoadingDialog.setCanceledOnTouchOutside(false);
 
         restorePrefs();
-
-        listView = (ListView)findViewById(R.id.listView);
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(
-                this,android.R.layout.simple_list_item_1, show_text){
-
-            @Override
-            public View getView(int position, View convertView,
-                                ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
-                textView.setTextColor(Color.BLACK);
-                return view;
-            }
-        };
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final ImageView imageView = (ImageView) findViewById(R.id.drawer_indicator);
-        final Resources resources = getResources();
-        drawerArrowDrawable = new DrawerArrowDrawable(resources);
-        drawerArrowDrawable.setStrokeColor(Color.WHITE);
-        imageView.setImageDrawable(drawerArrowDrawable);
-        drawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-            @Override public void onDrawerSlide(View drawerView, float slideOffset) {
-                offset = slideOffset;
-                // Sometimes slideOffset ends up so close to but not quite 1 or 0.
-                if (slideOffset >= .995) {
-                    flipped = true;
-                    drawerArrowDrawable.setFlip(flipped);
-                } else if (slideOffset <= .005) {
-                    flipped = false;
-                    drawerArrowDrawable.setFlip(flipped);
-                }
-                drawerArrowDrawable.setParameter(offset);
-            }
-        });
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                if (drawer.isDrawerVisible(START)) {
-                    drawer.closeDrawer(START);
-                } else {
-                    drawer.openDrawer(START);
-                }
-            }
-        });
 
         AutoLogin();
     }
@@ -220,14 +157,10 @@ public class WifiAutoLogin extends Activity {
                 postDatas.put(params_name[1], params_value[1] + "@kuas.edu.tw");
             else
                 postDatas.put(params_name[1], params_value[1]);
-
             postDatas.put(params_name[2], params_value[2]);
             postDatas.put(params_name[3], params_value[3]);
             postDatas.put(params_name[4], "");
-            res = Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).get();
-//            System.out.println(res.body().toString());
-//            if (res.body().toString().contains("/login.php?reason=27&"))
-//                System.out.println("Login Success !");
+            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer("http://172.16.61.253/login.php").ignoreContentType(true).method(Connection.Method.POST).post();
         } else {
             Log.v(TAG, "upper then 102");
             postDatas.put(params_name[0], "@gm.kuas.edu.tw");
@@ -237,11 +170,8 @@ public class WifiAutoLogin extends Activity {
                 postDatas.put(params_name[1], params_value[1]);
             postDatas.put(params_name[2], params_value[2]);
             postDatas.put(params_name[3], params_value[3]);
-            postDatas.put(params_name[4], params_value[4]);
-            res = Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).get();
-//            System.out.println(res.body().toString());
-//            if (res.body().toString().contains("/login.php?reason=27&"))
-//                System.out.println("Login Success !");
+            postDatas.put(params_name[4], "");
+            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer("http://172.16.61.253/login.php").ignoreContentType(true).method(Connection.Method.POST).post();
         }
     }
 
@@ -253,8 +183,8 @@ public class WifiAutoLogin extends Activity {
         postDatas.put(params_name[1], params_value[1]);
         postDatas.put(params_name[2], params_value[2]);
         postDatas.put(params_name[3], params_value[3]);
-        postDatas.put(params_name[4], params_value[4]);
-        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).execute();
+        postDatas.put(params_name[4], "");
+        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer("http://172.16.61.253/login.php").ignoreContentType(true).method(Connection.Method.POST).post();
     }
 
     public void LoginKUAS_cyber(String[] params_name, String[] params_value) throws IOException {
@@ -266,7 +196,7 @@ public class WifiAutoLogin extends Activity {
         postDatas.put(params_name[2], params_value[2]);
         postDatas.put(params_name[3], params_value[3]);
         postDatas.put(params_name[4], params_value[4]);
-        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).ignoreContentType(true).method(Connection.Method.POST).execute();
+        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer("http://172.16.61.253/login.php").ignoreContentType(true).method(Connection.Method.POST).post();
     }
 
     public void loginBthOnclick(View view) {
@@ -274,7 +204,6 @@ public class WifiAutoLogin extends Activity {
         // Check SSID
         if (!checkSSID())
             return;
-
 
         LoginHandler.sendEmptyMessage(1);
         new Thread() {
@@ -295,7 +224,7 @@ public class WifiAutoLogin extends Activity {
                 if (isConnect()) {
                     showToast(getString(R.string.login_ready));
                     LoginHandler.sendEmptyMessage(-1);
-                    //finish();
+                    finish();
                     return;
                 }
                 Log.v(TAG, "End test connection");

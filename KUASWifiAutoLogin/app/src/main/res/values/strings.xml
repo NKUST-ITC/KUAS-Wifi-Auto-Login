@@ -24,7 +24,7 @@
         <item></item>
         <item></item>
         <item>登入</item>
-        <item></item>
+        <item>http://www.kuas.edu.tw/bin/home.php</item>
     </string-array>
 
     <string name="logout">Log Out</string>
