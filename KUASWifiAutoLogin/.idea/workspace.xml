@@ -39,28 +39,64 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="WifiAutoLogin.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="WifiAutoLogin.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiAutoLogin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2383" max-vertical-offset="6620">
-              <caret line="52" column="47" selection-start-line="52" selection-start-column="47" selection-end-line="52" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.6050269" vertical-offset="4703" max-vertical-offset="6180">
+              <caret line="286" column="24" selection-start-line="286" selection-start-column="24" selection-end-line="286" selection-end-column="24" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3904#3942#0" expanded="true" />
+                <element signature="e#3983#4012#0" expanded="true" />
+                <element signature="e#4053#4087#0" expanded="true" />
+                <element signature="e#4219#4258#0" expanded="true" />
+                <element signature="e#4428#4460#0" expanded="true" />
+                <element signature="e#4511#4543#0" expanded="true" />
+                <element signature="e#5321#5349#0" expanded="true" />
+                <element signature="e#7055#7083#0" expanded="true" />
+                <element signature="e#7713#7741#0" expanded="true" />
+                <element signature="e#8828#8866#0" expanded="true" />
+                <element signature="e#9195#9226#0" expanded="true" />
+                <element signature="e#9532#9560#0" expanded="true" />
+                <element signature="e#9973#10017#0" expanded="true" />
+                <element signature="e#10405#10449#0" expanded="true" />
+                <element signature="e#11371#11398#0" expanded="true" />
+                <element signature="e#12583#12614#0" expanded="true" />
+                <element signature="e#13845#13877#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_main.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3345656" vertical-offset="479" max-vertical-offset="1580">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
+              <caret line="8" column="65" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_main.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="479" max-vertical-offset="1580">
               <caret line="33" column="66" selection-start-line="33" selection-start-column="66" selection-end-line="33" selection-end-column="66" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="android-designer">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="button_blue.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/button_blue.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="13" max-vertical-offset="900">
+              <caret line="23" column="15" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="28" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -838,9 +874,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/loginservice/LoginService.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/drawer_selector.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/button_blue.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiAutoLogin.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
       </list>
     </option>
   </component>
@@ -876,8 +913,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
@@ -920,6 +955,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="高應無線通" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1016,9 +1069,15 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1185,6 +1244,11 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SliceManager">
+    <option name="analysisUIOptions">
+      <AnalysisUIOptions />
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -1198,7 +1262,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1209,11 +1273,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960895" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960895" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960895" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1252,10 +1316,145 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiAutoLogin.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1040" max-vertical-offset="6780">
+          <caret line="52" column="47" selection-start-line="52" selection-start-column="47" selection-end-line="52" selection-end-column="47" />
+          <folding>
+            <element signature="e#3904#3942#0" expanded="true" />
+            <element signature="e#3983#4012#0" expanded="true" />
+            <element signature="e#4053#4087#0" expanded="true" />
+            <element signature="e#4219#4258#0" expanded="true" />
+            <element signature="e#4428#4460#0" expanded="true" />
+            <element signature="e#4511#4543#0" expanded="true" />
+            <element signature="e#5321#5349#0" expanded="true" />
+            <element signature="e#7055#7083#0" expanded="true" />
+            <element signature="e#7713#7741#0" expanded="true" />
+            <element signature="e#8828#8866#0" expanded="true" />
+            <element signature="e#9195#9226#0" expanded="true" />
+            <element signature="e#9532#9560#0" expanded="true" />
+            <element signature="e#9973#10017#0" expanded="true" />
+            <element signature="e#10405#10449#0" expanded="true" />
+            <element signature="e#11371#11398#0" expanded="true" />
+            <element signature="e#12583#12614#0" expanded="true" />
+            <element signature="e#13845#13877#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="479" max-vertical-offset="1580">
+          <caret line="33" column="66" selection-start-line="33" selection-start-column="66" selection-end-line="33" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/button_blue.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="900">
+          <caret line="23" column="15" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiAutoLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6780">
+          <caret line="52" column="47" selection-start-line="52" selection-start-column="47" selection-end-line="52" selection-end-column="47" />
+          <folding>
+            <element signature="e#3904#3942#0" expanded="true" />
+            <element signature="e#3983#4012#0" expanded="true" />
+            <element signature="e#4053#4087#0" expanded="true" />
+            <element signature="e#4219#4258#0" expanded="true" />
+            <element signature="e#4428#4460#0" expanded="true" />
+            <element signature="e#4511#4543#0" expanded="true" />
+            <element signature="e#5321#5349#0" expanded="true" />
+            <element signature="e#7055#7083#0" expanded="true" />
+            <element signature="e#7713#7741#0" expanded="true" />
+            <element signature="e#8828#8866#0" expanded="true" />
+            <element signature="e#9195#9226#0" expanded="true" />
+            <element signature="e#9532#9560#0" expanded="true" />
+            <element signature="e#9973#10017#0" expanded="true" />
+            <element signature="e#10405#10449#0" expanded="true" />
+            <element signature="e#11371#11398#0" expanded="true" />
+            <element signature="e#12583#12614#0" expanded="true" />
+            <element signature="e#13845#13877#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="479" max-vertical-offset="1580">
+          <caret line="33" column="66" selection-start-line="33" selection-start-column="66" selection-end-line="33" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiAutoLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1040" max-vertical-offset="6780">
+          <caret line="52" column="47" selection-start-line="52" selection-start-column="47" selection-end-line="52" selection-end-column="47" />
+          <folding>
+            <element signature="e#3904#3942#0" expanded="true" />
+            <element signature="e#3983#4012#0" expanded="true" />
+            <element signature="e#4053#4087#0" expanded="true" />
+            <element signature="e#4219#4258#0" expanded="true" />
+            <element signature="e#4428#4460#0" expanded="true" />
+            <element signature="e#4511#4543#0" expanded="true" />
+            <element signature="e#5321#5349#0" expanded="true" />
+            <element signature="e#7055#7083#0" expanded="true" />
+            <element signature="e#7713#7741#0" expanded="true" />
+            <element signature="e#8828#8866#0" expanded="true" />
+            <element signature="e#9195#9226#0" expanded="true" />
+            <element signature="e#9532#9560#0" expanded="true" />
+            <element signature="e#9973#10017#0" expanded="true" />
+            <element signature="e#10405#10449#0" expanded="true" />
+            <element signature="e#11371#11398#0" expanded="true" />
+            <element signature="e#12583#12614#0" expanded="true" />
+            <element signature="e#13845#13877#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="479" max-vertical-offset="1580">
+          <caret line="33" column="66" selection-start-line="33" selection-start-column="66" selection-end-line="33" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiAutoLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6540">
           <caret line="38" column="12" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#3904#3942#0" expanded="true" />
+            <element signature="e#3983#4012#0" expanded="true" />
+            <element signature="e#4053#4087#0" expanded="true" />
+            <element signature="e#4219#4258#0" expanded="true" />
+            <element signature="e#4428#4460#0" expanded="true" />
+            <element signature="e#4511#4543#0" expanded="true" />
+            <element signature="e#5321#5349#0" expanded="true" />
+            <element signature="e#7055#7083#0" expanded="true" />
+            <element signature="e#7713#7741#0" expanded="true" />
+            <element signature="e#8828#8866#0" expanded="true" />
+            <element signature="e#9195#9226#0" expanded="true" />
+            <element signature="e#9532#9560#0" expanded="true" />
+            <element signature="e#9973#10017#0" expanded="true" />
+            <element signature="e#10405#10449#0" expanded="true" />
+            <element signature="e#11371#11398#0" expanded="true" />
+            <element signature="e#12583#12614#0" expanded="true" />
+            <element signature="e#13845#13877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1303,33 +1502,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="479" max-vertical-offset="1580">
+          <caret line="33" column="66" selection-start-line="33" selection-start-column="66" selection-end-line="33" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/button_blue.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="13" max-vertical-offset="900">
+          <caret line="23" column="15" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
-          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
+          <caret line="8" column="65" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiAutoLogin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2383" max-vertical-offset="6620">
-          <caret line="52" column="47" selection-start-line="52" selection-start-column="47" selection-end-line="52" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.6050269" vertical-offset="4703" max-vertical-offset="6180">
+          <caret line="286" column="24" selection-start-line="286" selection-start-column="24" selection-end-line="286" selection-end-column="24" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#3904#3942#0" expanded="true" />
+            <element signature="e#3983#4012#0" expanded="true" />
+            <element signature="e#4053#4087#0" expanded="true" />
+            <element signature="e#4219#4258#0" expanded="true" />
+            <element signature="e#4428#4460#0" expanded="true" />
+            <element signature="e#4511#4543#0" expanded="true" />
+            <element signature="e#5321#5349#0" expanded="true" />
+            <element signature="e#7055#7083#0" expanded="true" />
+            <element signature="e#7713#7741#0" expanded="true" />
+            <element signature="e#8828#8866#0" expanded="true" />
+            <element signature="e#9195#9226#0" expanded="true" />
+            <element signature="e#9532#9560#0" expanded="true" />
+            <element signature="e#9973#10017#0" expanded="true" />
+            <element signature="e#10405#10449#0" expanded="true" />
+            <element signature="e#11371#11398#0" expanded="true" />
+            <element signature="e#12583#12614#0" expanded="true" />
+            <element signature="e#13845#13877#0" expanded="true" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3345656" vertical-offset="479" max-vertical-offset="1580">
-          <caret line="33" column="66" selection-start-line="33" selection-start-column="66" selection-end-line="33" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
   </component>
