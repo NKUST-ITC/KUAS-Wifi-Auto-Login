@@ -10,3 +10,7 @@ KUAS Wifi Auto Login
 - RippleEffect (Material Design)
 - FlatUI
 - Jsoup
+
+## TODO-List:
+- OKHttp
+- 流程優化

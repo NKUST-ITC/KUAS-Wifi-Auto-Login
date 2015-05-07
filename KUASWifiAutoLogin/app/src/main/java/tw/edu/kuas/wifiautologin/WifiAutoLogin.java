@@ -149,7 +149,6 @@ public class WifiAutoLogin extends Activity {
     public void LoginKUAS(String[] params_name, String[] params_value) throws IOException {
         String url = getString(R.string.url_KUAS);
         HashMap<String, String> postDatas = new HashMap<>();
-        Document res;
         // POST It!!
         // Try kuas.edu.tw
         if (params_value[1].length() > 4 && Integer.parseInt(params_value[1].substring(1, 4)) <= 102) {
@@ -162,7 +161,7 @@ public class WifiAutoLogin extends Activity {
             postDatas.put(params_name[2], params_value[2]);
             postDatas.put(params_name[3], params_value[3]);
             postDatas.put(params_name[4], "");
-            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer("http://172.16.61.253/login.php").ignoreContentType(true).method(Connection.Method.POST).post();
+            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer(getString(R.string.url_KUAS_refer)).ignoreContentType(true).method(Connection.Method.POST).post();
         } else {
             Log.v(TAG, "upper then 102");
             postDatas.put(params_name[0], "@gm.kuas.edu.tw");
@@ -173,7 +172,39 @@ public class WifiAutoLogin extends Activity {
             postDatas.put(params_name[2], params_value[2]);
             postDatas.put(params_name[3], params_value[3]);
             postDatas.put(params_name[4], "");
-            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer("http://172.16.61.253/login.php").ignoreContentType(true).method(Connection.Method.POST).post();
+            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer(getString(R.string.url_KUAS_refer)).ignoreContentType(true).method(Connection.Method.POST).post();
+        }
+        if (!isConnect())
+            RetryLoginKUAS(params_name, params_value);
+    }
+
+    public void RetryLoginKUAS(String[] params_name, String[] params_value) throws IOException {
+        String url = getString(R.string.url_KUAS_2);
+        HashMap<String, String> postDatas = new HashMap<>();
+        // POST It!!
+        // Try kuas.edu.tw
+        if (params_value[1].length() > 4 && Integer.parseInt(params_value[1].substring(1, 4)) <= 102) {
+            Log.v(TAG, "lower then 102");
+            postDatas.put(params_name[0], "1");
+            if (!params_value[1].contains("@kuas.edu.tw"))
+                postDatas.put(params_name[1], params_value[1] + "@kuas.edu.tw");
+            else
+                postDatas.put(params_name[1], params_value[1]);
+            postDatas.put(params_name[2], params_value[2]);
+            postDatas.put(params_name[3], params_value[3]);
+            postDatas.put(params_name[4], "");
+            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer(getString(R.string.url_KUAS_refer2)).ignoreContentType(true).method(Connection.Method.POST).post();
+        } else {
+            Log.v(TAG, "upper then 102");
+            postDatas.put(params_name[0], "@gm.kuas.edu.tw");
+            if (!params_value[1].contains("@gm.kuas.edu.tw"))
+                postDatas.put(params_name[1], params_value[1] + "@gm.kuas.edu.tw");
+            else
+                postDatas.put(params_name[1], params_value[1]);
+            postDatas.put(params_name[2], params_value[2]);
+            postDatas.put(params_name[3], params_value[3]);
+            postDatas.put(params_name[4], "");
+            Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer(getString(R.string.url_KUAS_refer2)).ignoreContentType(true).method(Connection.Method.POST).post();
         }
     }
 
@@ -186,7 +217,21 @@ public class WifiAutoLogin extends Activity {
         postDatas.put(params_name[2], params_value[2]);
         postDatas.put(params_name[3], params_value[3]);
         postDatas.put(params_name[4], "");
-        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer("http://172.16.61.253/login.php").ignoreContentType(true).method(Connection.Method.POST).post();
+        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer(getString(R.string.url_KUAS_refer)).ignoreContentType(true).method(Connection.Method.POST).post();
+        if (!isConnect())
+            RetryLoginKUAS_guest(params_name, params_value);
+    }
+
+    public void RetryLoginKUAS_guest(String[] params_name, String[] params_value) throws IOException {
+        String url = getString(R.string.url_KUAS_2);
+        // POST It!!
+        HashMap<String, String> postDatas = new HashMap<>();
+        postDatas.put(params_name[0], "");
+        postDatas.put(params_name[1], params_value[1]);
+        postDatas.put(params_name[2], params_value[2]);
+        postDatas.put(params_name[3], params_value[3]);
+        postDatas.put(params_name[4], "");
+        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer(getString(R.string.url_KUAS_refer2)).ignoreContentType(true).method(Connection.Method.POST).post();
     }
 
     public void LoginKUAS_cyber(String[] params_name, String[] params_value) throws IOException {
@@ -198,7 +243,21 @@ public class WifiAutoLogin extends Activity {
         postDatas.put(params_name[2], params_value[2]);
         postDatas.put(params_name[3], params_value[3]);
         postDatas.put(params_name[4], params_value[4]);
-        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer("http://172.16.61.253/login.php").ignoreContentType(true).method(Connection.Method.POST).post();
+        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer(getString(R.string.url_KUAS_refer)).ignoreContentType(true).method(Connection.Method.POST).post();
+        if (!isConnect())
+            RetryLoginKUAS_cyber(params_name, params_value);
+    }
+
+    public void RetryLoginKUAS_cyber(String[] params_name, String[] params_value) throws IOException {
+        String url = getString(R.string.url_KUAS_2);
+        // POST It!!
+        HashMap<String, String> postDatas = new HashMap<>();
+        postDatas.put(params_name[0], "");
+        postDatas.put(params_name[1], params_value[1]);
+        postDatas.put(params_name[2], params_value[2]);
+        postDatas.put(params_name[3], params_value[3]);
+        postDatas.put(params_name[4], params_value[4]);
+        Jsoup.connect(url).timeout(TIMEOUT).data(postDatas).referrer(getString(R.string.url_KUAS_refer2)).ignoreContentType(true).method(Connection.Method.POST).post();
     }
 
     public void loginBthOnclick(View view) {

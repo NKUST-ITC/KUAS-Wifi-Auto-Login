@@ -10,6 +10,9 @@
     <string name="err_ssid_msg">請檢查是否連上 kuas_wireless 或是 KUAS</string>
     <string name="err_ssid_msg_format" formatted="false">您目前連線的Wi-Fi是：%s\n%s</string>
     <string name="url_KUAS">http://172.16.61.253/cgi-bin/ace_web_auth.cgi</string>
+    <string name="url_KUAS_2">http://172.16.109.253/cgi-bin/ace_web_auth.cgi</string>
+    <string name="url_KUAS_refer">http://172.16.61.253/login.php</string>
+    <string name="url_KUAS_refer2">http://172.16.109.253/login.php</string>
 
     <string-array name="params_name">
         <item>idtype</item>
