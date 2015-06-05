@@ -3,7 +3,7 @@ package tw.edu.kuas.wifiautologin.callbacks;
 public class Constant {
 
 	public static final String[] EXPECTED_SSIDS = {"kuas_wireless", "KUAS", "KUAS-Dorm"};
-	public static final String TAG = "Hiking";
+	public static final String TAG = "HearSilent";
 
 	// Notification IDs
 	public static final int NOTIFICATION_LOGIN_ID = 100;
