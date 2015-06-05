@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "tw.edu.kuas.wifiautologin"
         minSdkVersion 9
-        targetSdkVersion 21
-        versionCode 201
-        versionName "2.0.1"
+        targetSdkVersion 22
+        versionCode 210
+        versionName "2.1.0"
     }
     buildTypes {
         release {
@@ -21,8 +21,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'org.jsoup:jsoup:1.8.1'
-    compile 'com.github.fengdai:alertdialogpro-theme-material:0.2.1'
-    compile 'com.github.traex.rippleeffect:library:1.2.4'
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.loopj.android:android-async-http:1.4.7'
 }

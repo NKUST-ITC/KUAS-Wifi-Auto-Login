@@ -1,74 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        >
-        <RelativeLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:background="@mipmap/bg">
+            android:layout_height="match_parent">
 
-            <TableLayout
-                android:layout_marginTop="10dp"
-                android:id="@+id/tablelayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="60sp"
-                android:layout_marginRight="60sp">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Username"
-                    android:hint="學號"
-                    android:textSize="15sp"
-                    android:autoText="false"
-                    android:background="@drawable/login_table_top"
-                    android:singleLine="true" />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Password"
-                    android:hint="密碼"
-                    android:textSize="15sp"
-                    android:background="@drawable/login_table_bottom"
-                    android:password="true"
-                    android:singleLine="true" />
-            </TableLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:animateLayoutChanges="true"
+		android:layout_gravity="center"
+		android:gravity="center"
+		android:orientation="vertical"
+		android:paddingBottom="@dimen/activity_vertical_margin"
+		android:paddingLeft="@dimen/activity_horizontal_margin"
+		android:paddingRight="@dimen/activity_horizontal_margin"
+		tools:context="com.devandroid.ncuwlogin.MainActivity">
 
-            <com.andexert.library.RippleView
-                android:id="@+id/more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tablelayout"
-                android:layout_alignLeft="@+id/tablelayout"
-                android:layout_alignStart="@+id/tablelayout"
-                android:layout_alignRight="@+id/tablelayout"
-                android:layout_alignEnd="@+id/tablelayout"
-                android:layout_alignParentTop="false"
-                android:gravity="center"
-                android:layout_marginTop="10sp">
+		<ImageView
+			android:layout_width="120dp"
+			android:layout_height="120dp"
+			android:padding="8dp"
+			android:src="@drawable/ic_main"/>
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/SignIn"
-                    android:layout_below="@+id/Password"
-                    android:textSize="16sp"
-                    android:text="登入"
-                    android:enabled="true"
-                    android:background="@drawable/button_blue"
-                    android:textColor="#ffffffff"
-                    android:onClick="loginBthOnclick" />
-            </com.andexert.library.RippleView>
-        </RelativeLayout>
-    </android.support.v4.widget.DrawerLayout>
-</LinearLayout>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/ncuwl_login"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textStyle="bold"/>
+
+		<TableLayout
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="5dp"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="40sp"
+			android:layout_marginRight="40sp">
+			<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/editText_user"
+				android:hint="@string/username"
+				android:textSize="15sp"
+				android:background="@drawable/login_table_top"
+				android:singleLine="true"
+				android:inputType="textEmailAddress"
+				android:imeOptions="actionNext"/>
+
+			<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/editText_password"
+				android:hint="@string/password"
+				android:textSize="15sp"
+				android:background="@drawable/login_table_bottom"
+				android:inputType="textPassword"
+				android:singleLine="true"
+				android:imeOptions="actionSend"/>
+		</TableLayout>
+
+		<Button
+			android:id="@+id/button_login"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/button_blue"
+			android:textColor="@color/white"
+			android:text="@string/save_and_login"
+			android:layout_marginLeft="40sp"
+			android:layout_marginRight="40sp"/>
+
+		<TextView
+			android:id="@+id/textView_debug"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="8dp"
+			android:visibility="gone"/>
+
+	</LinearLayout>
+</ScrollView>
