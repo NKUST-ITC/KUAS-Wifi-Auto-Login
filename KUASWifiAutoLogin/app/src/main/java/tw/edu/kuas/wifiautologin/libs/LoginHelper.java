@@ -39,11 +39,12 @@ public class LoginHelper {
 		if (currentSsid == null || !Utils.isExpectedSsid(currentSsid)) {
 			if (currentSsid == null) {
 				currentSsid = context.getString(R.string.no_wifi_connection);
+				if (callback != null)
+					callback.onFail(currentSsid);
+				return;
 			}
-			if (callback != null) {
-				callback.onFail(
-						String.format(context.getString(R.string.ssid_no_support), currentSsid));
-			}
+			if (callback != null)
+				callback.onFail(String.format(context.getString(R.string.ssid_no_support), currentSsid));
 			return;
 		}
 

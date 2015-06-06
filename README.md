@@ -14,3 +14,5 @@ KUAS Wifi Auto Login
 ## TODO-List:
 - OKHttp
 - 流程優化
+- GPS定位校區
+- TANetRoaming支援

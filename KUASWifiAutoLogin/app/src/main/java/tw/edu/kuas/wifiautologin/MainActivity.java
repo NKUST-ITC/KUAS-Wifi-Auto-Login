@@ -1,8 +1,8 @@
 package tw.edu.kuas.wifiautologin;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import tw.edu.kuas.wifiautologin.callbacks.Constant;
@@ -18,7 +21,7 @@ import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
 import tw.edu.kuas.wifiautologin.callbacks.Memory;
 import tw.edu.kuas.wifiautologin.libs.LoginHelper;
 
-public class MainActivity extends ActionBarActivity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener {
 
 	@InjectView(R.id.button_login)
 	Button mLoginButton;
@@ -105,12 +108,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 					@Override
 					public void onSuccess() {
-						showMessage(R.string.login_sucessful);
+						showMessage(R.string.login_sucessful, false);
 					}
 
 					@Override
 					public void onFail(String reason) {
-						showMessage(reason);
+						showMessage(reason , true);
 					}
 				});
 	}
@@ -133,13 +136,17 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			return user + ",,Guest";
 	}
 
-	private void showMessage(int messageRes) {
+	private void showMessage(int messageRes, boolean shake) {
 		mDebugTextView.setVisibility(View.VISIBLE);
 		mDebugTextView.setText(getText(messageRes));
+		if (shake)
+			YoYo.with(Techniques.Shake).duration(700).playOn(mDebugTextView);
 	}
 
-	private void showMessage(CharSequence message) {
+	private void showMessage(CharSequence message, boolean shake) {
 		mDebugTextView.setVisibility(View.VISIBLE);
 		mDebugTextView.setText(message);
+		if (shake)
+			YoYo.with(Techniques.Shake).duration(700).playOn(mDebugTextView);
 	}
 }
