@@ -19,7 +19,6 @@ import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 
-import tw.edu.kuas.wifiautologin.MainActivity;
 import tw.edu.kuas.wifiautologin.R;
 import tw.edu.kuas.wifiautologin.callbacks.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
@@ -37,8 +36,8 @@ public class LoginHelper {
 	private static AsyncHttpClient init() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("Connection", "Keep-Alive");
-		client.setTimeout(30000);
-		client.setEnableRedirects(true);
+		client.setTimeout(5000);
+		client.setEnableRedirects(false);
 		return client;
 	}
 
@@ -46,7 +45,7 @@ public class LoginHelper {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("Connection", "Keep-Alive");
 		client.setTimeout(3000);
-		client.setEnableRedirects(true);
+		client.setEnableRedirects(false);
 		return client;
 	}
 
@@ -88,6 +87,7 @@ public class LoginHelper {
 		mBuilder.setContentTitle(context.getString(R.string.app_name)).setContentText(
 				String.format(context.getString(R.string.login_to_ssid), currentSsid))
 				.setSmallIcon(R.drawable.ic_stat_login).setProgress(0, 0, true).setOngoing(true);
+
 		mNotificationManager.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
 
 		mTestClient.get(context, "http://www.example.com", new AsyncHttpResponseHandler() {
@@ -437,7 +437,6 @@ public class LoginHelper {
 	}
 
 	private static PendingIntent getDefaultPendingIntent(Context context) {
-		Intent notificationIntent = new Intent(context, MainActivity.class);
-		return PendingIntent.getActivity(context, 0, notificationIntent, 0);
-	}
+		return PendingIntent.getActivity(context, 0, new Intent(), 0);
+    }
 }
