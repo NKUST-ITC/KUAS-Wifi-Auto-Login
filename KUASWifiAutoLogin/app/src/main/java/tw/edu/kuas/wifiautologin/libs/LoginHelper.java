@@ -10,6 +10,9 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -28,6 +31,9 @@ public class LoginHelper {
 	private static NotificationManager mNotificationManager;
 	private static NotificationCompat.Builder mBuilder;
 
+    public static GoogleAnalytics analytics;
+    public static Tracker tracker;
+
 	private static AsyncHttpClient init() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("Connection", "Keep-Alive");
@@ -45,7 +51,18 @@ public class LoginHelper {
 	}
 
 	public static void login(final Context context, String idType, String user, String password, final String loginType, final GeneralCallback callback) {
-		String currentSsid = Utils.getCurrentSsid(context);
+        // init GA
+        analytics = GoogleAnalytics.getInstance(context);
+        analytics.setLocalDispatchPeriod(1800);
+
+        tracker = analytics.newTracker("UA-46334408-1");
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+
+        tracker.setScreenName("LoginHelper");
+
+        String currentSsid = Utils.getCurrentSsid(context);
 		if (currentSsid == null || !Utils.isExpectedSsid(currentSsid)) {
 			if (currentSsid == null) {
 				currentSsid = context.getString(R.string.no_wifi_connection);
@@ -148,7 +165,15 @@ public class LoginHelper {
 						if (statusCode == 200)
 							loginJiangong(context, params, loginType, callback);
 						else    // 302
-							loginYanchao(context, params, loginType, callback);
+                        {
+                            loginYanchao(context, params, loginType, callback);
+
+                            tracker.send(new HitBuilders.EventBuilder()
+                                    .setCategory("UX")
+                                    .setAction("Test")
+                                    .setLabel("302")
+                                    .build());
+                        }
                         Log.d(Constant.TAG, Integer.toString(statusCode));
 					}
 
@@ -190,6 +215,12 @@ public class LoginHelper {
 
 								mNotificationManager
 										.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+
+                                tracker.send(new HitBuilders.EventBuilder()
+                                        .setCategory("UX")
+                                        .setAction("onFailure")
+                                        .setLabel("Double Check Error")
+                                        .build());
 							}
 						});
 					}
@@ -231,8 +262,20 @@ public class LoginHelper {
 											.setProgress(0, 0, false);
 									mNotificationManager
 											.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+
+                                    tracker.send(new HitBuilders.EventBuilder()
+                                            .setCategory("UX")
+                                            .setAction("onSuccess")
+                                            .setLabel("建工/" + loginType)
+                                            .build());
 								} else {
 									loginYanchao(context, params, loginType, callback);
+
+                                    tracker.send(new HitBuilders.EventBuilder()
+                                            .setCategory("UX")
+                                            .setAction("onFailure")
+                                            .setLabel("建工/" + loginType)
+                                            .build());
 								}
 							}
 
@@ -240,6 +283,12 @@ public class LoginHelper {
 							public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable e) {
 								e.printStackTrace();
 								loginYanchao(context, params, loginType, callback);
+
+                                tracker.send(new HitBuilders.EventBuilder()
+                                        .setCategory("UX")
+                                        .setAction("onFailure")
+                                        .setLabel("建工/" + loginType)
+                                        .build());
 							}
 						});
 					}
@@ -248,6 +297,12 @@ public class LoginHelper {
 					public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 						e.printStackTrace();
 						loginYanchao(context, params, loginType, callback);
+
+                        tracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("UX")
+                                .setAction("onFailure")
+                                .setLabel("建工/" + loginType)
+                                .build());
 					}
 				});
 	}
@@ -291,6 +346,12 @@ public class LoginHelper {
 										.setProgress(0, 0, false);
 								mNotificationManager
 										.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+
+                                tracker.send(new HitBuilders.EventBuilder()
+                                        .setCategory("UX")
+                                        .setAction("onSuccess")
+                                        .setLabel("燕巢/" + loginType)
+                                        .build());
 							}
 
 							@Override
@@ -323,6 +384,12 @@ public class LoginHelper {
 
 								mNotificationManager
 										.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+
+                                tracker.send(new HitBuilders.EventBuilder()
+                                        .setCategory("UX")
+                                        .setAction("onFailure")
+                                        .setLabel("燕巢/" + loginType)
+                                        .build());
 							}
 						});
 					}
@@ -359,6 +426,12 @@ public class LoginHelper {
 
 						mNotificationManager
 								.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+
+                        tracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("UX")
+                                .setAction("onFailure")
+                                .setLabel("燕巢/" + loginType)
+                                .build());
 					}
 				});
 	}

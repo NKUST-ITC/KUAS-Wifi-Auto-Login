@@ -26,4 +26,5 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.7'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.easing:library:1.0.2'
+    compile 'com.google.android.gms:play-services-analytics:7.5.0'
 }

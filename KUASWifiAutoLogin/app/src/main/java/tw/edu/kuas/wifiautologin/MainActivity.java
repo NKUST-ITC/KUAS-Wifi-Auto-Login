@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -41,7 +44,10 @@ public class MainActivity extends Activity implements OnClickListener {
     @InjectView(R.id.tableLayout)
     TableLayout mTableLayout;
 
-	@Override
+    public static GoogleAnalytics analytics;
+    public static Tracker tracker;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -63,7 +69,24 @@ public class MainActivity extends Activity implements OnClickListener {
 				return false;
 			}
 		});
-	}
+
+        // init GA
+        analytics = GoogleAnalytics.getInstance(this);
+        analytics.setLocalDispatchPeriod(1800);
+
+        tracker = analytics.newTracker("UA-46334408-1");
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+
+        tracker.setScreenName("Main");
+
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("UX")
+                .setAction("onCreate")
+                .setLabel("Created")
+                .build());
+    }
 
 	/*
 	@Override
@@ -90,6 +113,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (v == mLoginButton) {
+            tracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("UX")
+                    .setAction("Click")
+                    .setLabel("Save & Login")
+                    .build());
+
             mDebugTextView.setVisibility(View.GONE);
             mLoginButton.setEnabled(false);
             mTableLayout.setEnabled(false);
@@ -158,5 +187,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			YoYo.with(Techniques.Shake).duration(700).playOn(mDebugTextView);
         mLoginButton.setEnabled(true);
         mTableLayout.setEnabled(true);
+
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("UX")
+                .setAction("showMessage")
+                .setLabel(message.toString())
+                .build());
 	}
 }

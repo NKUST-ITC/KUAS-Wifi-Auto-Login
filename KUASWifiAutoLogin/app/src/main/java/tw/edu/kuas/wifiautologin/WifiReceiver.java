@@ -15,7 +15,6 @@ import tw.edu.kuas.wifiautologin.libs.LoginHelper;
 import tw.edu.kuas.wifiautologin.libs.Utils;
 
 public class WifiReceiver extends BroadcastReceiver {
-
 	@Override
 	public void onReceive(final Context context, Intent intent) {
 		String action = intent.getAction();
