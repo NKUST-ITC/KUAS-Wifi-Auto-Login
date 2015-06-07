@@ -2,13 +2,16 @@ package tw.edu.kuas.wifiautologin;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -34,6 +37,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@InjectView(R.id.textView_debug)
 	TextView mDebugTextView;
+
+    @InjectView(R.id.tableLayout)
+    TableLayout mTableLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +90,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (v == mLoginButton) {
+            mDebugTextView.setVisibility(View.GONE);
+            mLoginButton.setEnabled(false);
+            mTableLayout.setEnabled(false);
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mUsernameEditText.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
 			saveAndLogin();
 		}
 	}
@@ -107,12 +119,15 @@ public class MainActivity extends Activity implements OnClickListener {
 				password, userData.split(",")[2], new GeneralCallback() {
 
 					@Override
-					public void onSuccess() {
-						showMessage(R.string.login_sucessful, false);
+					public void onSuccess(String message) {
+                        mDebugTextView.setTextColor(Color.DKGRAY);
+						showMessage(message, false);
+                        finish();
 					}
 
 					@Override
 					public void onFail(String reason) {
+                        mDebugTextView.setTextColor(Color.RED);
 						showMessage(reason , true);
 					}
 				});
@@ -136,17 +151,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			return user + ",,Guest";
 	}
 
-	private void showMessage(int messageRes, boolean shake) {
-		mDebugTextView.setVisibility(View.VISIBLE);
-		mDebugTextView.setText(getText(messageRes));
-		if (shake)
-			YoYo.with(Techniques.Shake).duration(700).playOn(mDebugTextView);
-	}
-
 	private void showMessage(CharSequence message, boolean shake) {
 		mDebugTextView.setVisibility(View.VISIBLE);
 		mDebugTextView.setText(message);
 		if (shake)
 			YoYo.with(Techniques.Shake).duration(700).playOn(mDebugTextView);
+        mLoginButton.setEnabled(true);
+        mTableLayout.setEnabled(true);
 	}
 }

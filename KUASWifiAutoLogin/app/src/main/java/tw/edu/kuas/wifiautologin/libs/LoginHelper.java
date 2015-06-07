@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -21,7 +23,7 @@ import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
 
 public class LoginHelper {
 	private static AsyncHttpClient mClient = init();
-	private static AsyncHttpClient mTestClient = init();
+	private static AsyncHttpClient mTestClient = initTest();
 
 	private static NotificationManager mNotificationManager;
 	private static NotificationCompat.Builder mBuilder;
@@ -30,7 +32,15 @@ public class LoginHelper {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.addHeader("Connection", "Keep-Alive");
 		client.setTimeout(30000);
-		client.setEnableRedirects(false);
+		client.setEnableRedirects(true);
+		return client;
+	}
+
+	private static AsyncHttpClient initTest() {
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.addHeader("Connection", "Keep-Alive");
+		client.setTimeout(3000);
+		client.setEnableRedirects(true);
 		return client;
 	}
 
@@ -68,25 +78,122 @@ public class LoginHelper {
 			public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
 				String resultString = context.getString(R.string.login_ready);
 				if (statusCode == 200) {
-					if (callback != null) {
-						callback.onSuccess();
-					}
-					mBuilder.setContentTitle(context.getString(R.string.app_name))
-							.setContentText(resultString).setSmallIcon(R.drawable.ic_stat_login)
-							.setContentIntent(getDefaultPendingIntent(context))
-							.setAutoCancel(true)
-							.setVibrate(new long[]{300, 200, 300, 200})
-							.setProgress(0, 0, false);
-					mNotificationManager
-							.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+					if (callback != null)
+						callback.onSuccess(resultString);
+					Toast.makeText(context, resultString, Toast.LENGTH_SHORT).show();
+					mNotificationManager.cancel(Constant.NOTIFICATION_LOGIN_ID);
 				}
 				else
-					loginJiangong(context, params, loginType, callback);
+                {
+                    mTestClient.get(context, "http://172.16.61.253/login.php", new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+                            if (statusCode == 200)
+                                loginJiangong(context, params, loginType, callback);
+                            else    // 302
+                                loginYanchao(context, params, loginType, callback);
+                            Log.d(Constant.TAG, Integer.toString(statusCode));
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
+                            Log.d(Constant.TAG, Integer.toString(statusCode));
+                            mTestClient.get(context, "http://172.16.109.253/login.php", new AsyncHttpResponseHandler() {
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+                                    loginYanchao(context, params, loginType, callback);
+                                }
+
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
+                                    String resultString, resultDetailString = "Connection problem.";
+
+                                    if (headers != null) {
+                                        resultDetailString = "";
+                                        for (Header header : headers) {
+                                            resultDetailString += header.toString() + "\n";
+                                        }
+                                    }
+
+                                    resultString = context.getString(R.string.failed_to_login);
+                                    mBuilder.setContentTitle(context.getString(R.string.app_name))
+                                            .setContentText(resultString).setSmallIcon(R.drawable.ic_stat_login)
+                                            .setContentIntent(getDefaultPendingIntent(context))
+                                            .setAutoCancel(true)
+                                            .setVibrate(new long[]{300, 200, 300, 200})
+                                            .setLights(Color.RED, 800, 800)
+                                            .setProgress(0, 0, false);
+
+                                    if (callback != null) {
+                                        callback.onFail(resultString + "\n" + resultDetailString);
+                                    }
+                                    // Show error details in the expanded notification
+                                    mBuilder.setStyle(new NotificationCompat.BigTextStyle()
+                                            .bigText(resultString + "\n" + resultDetailString));
+
+                                    mNotificationManager
+                                            .notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+                                }
+                            });
+                        }
+                    });
+                }
 			}
 
 			@Override
 			public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
-				loginJiangong(context, params, loginType, callback);
+				mTestClient.get(context, "http://172.16.61.253/login.php", new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+						if (statusCode == 200)
+							loginJiangong(context, params, loginType, callback);
+						else    // 302
+							loginYanchao(context, params, loginType, callback);
+                        Log.d(Constant.TAG, Integer.toString(statusCode));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
+                        Log.d(Constant.TAG, Integer.toString(statusCode));
+						mTestClient.get(context, "http://172.16.109.253/login.php", new AsyncHttpResponseHandler() {
+							@Override
+							public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+								loginYanchao(context, params, loginType, callback);
+							}
+
+							@Override
+							public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
+								String resultString, resultDetailString = "Connection problem.";
+
+								if (headers != null) {
+									resultDetailString = "";
+									for (Header header : headers) {
+										resultDetailString += header.toString() + "\n";
+									}
+								}
+
+								resultString = context.getString(R.string.failed_to_login);
+								mBuilder.setContentTitle(context.getString(R.string.app_name))
+										.setContentText(resultString).setSmallIcon(R.drawable.ic_stat_login)
+										.setContentIntent(getDefaultPendingIntent(context))
+										.setAutoCancel(true)
+										.setVibrate(new long[]{300, 200, 300, 200})
+										.setLights(Color.RED, 800, 800)
+										.setProgress(0, 0, false);
+
+								if (callback != null) {
+									callback.onFail(resultString + "\n" + resultDetailString);
+								}
+								// Show error details in the expanded notification
+								mBuilder.setStyle(new NotificationCompat.BigTextStyle()
+										.bigText(resultString + "\n" + resultDetailString));
+
+								mNotificationManager
+										.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+							}
+						});
+					}
+				});
 			}
 		});
 	}
@@ -111,7 +218,7 @@ public class LoginHelper {
 									else
 										resultString = context.getString(R.string.login_guest_successfully);
 									if (callback != null) {
-										callback.onSuccess();
+										callback.onSuccess(resultString);
 									}
 
 									mBuilder.setContentTitle(context.getString(R.string.app_name))
@@ -165,7 +272,7 @@ public class LoginHelper {
 									else
 										resultString = context.getString(R.string.login_guest_successfully);
 									if (callback != null) {
-										callback.onSuccess();
+										callback.onSuccess(resultString);
 									}
 								} else {
 									resultString = "Status: " + statusCode;
