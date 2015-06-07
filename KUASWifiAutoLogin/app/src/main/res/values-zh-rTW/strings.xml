@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">高應無線通</string>
+	<string name="app_name_launcher">高應無線通</string>
+	<string name="username">帳號</string>
+	<string name="password">密碼</string>
+	<string name="save_and_login">儲存並登入</string>
+	<string name="logout">登出</string>
+	<string name="ncuwl_login">高應無線通</string>
+	<string name="login_sucessful">登入成功。</string>
+    <string name="login_successfully">Wi-Fi 登入成功, 歡迎來到高雄應用科技大學！</string>
+    <string name="login_guest_successfully">賓客登入成功, 歡迎來到高雄應用科技大學！</string>
+    <string name="login_cyber_successfully">漫遊登入成功, 歡迎來到高雄應用科技大學！</string>
+    <string name="login_dorm_successfully">宿舍登入成功, 歡迎回到宿舍！</string>
+    <string name="login_ready">您已經登入或是有可用網路了。</string>
+	<string name="logout_sucessful">登出成功。</string>
+	<string name="connected_to_ssid" formatted="false">已連接到 %s。</string>
+	<string name="ssid_no_support" formatted="false">不支援的 SSID：%s。</string>
+	<string name="login_to_ssid" formatted="false">正在登入 %s&#8230;.</string>
+	<string name="already_logged_in">已經登入了。</string>
+	<string name="failed_to_login">登入失敗，請再嘗試一次。</string>
+	<string name="already_logged_out">已經登出了。</string>
+	<string name="failed_to_logout">登出失敗。</string>
+	<string name="about">關於</string>
+	<string name="open_source_info">開放原始碼資訊</string>
+	<string name="usage_policy">使用條款</string>
+	<string name="no_wifi_connection">沒有 Wi-Fi 連線。</string>
+	<string name="open_source_licenses">開放原始碼授權</string>
+	<string name="open_source_info_content">本軟體由使用 Apache 2.0
+		授權。更多資訊及原始碼詳見：https://github.com/hiking93/NCU-WLAN-Login</string>
+	<string name="ime_submit">登入</string>
+
+</resources>

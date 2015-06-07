@@ -1,44 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">高應無線通</string>
-    <string name="app_title">KUAS Wifi Auto Login</string>
 
-    <string name="ssid_kuas_wireless">kuas_wireless</string>
-    <string name="ssid_KUAS">KUAS</string>
-    <string name="ssid_KUAS_Dorm">KUAS-Dorm</string>
+    <string name="app_name">KUAS WLAN Login</string>
+    <string name="app_name_launcher">KUAS WLAN</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="save_and_login">Save &amp; Login</string>
+    <string name="logout">Logout</string>
+    <string name="ncuwl_login">KUAS Wi-Fi Login</string>
+    <string name="login_sucessful">Login successful.</string>
+    <string name="login_successfully">Wi-Fi login successful, Welcome to KUAS!</string>
+    <string name="login_guest_successfully">Guest login successful, Welcome to KUAS!</string>
+    <string name="login_cyber_successfully">Cyber login successful, Welcome to KUAS!</string>
+    <string name="login_dorm_successfully">Dorm login successful, Welcome back to Dorm!</string>
+    <string name="login_ready">Already logged in.</string>
+    <string name="logout_sucessful">Logout successful.</string>
+    <string name="connected_to_ssid" formatted="false">Connected to %s.</string>
+	<string name="ssid_no_support" formatted="false">SSID not supported：%s.</string>
+    <string name="login_to_ssid" formatted="false">Login to %s&#8230;.</string>
+    <string name="already_logged_in">Already logged in.</string>
+    <string name="failed_to_login">Failed to login.</string>
+    <string name="already_logged_out">Already logged out.</string>
+    <string name="failed_to_logout">Failed to logout.</string>
+    <string name="about">About</string>
+    <string name="open_source_info">Open Source Information</string>
+    <string name="usage_policy">Usage Policy</string>
+    <string name="no_wifi_connection">No Wi-Fi connection.</string>
+    <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="open_source_info_content">This app is an open-source project, licensed under
+	    the Apache License, Version 2.0.\n\nView descriptions and source code here: https://github.com/hiking93/NCU-WLAN-Login</string>
+	<string name="ime_submit">Login</string>
 
-    <string name="err_ssid_msg">請檢查是否連上 kuas_wireless 或是 KUAS</string>
-    <string name="err_ssid_msg_format" formatted="false">您目前連線的Wi-Fi是：%s\n%s</string>
-    <string name="url_KUAS">http://172.16.61.253/cgi-bin/ace_web_auth.cgi</string>
-    <string name="url_KUAS_2">http://172.16.109.253/cgi-bin/ace_web_auth.cgi</string>
-    <string name="url_KUAS_refer">http://172.16.61.253/login.php</string>
-    <string name="url_KUAS_refer2">http://172.16.109.253/login.php</string>
-
-    <string-array name="params_name">
-        <item>idtype</item>
-        <item>username</item>
-        <item>userpwd</item>
-        <item>login</item>
-        <item>orig_referer</item>
-    </string-array>
-
-    <string-array name="params_value">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item>登入</item>
-        <item>http://www.kuas.edu.tw/bin/home.php</item>
-    </string-array>
-
-    <string name="logout">Log Out</string>
-    <string name="account_hint">高應大帳號</string>
-    <string name="password_hint">密碼</string>
-    <string name="timeout">連線逾時&#8230; 請檢查 WiFi 連線狀況&#8230;</string>
-    <string name="login_successfully">Wi-Fi 登入成功, 歡迎來到高雄應用科技大學！</string>
-    <string name="login_guest_successfully">賓客登入成功, 歡迎來到高雄應用科技大學！</string>
-    <string name="login_cyber_successfully">漫遊登入成功, 歡迎來到高雄應用科技大學！</string>
-    <string name="login_dorm_successfully">宿舍登入成功, 歡迎回到宿舍！</string>
-    <string name="no_account_password">請先輸入帳號與密碼</string>
-    <string name="login_error">登入失敗，請再嘗試一次。</string>
-    <string name="login_ready">您已經登入或是有可用網路了。</string>
 </resources>
