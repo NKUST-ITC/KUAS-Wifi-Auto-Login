@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         // init GA
         analytics = GoogleAnalytics.getInstance(this);
-        analytics.setLocalDispatchPeriod(1800);
+        analytics.setLocalDispatchPeriod(1);
 
         tracker = analytics.newTracker("UA-46334408-1");
         tracker.enableExceptionReporting(true);

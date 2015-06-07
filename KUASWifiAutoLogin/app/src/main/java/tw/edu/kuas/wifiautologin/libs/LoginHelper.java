@@ -53,7 +53,7 @@ public class LoginHelper {
 	public static void login(final Context context, String idType, String user, String password, final String loginType, final GeneralCallback callback) {
         // init GA
         analytics = GoogleAnalytics.getInstance(context);
-        analytics.setLocalDispatchPeriod(1800);
+        analytics.setLocalDispatchPeriod(1);
 
         tracker = analytics.newTracker("UA-46334408-1");
         tracker.enableExceptionReporting(true);
