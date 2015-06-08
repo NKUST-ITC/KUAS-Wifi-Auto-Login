@@ -8,3 +8,8 @@ KUAS Wifi Auto Login
 
 ## TODO-List:
 - TANetRoaming支援
+- Logout
+- 流量統計
+
+## 許願池:
+- Windows版
