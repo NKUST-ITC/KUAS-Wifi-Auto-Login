@@ -56,19 +56,22 @@ public class WifiReceiver extends BroadcastReceiver {
 
 	private String tranUser(String user)
 	{
-		if (user.contains("@kuas.edu.tw") || user.contains("@gm.kuas.edu.tw"))
-			if (user.contains("@kuas.edu.tw"))
-				return user + ",1,Student";
-			else
-				return user + ",@gm.kuas.edu.tw,Student";
-		else if (user.length() == 10)
-			if (Integer.parseInt(user.substring(1,4)) <= 102)
-				return user + "@kuas.edu.tw" + ",1,Student";
-			else
-				return user + "@gm.kuas.edu.tw" + ",@gm.kuas.edu.tw,Student";
-		else if (user.contains("@") && !user.contains("@guest"))
-			return user + ",,Cyber";
-		else
-			return user + ",,Guest";
+        if (user.contains("@kuas.edu.tw") || user.contains("@gm.kuas.edu.tw"))
+            if (user.contains("@kuas.edu.tw"))
+                return user + ",1,Student";
+            else
+                return user + ",@gm.kuas.edu.tw,Student";
+        else if (user.length() == 10 && !user.substring(0,2).equals("09"))
+            if (Integer.parseInt(user.substring(1,4)) <= 102)
+                return user + "@kuas.edu.tw" + ",1,Student";
+            else
+                return user + "@gm.kuas.edu.tw" + ",@gm.kuas.edu.tw,Student";
+        else if (user.contains("@") && !user.contains("@guest"))
+            return user + ",,Cyber";
+        else
+            if (user.contains("@guest"))
+                return user + ",,Guest";
+            else
+                return user + "@guest,,Guest";
 	}
 }

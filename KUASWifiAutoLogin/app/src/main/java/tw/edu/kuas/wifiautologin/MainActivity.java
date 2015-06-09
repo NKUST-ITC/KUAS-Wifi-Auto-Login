@@ -138,7 +138,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		String password = mPasswordEditText.getText().toString();
 		if (mUsernameEditText.getText().toString().equals("") || mPasswordEditText.getText().toString().equals(""))
 		{
-			userData = tranUser("0937808285@guest@guest");
+			userData = tranUser("0937808285@guest");
 			password = "1306";
 		}
 		else
@@ -169,7 +169,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				return user + ",1,Student";
 			else
 				return user + ",@gm.kuas.edu.tw,Student";
-		else if (user.length() == 10)
+		else if (user.length() == 10 && !user.substring(0,2).equals("09"))
 			if (Integer.parseInt(user.substring(1,4)) <= 102)
 				return user + "@kuas.edu.tw" + ",1,Student";
 			else
@@ -177,7 +177,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		else if (user.contains("@") && !user.contains("@guest"))
 			return user + ",,Cyber";
 		else
-			return user + ",,Guest";
+            if (user.contains("@guest"))
+			    return user + ",,Guest";
+            else
+                return user + "@guest,,Guest";
 	}
 
 	private void showMessage(CharSequence message, boolean shake) {
