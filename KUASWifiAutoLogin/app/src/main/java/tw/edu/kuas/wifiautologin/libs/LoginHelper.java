@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v4.app.NotificationCompat;
@@ -21,6 +22,7 @@ import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 
+import tw.edu.kuas.wifiautologin.MainActivity;
 import tw.edu.kuas.wifiautologin.R;
 import tw.edu.kuas.wifiautologin.callbacks.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
@@ -91,7 +93,7 @@ public class LoginHelper {
         mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setContentTitle(context.getString(R.string.app_name)).setContentText(
                 String.format(context.getString(R.string.login_to_ssid), currentSsid))
-                .setSmallIcon(R.drawable.ic_stat_login).setProgress(0, 0, true).setOngoing(true);
+                .setSmallIcon(R.drawable.ic_stat_login).setProgress(0, 0, true).setOngoing(false);
 
         mTestClient.get(context, "http://www.example.com", new AsyncHttpResponseHandler() {
             @Override
@@ -109,14 +111,31 @@ public class LoginHelper {
 
                     if (callback != null)
                         callback.onSuccess(resultString);
-                    Toast.makeText(context, resultString, Toast.LENGTH_LONG).show();
+
+                    loginSuccess(context, loginType, callback, "建工", resultString, true);
+                    Toast.makeText(context, resultString, Toast.LENGTH_SHORT).show();
                 } else {
                     mNotificationManager.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
 
-                    if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
-                        loginJiangong(context, params, loginType, callback, true);
+                    String loginServer = "";
+                    if (headers != null) {
+                        for (Header header : headers) {
+                            if (header.getName().toLowerCase().equals("location"))
+                            {
+                                Uri uri = Uri.parse(header.getValue());
+                                loginServer = uri.getAuthority();
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!loginServer.equals(""))
+                        loginWithHeader(context, params, loginType, callback, false, loginServer);
                     else
-                        loginYanchao(context, params, loginType, callback, true);
+                        if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
+                            loginJiangong(context, params, loginType, callback, true);
+                        else
+                            loginYanchao(context, params, loginType, callback, true);
                 }
             }
 
@@ -125,12 +144,64 @@ public class LoginHelper {
                 mNotificationManager.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
 
                 String _IP = getIPAddress(context);
-                if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
-                    loginJiangong(context, params, loginType, callback, true);
+                String loginServer = "";
+                if (headers != null) {
+                    for (Header header : headers) {
+                        if (header.getName().toLowerCase().equals("location"))
+                        {
+                            Uri uri = Uri.parse(header.getValue());
+                            loginServer = uri.getAuthority();
+                            break;
+                        }
+                    }
+                }
+
+                if (!loginServer.equals(""))
+                    loginWithHeader(context, params, loginType, callback, false, loginServer);
                 else
-                    loginYanchao(context, params, loginType, callback, true);
+                    if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
+                        loginJiangong(context, params, loginType, callback, true);
+                    else
+                        loginYanchao(context, params, loginType, callback, true);
             }
         });
+    }
+
+    private static void loginWithHeader(final Context context, final RequestParams params, final String loginType,
+                                        final GeneralCallback callback, final boolean firstCheck, final String loginServer) {
+        Log.d(Constant.TAG, "loginWithHeader");
+
+        mClient.post(context, "http://" + loginServer + "/cgi-bin/ace_web_auth.cgi", params,
+                new AsyncHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+
+                        mTestClient.get(context, "http://www.example.com", new AsyncHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+                                if (statusCode == 200)
+                                    loginSuccess(context, loginType, callback, loginServer, "", true);
+                                else
+                                    retryLogin(context, params, loginType, callback, firstCheck, loginServer, statusCode);
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable e) {
+                                e.printStackTrace();
+
+                                retryLogin(context, params, loginType, callback, firstCheck, loginServer, statusCode);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                        e.printStackTrace();
+
+                        retryLogin(context, params, loginType, callback, firstCheck, loginServer, statusCode);
+                    }
+                });
     }
 
     private static void loginJiangong(final Context context, final RequestParams params,
@@ -147,7 +218,7 @@ public class LoginHelper {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
                             if (statusCode == 200)
-                                loginSuccess(context, loginType, callback, "建工");
+                                loginSuccess(context, loginType, callback, "建工", "", true);
                             else
                                 retryLogin(context, params, loginType, callback, firstCheck, "建工", statusCode);
                         }
@@ -184,7 +255,7 @@ public class LoginHelper {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
                             if (statusCode == 200)
-                                loginSuccess(context, loginType, callback, "燕巢");
+                                loginSuccess(context, loginType, callback, "燕巢", "", true);
                             else
                                 retryLogin(context, params, loginType, callback, firstCheck, "燕巢", statusCode);
                         }
@@ -232,7 +303,7 @@ public class LoginHelper {
         resultString = context.getString(R.string.failed_to_login);
         mBuilder.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(resultString).setSmallIcon(R.drawable.ic_stat_login)
-                .setContentIntent(getDefaultPendingIntent(context))
+                .setContentIntent(getFailPendingIntent(context))
                 .setAutoCancel(true)
                 .setVibrate(new long[]{300, 200, 300, 200})
                 .setLights(Color.RED, 800, 800)
@@ -251,24 +322,25 @@ public class LoginHelper {
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory("UX")
                 .setAction("onFailure")
-                .setLabel(loginSpace + statusCode + "/" + _IP + "/" + loginType)
+                .setLabel(loginSpace + "/" + _IP + "/" + loginType)
                 .build());
     }
 
-    private static void loginSuccess(Context context, String loginType, GeneralCallback callback, String loginSpace)
+    private static void loginSuccess(Context context, String loginType, GeneralCallback callback, String loginSpace, String resultString, boolean vibrate)
     {
-        String resultString;
-
-        switch (loginType)
+        if (resultString.equals(""))
         {
-            case "Student":
-                resultString = context.getString(R.string.login_successfully);
-                break;
-            case "Cyber":
-                resultString = context.getString(R.string.login_cyber_successfully);
-                break;
-            default:
-                resultString = context.getString(R.string.login_guest_successfully);
+            switch (loginType)
+            {
+                case "Student":
+                    resultString = context.getString(R.string.login_successfully);
+                    break;
+                case "Cyber":
+                    resultString = context.getString(R.string.login_cyber_successfully);
+                    break;
+                default:
+                    resultString = context.getString(R.string.login_guest_successfully);
+            }
         }
 
         if (callback != null)
@@ -278,18 +350,23 @@ public class LoginHelper {
                 .setContentText(resultString).setSmallIcon(R.drawable.ic_stat_login)
                 .setContentIntent(getDefaultPendingIntent(context))
                 .setAutoCancel(true)
-                .setVibrate(new long[]{300, 200, 300, 200})
-                .setLights(Color.GREEN, 800, 800)
-                .setDefaults(Notification.DEFAULT_SOUND)
                 .setProgress(0, 0, false);
+
         mNotificationManager
                 .notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
 
-        tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("UX")
-                .setAction("onSuccess")
-                .setLabel( loginSpace + "/" + loginType)
-                .build());
+        if (vibrate)
+        {
+            mBuilder.setVibrate(new long[]{300, 200, 300, 200})
+                    .setLights(Color.GREEN, 800, 800)
+                    .setDefaults(Notification.DEFAULT_SOUND);
+
+            tracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("UX")
+                    .setAction("onSuccess")
+                    .setLabel(loginSpace + "/" + loginType)
+                    .build());
+        }
     }
 
     public static String getIPAddress(Context context) {
@@ -302,24 +379,16 @@ public class LoginHelper {
                     (ip >> 8 & 0xff),
                     (ip >> 16 & 0xff),
                     (ip >> 24 & 0xff));
-        /*{
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
-                        return inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
 
         return "0.0.0.0";
     }
 
 	private static PendingIntent getDefaultPendingIntent(Context context) {
 		return PendingIntent.getActivity(context, 0, new Intent(), 0);
+    }
+
+    private static PendingIntent getFailPendingIntent(Context context) {
+        Intent notificationIntent = new Intent(context, MainActivity.class);
+        return PendingIntent.getActivity(context, 0, notificationIntent, 0);
     }
 }

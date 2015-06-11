@@ -36,32 +36,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="LoginHelper.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoginHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/libs/LoginHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="304" column="10" selection-start-line="304" selection-start-column="10" selection-end-line="304" selection-end-column="10" />
+            <state vertical-scroll-proportion="-9.5380335">
+              <caret line="115" column="76" selection-start-line="115" selection-start-column="76" selection-end-line="115" selection-end-column="76" />
               <folding>
-                <element signature="e#2536#2582#0" expanded="true" />
-                <element signature="e#2790#2833#0" expanded="true" />
-                <element signature="e#3438#3474#0" expanded="true" />
-                <element signature="e#3522#3563#0" expanded="true" />
-                <element signature="e#3914#3953#0" expanded="true" />
-                <element signature="e#9939#9982#0" expanded="true" />
-                <element signature="e#10017#10053#0" expanded="true" />
-                <element signature="e#11243#11289#0" expanded="true" />
-                <element signature="e#11371#11423#0" expanded="true" />
-                <element signature="e#11500#11552#0" expanded="true" />
-                <element signature="e#11675#11711#0" expanded="true" />
+                <element signature="e#2607#2653#0" expanded="true" />
+                <element signature="e#2861#2904#0" expanded="true" />
+                <element signature="e#3509#3545#0" expanded="true" />
+                <element signature="e#3593#3634#0" expanded="true" />
+                <element signature="e#3986#4025#0" expanded="true" />
+                <element signature="e#13379#13422#0" expanded="true" />
+                <element signature="e#13457#13493#0" expanded="true" />
+                <element signature="e#14738#14784#0" expanded="true" />
+                <element signature="e#14878#14930#0" expanded="true" />
+                <element signature="e#15019#15071#0" expanded="true" />
+                <element signature="e#15208#15244#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45614034">
+            <state vertical-scroll-proportion="0.0">
               <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
               <folding />
             </state>
@@ -1512,8 +1512,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiReceiver.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/libs/LoginHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Constant.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/libs/LoginHelper.java" />
       </list>
     </option>
   </component>
@@ -1556,7 +1556,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
@@ -1575,69 +1574,12 @@
               <option name="myItemId" value="Wifi Auto Login" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Wifi Auto Login" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Wifi Auto Login" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wifiautologin" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Wifi Auto Login" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wifiautologin" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="callbacks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1865,7 +1807,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960895" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960895" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960895" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960895" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1952,17 +1894,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2536#2582#0" expanded="true" />
-            <element signature="e#2790#2833#0" expanded="true" />
-            <element signature="e#3438#3474#0" expanded="true" />
-            <element signature="e#3522#3563#0" expanded="true" />
-            <element signature="e#3914#3953#0" expanded="true" />
-            <element signature="e#9939#9982#0" expanded="true" />
-            <element signature="e#10017#10053#0" expanded="true" />
-            <element signature="e#11243#11289#0" expanded="true" />
-            <element signature="e#11371#11423#0" expanded="true" />
-            <element signature="e#11500#11552#0" expanded="true" />
-            <element signature="e#11675#11711#0" expanded="true" />
+            <element signature="e#2607#2653#0" expanded="true" />
+            <element signature="e#2861#2904#0" expanded="true" />
+            <element signature="e#3509#3545#0" expanded="true" />
+            <element signature="e#3593#3634#0" expanded="true" />
+            <element signature="e#3986#4025#0" expanded="true" />
+            <element signature="e#13379#13422#0" expanded="true" />
+            <element signature="e#13457#13493#0" expanded="true" />
+            <element signature="e#14738#14784#0" expanded="true" />
+            <element signature="e#14878#14930#0" expanded="true" />
+            <element signature="e#15019#15071#0" expanded="true" />
+            <element signature="e#15208#15244#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2039,17 +1981,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2536#2582#0" expanded="true" />
-            <element signature="e#2790#2833#0" expanded="true" />
-            <element signature="e#3438#3474#0" expanded="true" />
-            <element signature="e#3522#3563#0" expanded="true" />
-            <element signature="e#3914#3953#0" expanded="true" />
-            <element signature="e#9939#9982#0" expanded="true" />
-            <element signature="e#10017#10053#0" expanded="true" />
-            <element signature="e#11243#11289#0" expanded="true" />
-            <element signature="e#11371#11423#0" expanded="true" />
-            <element signature="e#11500#11552#0" expanded="true" />
-            <element signature="e#11675#11711#0" expanded="true" />
+            <element signature="e#2607#2653#0" expanded="true" />
+            <element signature="e#2861#2904#0" expanded="true" />
+            <element signature="e#3509#3545#0" expanded="true" />
+            <element signature="e#3593#3634#0" expanded="true" />
+            <element signature="e#3986#4025#0" expanded="true" />
+            <element signature="e#13379#13422#0" expanded="true" />
+            <element signature="e#13457#13493#0" expanded="true" />
+            <element signature="e#14738#14784#0" expanded="true" />
+            <element signature="e#14878#14930#0" expanded="true" />
+            <element signature="e#15019#15071#0" expanded="true" />
+            <element signature="e#15208#15244#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2118,17 +2060,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2536#2582#0" expanded="true" />
-            <element signature="e#2790#2833#0" expanded="true" />
-            <element signature="e#3438#3474#0" expanded="true" />
-            <element signature="e#3522#3563#0" expanded="true" />
-            <element signature="e#3914#3953#0" expanded="true" />
-            <element signature="e#9939#9982#0" expanded="true" />
-            <element signature="e#10017#10053#0" expanded="true" />
-            <element signature="e#11243#11289#0" expanded="true" />
-            <element signature="e#11371#11423#0" expanded="true" />
-            <element signature="e#11500#11552#0" expanded="true" />
-            <element signature="e#11675#11711#0" expanded="true" />
+            <element signature="e#2607#2653#0" expanded="true" />
+            <element signature="e#2861#2904#0" expanded="true" />
+            <element signature="e#3509#3545#0" expanded="true" />
+            <element signature="e#3593#3634#0" expanded="true" />
+            <element signature="e#3986#4025#0" expanded="true" />
+            <element signature="e#13379#13422#0" expanded="true" />
+            <element signature="e#13457#13493#0" expanded="true" />
+            <element signature="e#14738#14784#0" expanded="true" />
+            <element signature="e#14878#14930#0" expanded="true" />
+            <element signature="e#15019#15071#0" expanded="true" />
+            <element signature="e#15208#15244#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2331,26 +2273,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/libs/LoginHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="304" column="10" selection-start-line="304" selection-start-column="10" selection-end-line="304" selection-end-column="10" />
-          <folding>
-            <element signature="e#2536#2582#0" expanded="true" />
-            <element signature="e#2790#2833#0" expanded="true" />
-            <element signature="e#3438#3474#0" expanded="true" />
-            <element signature="e#3522#3563#0" expanded="true" />
-            <element signature="e#3914#3953#0" expanded="true" />
-            <element signature="e#9939#9982#0" expanded="true" />
-            <element signature="e#10017#10053#0" expanded="true" />
-            <element signature="e#11243#11289#0" expanded="true" />
-            <element signature="e#11371#11423#0" expanded="true" />
-            <element signature="e#11500#11552#0" expanded="true" />
-            <element signature="e#11675#11711#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Constant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2361,9 +2283,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45614034">
+        <state vertical-scroll-proportion="0.0">
           <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/libs/LoginHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.5380335">
+          <caret line="115" column="76" selection-start-line="115" selection-start-column="76" selection-end-line="115" selection-end-column="76" />
+          <folding>
+            <element signature="e#2607#2653#0" expanded="true" />
+            <element signature="e#2861#2904#0" expanded="true" />
+            <element signature="e#3509#3545#0" expanded="true" />
+            <element signature="e#3593#3634#0" expanded="true" />
+            <element signature="e#3986#4025#0" expanded="true" />
+            <element signature="e#13379#13422#0" expanded="true" />
+            <element signature="e#13457#13493#0" expanded="true" />
+            <element signature="e#14738#14784#0" expanded="true" />
+            <element signature="e#14878#14930#0" expanded="true" />
+            <element signature="e#15019#15071#0" expanded="true" />
+            <element signature="e#15208#15244#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
