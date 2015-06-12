@@ -177,7 +177,7 @@ public class LoginHelper {
 
                     final int statusCode = response.statusCode();
 
-                    if(statusCode != 200) {
+                    if(statusCode == 200) {
                         refresh.post(new Runnable() {
                             public void run() {
                                 mClient.get(context, "http://www.example.com/", new AsyncHttpResponseHandler() {

@@ -99,8 +99,8 @@
                 app:pv_progressStyle="@style/ColorsLinearProgressDrawableStyle"
                 app:pv_progressMode="indeterminate"
                 android:layout_marginTop="8sp"
-                android:layout_marginRight="40sp"
-                android:layout_marginLeft="40sp"
+                android:layout_marginRight="20sp"
+                android:layout_marginLeft="20sp"
                 android:visibility="gone"/>
 
 			<TextView
