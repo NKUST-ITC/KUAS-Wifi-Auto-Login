@@ -9,4 +9,17 @@
         <item name="colorAccent">@color/accent</item>
     </style>
 
+    <!-- Progress Style -->
+    <style name="ColorsLinearProgressDrawableStyle" parent="Material.Drawable.LinearProgress">
+        <item name="lpd_strokeColors">@array/progress_colors</item>
+        <item name="lpd_strokeSecondaryColor">#00000000</item>
+    </style>
+
+    <style name="FlatColorButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="android:background">@null</item>
+        <item name="rd_backgroundColor">#33219AFF</item>
+        <item name="rd_rippleColor">#33219AFF</item>
+        <item name="rd_cornerRadius">4dp</item>
+    </style>
+
 </resources>

@@ -1,15 +1,11 @@
 package tw.edu.kuas.wifiautologin;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -19,18 +15,22 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.rey.material.widget.Button;
+import com.rey.material.widget.ProgressView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import tw.edu.kuas.wifiautologin.callbacks.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
 import tw.edu.kuas.wifiautologin.callbacks.Memory;
 import tw.edu.kuas.wifiautologin.libs.LoginHelper;
+import tw.edu.kuas.wifiautologin.libs.Utils;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity {
 
 	@InjectView(R.id.button_login)
-	Button mLoginButton;
+    Button mLoginButton;
 
 	@InjectView(R.id.editText_user)
 	EditText mUsernameEditText;
@@ -43,6 +43,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @InjectView(R.id.tableLayout)
     TableLayout mTableLayout;
+
+    @InjectView(R.id.progressView)
+    ProgressView mProgressView;
 
     public static GoogleAnalytics analytics;
     public static Tracker tracker;
@@ -57,22 +60,20 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpViews() {
-		mLoginButton.setOnClickListener(this);
 		mUsernameEditText.setText(Memory.getString(this, Constant.MEMORY_KEY_USER, ""));
 		mPasswordEditText.setText(Memory.getString(this, Constant.MEMORY_KEY_PASSWORD, ""));
 		mPasswordEditText.setImeActionLabel(getText(R.string.ime_submit), KeyEvent.KEYCODE_ENTER);
 		mPasswordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				saveAndLogin();
+				mLoginButton.performClick();
 				return false;
 			}
 		});
 
         // init GA
         analytics = GoogleAnalytics.getInstance(this);
-        analytics.setLocalDispatchPeriod(1);
+        analytics.setLocalDispatchPeriod(30);
 
         tracker = analytics.newTracker("UA-46334408-1");
         tracker.enableExceptionReporting(true);
@@ -88,46 +89,26 @@ public class MainActivity extends Activity implements OnClickListener {
                 .build());
     }
 
-	/*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	*/
+    @OnClick (R.id.button_login)
+    public void submit() {
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("UX")
+                .setAction("Click")
+                .setLabel("Save & Login")
+                .build());
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		switch (id) {
-			case R.id.about:
-				startActivity(new Intent(this, AboutActivity.class));
-				return true;
-
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-
-	}
-
-	@Override
-	public void onClick(View v) {
-		if (v == mLoginButton) {
-            tracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("UX")
-                    .setAction("Click")
-                    .setLabel("Save & Login")
-                    .build());
-
-            mDebugTextView.setVisibility(View.GONE);
-            mLoginButton.setEnabled(false);
-            mTableLayout.setEnabled(false);
-            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(mUsernameEditText.getWindowToken(), 0);
-            imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
-			saveAndLogin();
-		}
-	}
+        mDebugTextView.setVisibility(View.GONE);
+        mLoginButton.setEnabled(false);
+        mTableLayout.setEnabled(false);
+        mLoginButton.setBackgroundResource(R.drawable.button_bluegrey);
+        mProgressView.setVisibility(View.VISIBLE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mUsernameEditText.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
+        mUsernameEditText.clearFocus();
+        mPasswordEditText.clearFocus();
+        saveAndLogin();
+    }
 
 	private void saveAndLogin() {
 		Memory.setString(this, Constant.MEMORY_KEY_USER, mUsernameEditText.getText().toString());
@@ -144,8 +125,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		else
 			userData = tranUser(mUsernameEditText.getText().toString());
 
+        String loginType = userData.split(",")[2];
+        String ssid = Utils.getCurrentSsid(this);
+
+        if (ssid != null)
+            if (ssid.equals(Constant.EXPECTED_SSIDS[2]))
+                loginType = "Dorm";
+
 		LoginHelper.login(this, userData.split(",")[1], userData.split(",")[0],
-				password, userData.split(",")[2], new GeneralCallback() {
+				password, loginType, new GeneralCallback() {
 
 					@Override
 					public void onSuccess(String message) {
@@ -190,6 +178,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			YoYo.with(Techniques.Shake).duration(700).playOn(mDebugTextView);
         mLoginButton.setEnabled(true);
         mTableLayout.setEnabled(true);
+        mProgressView.setVisibility(View.GONE);
+        mLoginButton.setBackgroundResource(R.drawable.button_blue);
 
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory("UX")

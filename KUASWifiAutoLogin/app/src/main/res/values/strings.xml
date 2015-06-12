@@ -9,10 +9,12 @@
     <string name="logout">Logout</string>
     <string name="ncuwl_login">KUAS Wi-Fi Login</string>
     <string name="login_sucessful">Login successful.</string>
-    <string name="login_successfully">Wi-Fi login successful, Welcome to KUAS!</string>
-    <string name="login_guest_successfully">Guest login successful, Welcome to KUAS!</string>
-    <string name="login_cyber_successfully">Cyber login successful, Welcome to KUAS!</string>
-    <string name="login_dorm_successfully">Dorm login successful, Welcome back to Dorm!</string>
+    <string name="jiangong">JianGong</string>
+    <string name="yanchao">YanChao</string>
+    <string name="login_successfully" formatted="false">Wi-Fi login successful, Welcome to KUAS %s!</string>
+    <string name="login_guest_successfully" formatted="false">Guest login successful, Welcome to KUAS %s!</string>
+    <string name="login_cyber_successfully" formatted="false">Cyber login successful, Welcome to KUAS %s!</string>
+    <string name="login_dorm_successfully" formatted="false">Dorm login successful, Welcome back to KUAS %s Dorm!</string>
     <string name="login_ready">Already logged in.</string>
     <string name="logout_sucessful">Logout successful.</string>
     <string name="connected_to_ssid" formatted="false">Connected to %s.</string>
@@ -20,6 +22,7 @@
     <string name="login_to_ssid" formatted="false">Login to %s&#8230;.</string>
     <string name="already_logged_in">Already logged in.</string>
     <string name="failed_to_login">Failed to login.</string>
+    <string name="login_timeout">Connection Timeout.</string>
     <string name="already_logged_out">Already logged out.</string>
     <string name="failed_to_logout">Failed to logout.</string>
     <string name="about">About</string>

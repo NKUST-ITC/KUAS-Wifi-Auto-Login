@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,9 +20,14 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import tw.edu.kuas.wifiautologin.MainActivity;
 import tw.edu.kuas.wifiautologin.R;
@@ -29,7 +36,6 @@ import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
 
 public class LoginHelper {
     private static AsyncHttpClient mClient = init();
-    private static AsyncHttpClient mTestClient = initTest();
 
     private static NotificationManager mNotificationManager;
     private static NotificationCompat.Builder mBuilder;
@@ -39,16 +45,8 @@ public class LoginHelper {
 
     private static AsyncHttpClient init() {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.addHeader("Connection", "Keep-Alive");
-        client.setTimeout(7500);
-        client.setEnableRedirects(false);
-        return client;
-    }
-
-    private static AsyncHttpClient initTest() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.addHeader("Connection", "Keep-Alive");
-        client.setTimeout(5000);
+        client.setTimeout(Constant.TIMEOUT);
+        client.setUserAgent(Constant.USER_AGENT);
         client.setEnableRedirects(false);
         return client;
     }
@@ -57,7 +55,7 @@ public class LoginHelper {
                              final String loginType, final GeneralCallback callback) {
         // init GA
         analytics = GoogleAnalytics.getInstance(context);
-        analytics.setLocalDispatchPeriod(1);
+        analytics.setLocalDispatchPeriod(30);
 
         tracker = analytics.newTracker("UA-46334408-1");
         tracker.enableExceptionReporting(true);
@@ -79,14 +77,11 @@ public class LoginHelper {
             return;
         }
 
-        Log.d(Constant.TAG, getIPAddress(context));
-
-        final RequestParams params = new RequestParams();
-        params.put("idtype", idType);
-        params.put("username", user);
-        params.put("userpwd", password);
-        params.put("login", "登入");
-        params.put("orig_referer", "http://www.kuas.edu.tw/bin/home.php");
+        final Map<String, String> paramsMap = new LinkedHashMap<>();
+        paramsMap.put("username", user);
+        paramsMap.put("userpwd", password);
+        paramsMap.put("login", "");
+        paramsMap.put("orig_referer", "");
 
         mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -95,7 +90,10 @@ public class LoginHelper {
                 String.format(context.getString(R.string.login_to_ssid), currentSsid))
                 .setSmallIcon(R.drawable.ic_stat_login).setProgress(0, 0, true).setOngoing(false);
 
-        mTestClient.get(context, "http://www.example.com", new AsyncHttpResponseHandler() {
+        mClient.get(context, "http://www.example.com", new AsyncHttpResponseHandler() {
+            String _IP = getIPAddress(context);
+            String loginServer = "";
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
                 String resultString = context.getString(R.string.login_ready);
@@ -112,16 +110,14 @@ public class LoginHelper {
                     if (callback != null)
                         callback.onSuccess(resultString);
 
-                    loginSuccess(context, loginType, callback, "建工", resultString, true);
+                    loginSuccess(context, loginType, callback, "建工", resultString, false);
                     Toast.makeText(context, resultString, Toast.LENGTH_SHORT).show();
                 } else {
                     mNotificationManager.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
 
-                    String loginServer = "";
                     if (headers != null) {
                         for (Header header : headers) {
-                            if (header.getName().toLowerCase().equals("location"))
-                            {
+                            if (header.getName().toLowerCase().equals("location")) {
                                 Uri uri = Uri.parse(header.getValue());
                                 loginServer = uri.getAuthority();
                                 break;
@@ -130,12 +126,11 @@ public class LoginHelper {
                     }
 
                     if (!loginServer.equals(""))
-                        loginWithHeader(context, params, loginType, callback, false, loginServer);
+                        loginWithHeader(context, paramsMap, loginType, callback, false, loginServer);
+                    else if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
+                        loginWithHeader(context, paramsMap, loginType, callback, true, Constant.JIANGONG_WIFI_SERVER);
                     else
-                        if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
-                            loginJiangong(context, params, loginType, callback, true);
-                        else
-                            loginYanchao(context, params, loginType, callback, true);
+                        loginWithHeader(context, paramsMap, loginType, callback, true, Constant.YANCHAO_WIFI_SERVER);
                 }
             }
 
@@ -143,12 +138,9 @@ public class LoginHelper {
             public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
                 mNotificationManager.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
 
-                String _IP = getIPAddress(context);
-                String loginServer = "";
                 if (headers != null) {
                     for (Header header : headers) {
-                        if (header.getName().toLowerCase().equals("location"))
-                        {
+                        if (header.getName().toLowerCase().equals("location")) {
                             Uri uri = Uri.parse(header.getValue());
                             loginServer = uri.getAuthority();
                             break;
@@ -157,150 +149,95 @@ public class LoginHelper {
                 }
 
                 if (!loginServer.equals(""))
-                    loginWithHeader(context, params, loginType, callback, false, loginServer);
+                    loginWithHeader(context, paramsMap, loginType, callback, false, loginServer);
+                else if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
+                    loginWithHeader(context, paramsMap, loginType, callback, true, Constant.JIANGONG_WIFI_SERVER);
                 else
-                    if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
-                        loginJiangong(context, params, loginType, callback, true);
-                    else
-                        loginYanchao(context, params, loginType, callback, true);
+                    loginWithHeader(context, paramsMap, loginType, callback, true, Constant.YANCHAO_WIFI_SERVER);
             }
         });
     }
 
-    private static void loginWithHeader(final Context context, final RequestParams params, final String loginType,
-                                        final GeneralCallback callback, final boolean firstCheck, final String loginServer) {
-        Log.d(Constant.TAG, "loginWithHeader");
+    private static void loginWithHeader(final Context context, final Map<String, String> paramsMap, final String loginType,
+                                        final GeneralCallback callback, final boolean retry, final String loginServer) {
+        final Handler refresh = new Handler(Looper.getMainLooper());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Connection.Response response = Jsoup.connect(String.format("http://%s/cgi-bin/ace_web_auth.cgi", loginServer))
+                            .data(paramsMap)
+                            .userAgent(Constant.USER_AGENT)
+                            .timeout(Constant.TIMEOUT)
+                            .followRedirects(false)
+                            .ignoreContentType(true)
+                            .ignoreHttpErrors(true)
+                            .method(Connection.Method.POST)
+                            .execute();
 
-        mClient.post(context, "http://" + loginServer + "/cgi-bin/ace_web_auth.cgi", params,
-                new AsyncHttpResponseHandler() {
+                    final int statusCode = response.statusCode();
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                    if(statusCode != 200) {
+                        refresh.post(new Runnable() {
+                            public void run() {
+                                mClient.get(context, "http://www.example.com/", new AsyncHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(final int statusCode, Header[] headers, byte[] bytes) {
+                                        if (statusCode == 200)
+                                            loginSuccess(context, loginType, callback, loginServer, "", true);
+                                        else
+                                            retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "");
+                                    }
 
-                        mTestClient.get(context, "http://www.example.com", new AsyncHttpResponseHandler() {
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-                                if (statusCode == 200)
-                                    loginSuccess(context, loginType, callback, loginServer, "", true);
-                                else
-                                    retryLogin(context, params, loginType, callback, firstCheck, loginServer, statusCode);
-                            }
+                                    @Override
+                                    public void onFailure(final int statusCode, Header[] headers, byte[] bytes, Throwable e) {
+                                        e.printStackTrace();
 
-                            @Override
-                            public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable e) {
-                                e.printStackTrace();
-
-                                retryLogin(context, params, loginType, callback, firstCheck, loginServer, statusCode);
+                                        retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "");
+                                    }
+                                });
                             }
                         });
                     }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        e.printStackTrace();
-
-                        retryLogin(context, params, loginType, callback, firstCheck, loginServer, statusCode);
+                    else {
+                        refresh.post(new Runnable() {
+                            public void run() {
+                                retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "");
+                            }
+                        });
                     }
-                });
-    }
-
-    private static void loginJiangong(final Context context, final RequestParams params,
-                                      final String loginType, final GeneralCallback callback, final boolean firstCheck) {
-        Log.d(Constant.TAG, "loginJiangong");
-
-        mClient.post(context, "http://172.16.61.253/cgi-bin/ace_web_auth.cgi", params,
-            new AsyncHttpResponseHandler() {
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-
-                    mTestClient.get(context, "http://www.example.com", new AsyncHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-                            if (statusCode == 200)
-                                loginSuccess(context, loginType, callback, "建工", "", true);
-                            else
-                                retryLogin(context, params, loginType, callback, firstCheck, "建工", statusCode);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable e) {
-                            e.printStackTrace();
-
-                            retryLogin(context, params, loginType, callback, firstCheck, "建工", statusCode);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    refresh.post(new Runnable() {
+                        public void run() {
+                            retryLogin(context, paramsMap, loginType, callback, retry, loginServer,
+                                    context.getString(R.string.login_timeout));
                         }
                     });
                 }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                    e.printStackTrace();
-
-                    retryLogin(context, params, loginType, callback, firstCheck, "建工", statusCode);
-                }
-            });
+            }
+        }).start();
     }
 
-    private static void loginYanchao(final Context context, final RequestParams params,
-                                     final String loginType, final GeneralCallback callback, final boolean firstCheck) {
-        Log.d(Constant.TAG, "loginYanchao");
-
-        mClient.post(context, "http://172.16.109.253/cgi-bin/ace_web_auth.cgi", params,
-            new AsyncHttpResponseHandler() {
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, final byte[] response) {
-
-                    mTestClient.get(context, "http://www.example.com", new AsyncHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-                            if (statusCode == 200)
-                                loginSuccess(context, loginType, callback, "燕巢", "", true);
-                            else
-                                retryLogin(context, params, loginType, callback, firstCheck, "燕巢", statusCode);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable e) {
-                            e.printStackTrace();
-
-                            retryLogin(context, params, loginType, callback, firstCheck, "燕巢", statusCode);
-                        }
-                    });
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse,
-                                      Throwable e) {
-                    e.printStackTrace();
-
-                    retryLogin(context, params, loginType, callback, firstCheck, "燕巢", statusCode);
-                }
-            });
-    }
-
-    private static void retryLogin(Context context, RequestParams params, String loginType,
-                                   GeneralCallback callback, boolean firstCheck, String loginSpace, int statusCode)
+    private static void retryLogin(Context context, final Map<String, String> paramsMap, String loginType,
+                                   GeneralCallback callback, boolean retry, String loginServer, String resultString)
     {
-        String _IP = getIPAddress(context);
-
-        if (firstCheck) {
+        if (retry) {
             tracker.send(new HitBuilders.EventBuilder()
                     .setCategory("retryLogin")
                     .setAction("onTry")
-                    .setLabel(loginSpace + statusCode + "/" + _IP + "/" + loginType)
+                    .setLabel((loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? "建工" : "燕巢") +  "/" + loginType)
                     .build());
 
-            if (loginSpace.equals("燕巢"))
-                loginJiangong(context, params, loginType, callback, false);
+            if (loginServer.equals(Constant.JIANGONG_WIFI_SERVER))
+                loginWithHeader(context, paramsMap, loginType, callback, false, Constant.YANCHAO_WIFI_SERVER);
             else
-                loginYanchao(context, params, loginType, callback, false);
+                loginWithHeader(context, paramsMap, loginType, callback, false, Constant.JIANGONG_WIFI_SERVER);
             return;
         }
 
-        String resultString;
-
-        resultString = context.getString(R.string.failed_to_login);
+        if (resultString.equals(""))
+            resultString = context.getString(R.string.failed_to_login);
         mBuilder.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(resultString).setSmallIcon(R.drawable.ic_stat_login)
                 .setContentIntent(getFailPendingIntent(context))
@@ -322,24 +259,36 @@ public class LoginHelper {
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory("UX")
                 .setAction("onFailure")
-                .setLabel(loginSpace + "/" + _IP + "/" + loginType)
+                .setLabel((loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? "建工" : "燕巢") + "/" + loginType)
                 .build());
     }
 
-    private static void loginSuccess(Context context, String loginType, GeneralCallback callback, String loginSpace, String resultString, boolean vibrate)
+    private static void loginSuccess(Context context, String loginType, GeneralCallback callback,
+                                     String loginServer, String resultString, boolean notify)
     {
         if (resultString.equals(""))
         {
             switch (loginType)
             {
                 case "Student":
-                    resultString = context.getString(R.string.login_successfully);
+                    resultString = String.format(context.getString(R.string.login_successfully),
+                            (loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? context.getString(R.string.jiangong) :
+                                    context.getString(R.string.yanchao)));
                     break;
                 case "Cyber":
-                    resultString = context.getString(R.string.login_cyber_successfully);
+                    resultString = String.format(context.getString(R.string.login_cyber_successfully),
+                            (loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? context.getString(R.string.jiangong) :
+                                    context.getString(R.string.yanchao)));
+                    break;
+                case "Dorm":
+                    resultString = String.format(context.getString(R.string.login_dorm_successfully),
+                            (loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? context.getString(R.string.jiangong) :
+                                    context.getString(R.string.yanchao)));
                     break;
                 default:
-                    resultString = context.getString(R.string.login_guest_successfully);
+                    resultString = String.format(context.getString(R.string.login_guest_successfully),
+                            (loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? context.getString(R.string.jiangong) :
+                                    context.getString(R.string.yanchao)));
             }
         }
 
@@ -352,10 +301,7 @@ public class LoginHelper {
                 .setAutoCancel(true)
                 .setProgress(0, 0, false);
 
-        mNotificationManager
-                .notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
-
-        if (vibrate)
+        if (notify)
         {
             mBuilder.setVibrate(new long[]{300, 200, 300, 200})
                     .setLights(Color.GREEN, 800, 800)
@@ -364,9 +310,15 @@ public class LoginHelper {
             tracker.send(new HitBuilders.EventBuilder()
                     .setCategory("UX")
                     .setAction("onSuccess")
-                    .setLabel(loginSpace + "/" + loginType)
+                    .setLabel((loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? "建工" : "燕巢") + "/" + loginType)
                     .build());
         }
+
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle()
+                .bigText(resultString));
+
+        mNotificationManager
+                .notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
     }
 
     public static String getIPAddress(Context context) {

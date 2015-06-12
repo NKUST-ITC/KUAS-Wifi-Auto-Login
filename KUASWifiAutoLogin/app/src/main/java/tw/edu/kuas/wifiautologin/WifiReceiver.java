@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import tw.edu.kuas.wifiautologin.callbacks.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.Memory;
@@ -28,15 +27,16 @@ public class WifiReceiver extends BroadcastReceiver {
 				String ssid = manager.getConnectionInfo().getSSID().replace("\"", "");
 				if (Utils.isExpectedSsid(ssid)) {
 					// connected
-					String infoString =
-							String.format(context.getString(R.string.connected_to_ssid), ssid);
-					Toast.makeText(context, infoString, Toast.LENGTH_SHORT).show();
 					String user = Memory.getString(context, Constant.MEMORY_KEY_USER, null);
 					String password = Memory.getString(context, Constant.MEMORY_KEY_PASSWORD, null);
 					if (user != null && password != null) {
 						String userData = tranUser(user);
-						LoginHelper.login(context, userData.split(",")[1], userData.split(",")[0],
-								password, userData.split(",")[2], null);
+                        if (ssid.equals(Constant.EXPECTED_SSIDS[2]))
+						    LoginHelper.login(context, userData.split(",")[1], userData.split(",")[0],
+								    password, "Dorm", null);
+                        else
+                            LoginHelper.login(context, userData.split(",")[1], userData.split(",")[0],
+                                    password, userData.split(",")[2], null);
 					}
 				}
 			}
