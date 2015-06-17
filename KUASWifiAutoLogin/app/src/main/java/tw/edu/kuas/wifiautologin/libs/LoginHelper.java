@@ -22,17 +22,18 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.Header;
+import org.apache.http.HttpStatus;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import tw.edu.kuas.wifiautologin.MainActivity;
 import tw.edu.kuas.wifiautologin.R;
 import tw.edu.kuas.wifiautologin.callbacks.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
+import tw.edu.kuas.wifiautologin.callbacks.Memory;
 
 public class LoginHelper {
     private static AsyncHttpClient mClient = init();
@@ -51,7 +52,7 @@ public class LoginHelper {
         return client;
     }
 
-    public static void login(final Context context, String idType, String user, String password,
+    public static void login(final Context context, String user, String password,
                              final String loginType, final GeneralCallback callback) {
         // init GA
         analytics = GoogleAnalytics.getInstance(context);
@@ -77,7 +78,7 @@ public class LoginHelper {
             return;
         }
 
-        final Map<String, String> paramsMap = new LinkedHashMap<>();
+        final LinkedHashMap<String, String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("username", user);
         paramsMap.put("userpwd", password);
         paramsMap.put("login", "");
@@ -86,7 +87,7 @@ public class LoginHelper {
         mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setContentTitle(context.getString(R.string.app_name)).setContentText(
+        mBuilder.setContentTitle(context.getString(R.string.kuas_wifi_auto_login)).setContentText(
                 String.format(context.getString(R.string.login_to_ssid), currentSsid))
                 .setSmallIcon(R.drawable.ic_stat_login).setProgress(0, 0, true).setOngoing(false);
 
@@ -98,20 +99,25 @@ public class LoginHelper {
             public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
                 String resultString = context.getString(R.string.login_ready);
                 String _IP = getIPAddress(context);
-                if (statusCode == 200) {
+                if (statusCode == HttpStatus.SC_OK) {
                     Log.d(Constant.TAG, "Already Login.");
 
-                    tracker.send(new HitBuilders.EventBuilder()
-                            .setCategory("alreadyLogin")
-                            .setAction("onSuccess")
-                            .setLabel(_IP + "/" + loginType)
-                            .build());
-
                     if (callback != null)
-                        callback.onSuccess(resultString);
+                    {
+                        loginSuccess(context, loginType, callback,
+                                (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17")) ? Constant.JIANGONG_WIFI_SERVER : Constant.YANCHAO_WIFI_SERVER
+                                , resultString, false);
+                        Toast.makeText(context, resultString, Toast.LENGTH_SHORT).show();
 
-                    loginSuccess(context, loginType, callback, "建工", resultString, false);
-                    Toast.makeText(context, resultString, Toast.LENGTH_SHORT).show();
+                        tracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("onSuccess")
+                                .setAction("alreadyLogin")
+                                .setLabel(_IP + "/" + loginType)
+                                .build());
+
+                        callback.onSuccess(resultString);
+                    }
+
                 } else {
                     mNotificationManager.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
 
@@ -158,7 +164,7 @@ public class LoginHelper {
         });
     }
 
-    private static void loginWithHeader(final Context context, final Map<String, String> paramsMap, final String loginType,
+    private static void loginWithHeader(final Context context, final LinkedHashMap<String, String> paramsMap, final String loginType,
                                         final GeneralCallback callback, final boolean retry, final String loginServer) {
         final Handler refresh = new Handler(Looper.getMainLooper());
         new Thread(new Runnable() {
@@ -175,34 +181,56 @@ public class LoginHelper {
                             .method(Connection.Method.POST)
                             .execute();
 
-                    final int statusCode = response.statusCode();
+                    final String _response = response.body();
+                    final int _statusCode = response.statusCode();
 
-                    if(statusCode == 200) {
+                    if(_statusCode == HttpStatus.SC_OK) {
                         refresh.post(new Runnable() {
                             public void run() {
                                 mClient.get(context, "http://www.example.com/", new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(final int statusCode, Header[] headers, byte[] bytes) {
-                                        if (statusCode == 200)
+                                        if (statusCode == HttpStatus.SC_OK)
                                             loginSuccess(context, loginType, callback, loginServer, "", true);
                                         else
-                                            retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "");
+                                            retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "",
+                                                    retry ? "" : _response);
                                     }
 
                                     @Override
                                     public void onFailure(final int statusCode, Header[] headers, byte[] bytes, Throwable e) {
                                         e.printStackTrace();
 
-                                        retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "");
+                                        retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "",
+                                                retry ? "" : _response);
                                     }
                                 });
                             }
                         });
                     }
                     else {
+                        if (_statusCode == HttpStatus.SC_MOVED_TEMPORARILY)
+                            Log.d(Constant.TAG, Integer.toString(_statusCode));
                         refresh.post(new Runnable() {
                             public void run() {
-                                retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "");
+                                mClient.get(context, "http://www.example.com/", new AsyncHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(final int statusCode, Header[] headers, byte[] bytes) {
+                                        if (statusCode == HttpStatus.SC_OK)
+                                            loginSuccess(context, loginType, callback, loginServer, "", true);
+                                        else
+                                            retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "",
+                                                    retry ? "" : _response);
+                                    }
+
+                                    @Override
+                                    public void onFailure(final int statusCode, Header[] headers, byte[] bytes, Throwable e) {
+                                        e.printStackTrace();
+
+                                        retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "",
+                                                retry ? "" : _response);
+                                    }
+                                });
                             }
                         });
                     }
@@ -211,7 +239,7 @@ public class LoginHelper {
                     refresh.post(new Runnable() {
                         public void run() {
                             retryLogin(context, paramsMap, loginType, callback, retry, loginServer,
-                                    context.getString(R.string.login_timeout));
+                                    context.getString(R.string.login_timeout), "Time Out");
                         }
                     });
                 }
@@ -219,8 +247,8 @@ public class LoginHelper {
         }).start();
     }
 
-    private static void retryLogin(Context context, final Map<String, String> paramsMap, String loginType,
-                                   GeneralCallback callback, boolean retry, String loginServer, String resultString)
+    private static void retryLogin(Context context, final LinkedHashMap<String, String> paramsMap, String loginType,
+                                   GeneralCallback callback, boolean retry, String loginServer, String resultString, String response)
     {
         if (retry) {
             tracker.send(new HitBuilders.EventBuilder()
@@ -238,7 +266,8 @@ public class LoginHelper {
 
         if (resultString.equals(""))
             resultString = context.getString(R.string.failed_to_login);
-        mBuilder.setContentTitle(context.getString(R.string.app_name))
+
+        mBuilder.setContentTitle(context.getString(R.string.kuas_wifi_auto_login))
                 .setContentText(resultString).setSmallIcon(R.drawable.ic_stat_login)
                 .setContentIntent(getFailPendingIntent(context))
                 .setAutoCancel(true)
@@ -246,20 +275,25 @@ public class LoginHelper {
                 .setLights(Color.RED, 800, 800)
                 .setProgress(0, 0, false);
 
-        if (callback != null) {
+        if (callback != null)
             callback.onFail(resultString);
-        }
-        // Show error details in the expanded notification
+
+        int errorTimes = Memory.getInt(context, Constant.MEMORY_KEY_ERRORTIMES, 0);
+
         mBuilder.setStyle(new NotificationCompat.BigTextStyle()
                 .bigText(resultString));
 
-        mNotificationManager
-                .notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+        if (!(callback == null && errorTimes >= 3))
+            mNotificationManager
+                    .notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+
+        errorTimes++;
+        Memory.setInt(context, Constant.MEMORY_KEY_ERRORTIMES, errorTimes);
 
         tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("UX")
-                .setAction("onFailure")
-                .setLabel((loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? "建工" : "燕巢") + "/" + loginType)
+                .setCategory("onFailure")
+                .setAction((loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? "建工" : "燕巢") + "/" + loginType)
+                .setLabel(response)
                 .build());
     }
 
@@ -293,13 +327,20 @@ public class LoginHelper {
         }
 
         if (callback != null)
-            callback.onSuccess(resultString);
+        {
+            if (resultString.equals(context.getString(R.string.login_ready)))
+                callback.onSuccess(resultString);
+            else
+                callback.onSuccess(resultString.split(",")[0] + ",\n" + resultString.split(",")[1]);
+        }
 
-        mBuilder.setContentTitle(context.getString(R.string.app_name))
+        mBuilder.setContentTitle(context.getString(R.string.kuas_wifi_auto_login))
                 .setContentText(resultString).setSmallIcon(R.drawable.ic_stat_login)
                 .setContentIntent(getDefaultPendingIntent(context))
                 .setAutoCancel(true)
                 .setProgress(0, 0, false);
+
+        Memory.setInt(context, Constant.MEMORY_KEY_ERRORTIMES, 0);
 
         if (notify)
         {
@@ -308,14 +349,18 @@ public class LoginHelper {
                     .setDefaults(Notification.DEFAULT_SOUND);
 
             tracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("UX")
-                    .setAction("onSuccess")
-                    .setLabel((loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? "建工" : "燕巢") + "/" + loginType)
+                    .setCategory("onSuccess")
+                    .setAction((loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? "建工" : "燕巢"))
+                    .setLabel(loginType)
                     .build());
         }
 
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle()
-                .bigText(resultString));
+        if (resultString.equals(context.getString(R.string.login_ready)))
+            mBuilder.setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(resultString));
+        else
+            mBuilder.setStyle(new NotificationCompat.BigTextStyle()
+                .bigText(resultString.split(",")[0] + ",\n" + resultString.split(",")[1]));
 
         mNotificationManager
                 .notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());

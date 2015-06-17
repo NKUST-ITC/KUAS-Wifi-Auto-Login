@@ -32,10 +32,10 @@ public class WifiReceiver extends BroadcastReceiver {
 					if (user != null && password != null) {
 						String userData = tranUser(user);
                         if (ssid.equals(Constant.EXPECTED_SSIDS[2]))
-						    LoginHelper.login(context, userData.split(",")[1], userData.split(",")[0],
+						    LoginHelper.login(context, userData.split(",")[0],
 								    password, "Dorm", null);
                         else
-                            LoginHelper.login(context, userData.split(",")[1], userData.split(",")[0],
+                            LoginHelper.login(context, userData.split(",")[0],
                                     password, userData.split(",")[2], null);
 					}
 				}

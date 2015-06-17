@@ -1,7 +1,6 @@
 package tw.edu.kuas.wifiautologin;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -132,20 +131,20 @@ public class MainActivity extends Activity {
             if (ssid.equals(Constant.EXPECTED_SSIDS[2]))
                 loginType = "Dorm";
 
-		LoginHelper.login(this, userData.split(",")[1], userData.split(",")[0],
+		LoginHelper.login(this, userData.split(",")[0],
 				password, loginType, new GeneralCallback() {
 
 					@Override
 					public void onSuccess(String message) {
-                        mDebugTextView.setTextColor(Color.DKGRAY);
+                        mDebugTextView.setTextColor(getResources().getColor(R.color.md_grey_900));
 						showMessage(message, false);
                         finish();
 					}
 
 					@Override
 					public void onFail(String reason) {
-                        mDebugTextView.setTextColor(Color.RED);
-						showMessage(reason , true);
+                        mDebugTextView.setTextColor(getResources().getColor(R.color.md_red_a700));
+						showMessage(reason, true);
 					}
 				});
 	}

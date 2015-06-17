@@ -7,14 +7,14 @@
     <string name="password">Password</string>
     <string name="save_and_login">Save &amp; Login</string>
     <string name="logout">Logout</string>
-    <string name="ncuwl_login">KUAS Wi-Fi Login</string>
+    <string name="kuas_wifi_auto_login">KUAS WiFi Auto Login</string>
     <string name="login_sucessful">Login successful.</string>
     <string name="jiangong">JianGong</string>
     <string name="yanchao">YanChao</string>
-    <string name="login_successfully" formatted="false">Wi-Fi login successful, Welcome to KUAS %s!</string>
-    <string name="login_guest_successfully" formatted="false">Guest login successful, Welcome to KUAS %s!</string>
-    <string name="login_cyber_successfully" formatted="false">Cyber login successful, Welcome to KUAS %s!</string>
-    <string name="login_dorm_successfully" formatted="false">Dorm login successful, Welcome back to KUAS %s Dorm!</string>
+    <string name="login_successfully" formatted="false">Wi-Fi login successful,Welcome to KUAS (%s)!</string>
+    <string name="login_guest_successfully" formatted="false">Guest login successful,Welcome to KUAS (%s)!</string>
+    <string name="login_cyber_successfully" formatted="false">Cyber login successful,Welcome to KUAS (%s)!</string>
+    <string name="login_dorm_successfully" formatted="false">Dorm login successful,Welcome back to KUAS Dorm (%s)!</string>
     <string name="login_ready">Already logged in.</string>
     <string name="logout_sucessful">Logout successful.</string>
     <string name="connected_to_ssid" formatted="false">Connected to %s.</string>
