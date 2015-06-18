@@ -31,6 +31,9 @@ public class MainActivity extends Activity {
 	@InjectView(R.id.button_login)
     Button mLoginButton;
 
+    @InjectView(R.id.button_logout)
+    Button mLogoutButton;
+
 	@InjectView(R.id.editText_user)
 	EditText mUsernameEditText;
 
@@ -70,7 +73,10 @@ public class MainActivity extends Activity {
 			}
 		});
 
-        // init GA
+        initGA();
+    }
+
+    private void initGA() {
         analytics = GoogleAnalytics.getInstance(this);
         analytics.setLocalDispatchPeriod(30);
 
@@ -89,40 +95,81 @@ public class MainActivity extends Activity {
     }
 
     @OnClick (R.id.button_login)
-    public void submit() {
+    public void login() {
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory("UX")
                 .setAction("Click")
                 .setLabel("Save & Login")
                 .build());
 
+        disableViews();
+        saveAndLogin();
+    }
+
+    @OnClick(R.id.button_logout)
+    public void logout() {
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("UX")
+                .setAction("Click")
+                .setLabel("Logout")
+                .build());
+
+        disableViews();
+        LoginHelper.logout(this, new GeneralCallback() {
+
+            @Override
+            public void onSuccess(String message) {
+                mDebugTextView.setTextColor(getResources().getColor(R.color.md_grey_900));
+                showMessage(message, false);
+            }
+
+            @Override
+            public void onFail(String reason) {
+                mDebugTextView.setTextColor(getResources().getColor(R.color.md_red_a700));
+                showMessage(reason, true);
+            }
+        });
+    }
+
+    private void disableViews()
+    {
         mDebugTextView.setVisibility(View.GONE);
         mLoginButton.setEnabled(false);
-        mTableLayout.setEnabled(false);
+        mLogoutButton.setEnabled(false);
         mLoginButton.setBackgroundResource(R.drawable.button_bluegrey);
+        mLogoutButton.setBackgroundResource(R.drawable.button_bluegrey);
+        mTableLayout.setEnabled(false);
         mProgressView.setVisibility(View.VISIBLE);
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mUsernameEditText.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
         mUsernameEditText.clearFocus();
         mPasswordEditText.clearFocus();
-        saveAndLogin();
+    }
+
+    private void enableViews()
+    {
+        mLoginButton.setEnabled(true);
+        mLogoutButton.setEnabled(true);
+        mTableLayout.setEnabled(true);
+        mProgressView.setVisibility(View.GONE);
+        mLoginButton.setBackgroundResource(R.drawable.button_blue);
+        mLogoutButton.setBackgroundResource(R.drawable.button_red);
     }
 
 	private void saveAndLogin() {
 		Memory.setString(this, Constant.MEMORY_KEY_USER, mUsernameEditText.getText().toString());
-		Memory.setString(this, Constant.MEMORY_KEY_PASSWORD,
-				mPasswordEditText.getText().toString());
+		Memory.setString(this, Constant.MEMORY_KEY_PASSWORD, mPasswordEditText.getText().toString());
 
 		String userData;
 		String password = mPasswordEditText.getText().toString();
 		if (mUsernameEditText.getText().toString().equals("") || mPasswordEditText.getText().toString().equals(""))
 		{
-			userData = tranUser("0937808285@guest");
+			userData = Utils.tranUser("0937808285@guest");
 			password = "1306";
 		}
 		else
-			userData = tranUser(mUsernameEditText.getText().toString());
+			userData = Utils.tranUser(mUsernameEditText.getText().toString());
 
         String loginType = userData.split(",")[2];
         String ssid = Utils.getCurrentSsid(this);
@@ -149,36 +196,12 @@ public class MainActivity extends Activity {
 				});
 	}
 
-	private String tranUser(String user)
-	{
-		if (user.contains("@kuas.edu.tw") || user.contains("@gm.kuas.edu.tw"))
-			if (user.contains("@kuas.edu.tw"))
-				return user + ",1,Student";
-			else
-				return user + ",@gm.kuas.edu.tw,Student";
-		else if (user.length() == 10 && !user.substring(0,2).equals("09"))
-			if (Integer.parseInt(user.substring(1,4)) <= 102)
-				return user + "@kuas.edu.tw" + ",1,Student";
-			else
-				return user + "@gm.kuas.edu.tw" + ",@gm.kuas.edu.tw,Student";
-		else if (user.contains("@") && !user.contains("@guest"))
-			return user + ",,Cyber";
-		else
-            if (user.contains("@guest"))
-			    return user + ",,Guest";
-            else
-                return user + "@guest,,Guest";
-	}
-
 	private void showMessage(CharSequence message, boolean shake) {
 		mDebugTextView.setVisibility(View.VISIBLE);
 		mDebugTextView.setText(message);
 		if (shake)
 			YoYo.with(Techniques.Shake).duration(700).playOn(mDebugTextView);
-        mLoginButton.setEnabled(true);
-        mTableLayout.setEnabled(true);
-        mProgressView.setVisibility(View.GONE);
-        mLoginButton.setBackgroundResource(R.drawable.button_blue);
+        enableViews();
 
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory("UX")

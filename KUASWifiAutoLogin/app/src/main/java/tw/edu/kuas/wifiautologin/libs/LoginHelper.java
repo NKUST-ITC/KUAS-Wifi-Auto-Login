@@ -46,15 +46,13 @@ public class LoginHelper {
 
     private static AsyncHttpClient init() {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(Constant.TIMEOUT);
         client.setUserAgent(Constant.USER_AGENT);
         client.setEnableRedirects(false);
         return client;
     }
 
-    public static void login(final Context context, String user, String password,
-                             final String loginType, final GeneralCallback callback) {
-        // init GA
+    private static void initGA(Context context)
+    {
         analytics = GoogleAnalytics.getInstance(context);
         analytics.setLocalDispatchPeriod(30);
 
@@ -64,19 +62,15 @@ public class LoginHelper {
         tracker.enableAutoActivityTracking(true);
 
         tracker.setScreenName("LoginHelper");
+    }
+
+    public static void login(final Context context, String user, String password,
+                             final String loginType, final GeneralCallback callback) {
+        if (!checkSSID(context, callback)) return;
+
+        initGA(context);
 
         String currentSsid = Utils.getCurrentSsid(context);
-        if (currentSsid == null || !Utils.isExpectedSsid(currentSsid)) {
-            if (currentSsid == null) {
-                currentSsid = context.getString(R.string.no_wifi_connection);
-                if (callback != null)
-                    callback.onFail(currentSsid);
-                return;
-            }
-            if (callback != null)
-                callback.onFail(String.format(context.getString(R.string.ssid_no_support), currentSsid));
-            return;
-        }
 
         final LinkedHashMap<String, String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("username", user);
@@ -91,6 +85,7 @@ public class LoginHelper {
                 String.format(context.getString(R.string.login_to_ssid), currentSsid))
                 .setSmallIcon(R.drawable.ic_stat_login).setProgress(0, 0, true).setOngoing(false);
 
+        mClient.setTimeout(Constant.TIMEOUT_LOGIN);
         mClient.get(context, "http://www.example.com", new AsyncHttpResponseHandler() {
             String _IP = getIPAddress(context);
             String loginServer = "";
@@ -132,11 +127,11 @@ public class LoginHelper {
                     }
 
                     if (!loginServer.equals(""))
-                        loginWithHeader(context, paramsMap, loginType, callback, false, loginServer);
+                        login(context, paramsMap, loginType, callback, false, loginServer);
                     else if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
-                        loginWithHeader(context, paramsMap, loginType, callback, true, Constant.JIANGONG_WIFI_SERVER);
+                        login(context, paramsMap, loginType, callback, true, Constant.JIANGONG_WIFI_SERVER);
                     else
-                        loginWithHeader(context, paramsMap, loginType, callback, true, Constant.YANCHAO_WIFI_SERVER);
+                        login(context, paramsMap, loginType, callback, true, Constant.YANCHAO_WIFI_SERVER);
                 }
             }
 
@@ -155,16 +150,16 @@ public class LoginHelper {
                 }
 
                 if (!loginServer.equals(""))
-                    loginWithHeader(context, paramsMap, loginType, callback, false, loginServer);
+                    login(context, paramsMap, loginType, callback, false, loginServer);
                 else if (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17"))
-                    loginWithHeader(context, paramsMap, loginType, callback, true, Constant.JIANGONG_WIFI_SERVER);
+                    login(context, paramsMap, loginType, callback, true, Constant.JIANGONG_WIFI_SERVER);
                 else
-                    loginWithHeader(context, paramsMap, loginType, callback, true, Constant.YANCHAO_WIFI_SERVER);
+                    login(context, paramsMap, loginType, callback, true, Constant.YANCHAO_WIFI_SERVER);
             }
         });
     }
 
-    private static void loginWithHeader(final Context context, final LinkedHashMap<String, String> paramsMap, final String loginType,
+    private static void login(final Context context, final LinkedHashMap<String, String> paramsMap, final String loginType,
                                         final GeneralCallback callback, final boolean retry, final String loginServer) {
         final Handler refresh = new Handler(Looper.getMainLooper());
         new Thread(new Runnable() {
@@ -174,7 +169,7 @@ public class LoginHelper {
                     Connection.Response response = Jsoup.connect(String.format("http://%s/cgi-bin/ace_web_auth.cgi", loginServer))
                             .data(paramsMap)
                             .userAgent(Constant.USER_AGENT)
-                            .timeout(Constant.TIMEOUT)
+                            .timeout(Constant.TIMEOUT_LOGIN)
                             .followRedirects(false)
                             .ignoreContentType(true)
                             .ignoreHttpErrors(true)
@@ -247,9 +242,96 @@ public class LoginHelper {
         }).start();
     }
 
+    public static void logout(final Context context, final GeneralCallback callback) {
+        if (!checkSSID(context, callback)) return;
+        initGA(context);
+
+        mClient.setTimeout(Constant.TIMEOUT_LOGOUT);
+        mClient.get(String.format("http://%s/", Constant.JIANGONG_WIFI_SERVER),
+                new AsyncHttpResponseHandler() {
+                    String loginServer = "";
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                        if (statusCode == HttpStatus.SC_TEMPORARY_REDIRECT) {
+                            if (headers != null) {
+                                for (Header header : headers) {
+                                    if (header.getName().toLowerCase().equals("location")) {
+                                        Uri uri = Uri.parse(header.getValue());
+                                        loginServer = uri.getAuthority();
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!loginServer.equals("")) {
+                                if (loginServer.contains("login_online"))
+                                    logout(context, callback, Constant.JIANGONG_WIFI_SERVER);
+                                else if (loginServer.contains("auth_entry")) {
+                                    tracker.send(new HitBuilders.EventBuilder()
+                                            .setCategory("onFailure")
+                                            .setAction("Logout")
+                                            .setLabel("Already logged out")
+                                            .build());
+                                    callback.onFail(context.getText(R.string.already_logged_out).toString());
+                                } else
+                                    logout(context, callback, Constant.YANCHAO_WIFI_SERVER);
+                            } else {
+                                callback.onFail(context.getText(R.string.failed_to_logout).toString());
+                                tracker.send(new HitBuilders.EventBuilder()
+                                        .setCategory("onFailure")
+                                        .setAction("Logout")
+                                        .setLabel("Null headers")
+                                        .build());
+                            }
+                        } else {
+                            callback.onFail(context.getText(R.string.failed_to_logout).toString());
+                            tracker.send(new HitBuilders.EventBuilder()
+                                    .setCategory("onFailure")
+                                    .setAction("Logout")
+                                    .setLabel(Integer.toString(statusCode))
+                                    .build());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse,
+                                          Throwable e) {
+
+                        callback.onFail(context.getText(R.string.login_timeout).toString());
+                        tracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("onFailure")
+                                .setAction("Logout")
+                                .setLabel("Time Out")
+                                .build());
+                    }
+                });
+    }
+
+    private static void logout(final Context context, final GeneralCallback callback, final String logoutServer) {
+        mClient.get(String.format("http://%s/cgi-bin/ace_web_auth.cgi?logout", logoutServer),
+                new AsyncHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        callback.onSuccess(context.getText(R.string.logout_successful).toString());
+                        mNotificationManager.cancel(Constant.NOTIFICATION_LOGIN_ID);
+
+                        tracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("onSuccess")
+                                .setAction("Logout")
+                                .setLabel("logout successful")
+                                .build());
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        callback.onFail(context.getText(R.string.failed_to_logout).toString());
+                    }
+                });
+    }
+
     private static void retryLogin(Context context, final LinkedHashMap<String, String> paramsMap, String loginType,
-                                   GeneralCallback callback, boolean retry, String loginServer, String resultString, String response)
-    {
+                                   GeneralCallback callback, boolean retry, String loginServer, String resultString, String response) {
         if (retry) {
             tracker.send(new HitBuilders.EventBuilder()
                     .setCategory("retryLogin")
@@ -258,9 +340,9 @@ public class LoginHelper {
                     .build());
 
             if (loginServer.equals(Constant.JIANGONG_WIFI_SERVER))
-                loginWithHeader(context, paramsMap, loginType, callback, false, Constant.YANCHAO_WIFI_SERVER);
+                login(context, paramsMap, loginType, callback, false, Constant.YANCHAO_WIFI_SERVER);
             else
-                loginWithHeader(context, paramsMap, loginType, callback, false, Constant.JIANGONG_WIFI_SERVER);
+                login(context, paramsMap, loginType, callback, false, Constant.JIANGONG_WIFI_SERVER);
             return;
         }
 
@@ -298,8 +380,7 @@ public class LoginHelper {
     }
 
     private static void loginSuccess(Context context, String loginType, GeneralCallback callback,
-                                     String loginServer, String resultString, boolean notify)
-    {
+                                     String loginServer, String resultString, boolean notify) {
         if (resultString.equals(""))
         {
             switch (loginType)
@@ -364,6 +445,21 @@ public class LoginHelper {
 
         mNotificationManager
                 .notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+    }
+
+    public static boolean checkSSID(Context context, GeneralCallback callback) {
+        String currentSsid = Utils.getCurrentSsid(context);
+        if (currentSsid == null || !Utils.isExpectedSsid(currentSsid)) {
+            if (currentSsid == null) {
+                currentSsid = context.getString(R.string.no_wifi_connection);
+            }
+            if (callback != null) {
+                callback.onFail(
+                        String.format(context.getString(R.string.ssid_no_support), currentSsid));
+            }
+            return false;
+        }
+        return true;
     }
 
     public static String getIPAddress(Context context) {

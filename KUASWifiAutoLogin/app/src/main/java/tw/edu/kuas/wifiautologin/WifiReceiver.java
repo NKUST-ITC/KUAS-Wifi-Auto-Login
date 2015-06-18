@@ -30,7 +30,7 @@ public class WifiReceiver extends BroadcastReceiver {
 					String user = Memory.getString(context, Constant.MEMORY_KEY_USER, null);
 					String password = Memory.getString(context, Constant.MEMORY_KEY_PASSWORD, null);
 					if (user != null && password != null) {
-						String userData = tranUser(user);
+						String userData = Utils.tranUser(user);
                         if (ssid.equals(Constant.EXPECTED_SSIDS[2]))
 						    LoginHelper.login(context, userData.split(",")[0],
 								    password, "Dorm", null);
@@ -52,26 +52,5 @@ public class WifiReceiver extends BroadcastReceiver {
 				}
 			}
 		}
-	}
-
-	private String tranUser(String user)
-	{
-        if (user.contains("@kuas.edu.tw") || user.contains("@gm.kuas.edu.tw"))
-            if (user.contains("@kuas.edu.tw"))
-                return user + ",1,Student";
-            else
-                return user + ",@gm.kuas.edu.tw,Student";
-        else if (user.length() == 10 && !user.substring(0,2).equals("09"))
-            if (Integer.parseInt(user.substring(1,4)) <= 102)
-                return user + "@kuas.edu.tw" + ",1,Student";
-            else
-                return user + "@gm.kuas.edu.tw" + ",@gm.kuas.edu.tw,Student";
-        else if (user.contains("@") && !user.contains("@guest"))
-            return user + ",,Cyber";
-        else
-            if (user.contains("@guest"))
-                return user + ",,Guest";
-            else
-                return user + "@guest,,Guest";
 	}
 }

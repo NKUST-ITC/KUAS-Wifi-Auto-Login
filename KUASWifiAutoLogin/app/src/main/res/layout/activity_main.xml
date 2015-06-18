@@ -67,17 +67,37 @@
 
 		</TableLayout>
 
-		<com.rey.material.widget.Button
-            style="@style/FlatColorButtonRippleStyle"
-			android:id="@+id/button_login"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@drawable/button_blue"
-			android:textColor="@color/white"
-			android:text="@string/save_and_login"
-			android:layout_marginLeft="40sp"
-			android:layout_marginRight="40sp"
-            app:rd_enable="true"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40sp"
+            android:layout_marginRight="40sp"
+            android:orientation="horizontal">
+
+            <com.rey.material.widget.Button
+                style="@style/BlueButtonRippleStyle"
+                android:id="@+id/button_login"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_blue"
+                android:textColor="@color/white"
+                android:text="@string/save_and_login"
+                app:rd_enable="true"/>
+
+            <com.rey.material.widget.Button
+                style="@style/RedButtonRippleStyle"
+                android:id="@+id/button_logout"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_red"
+                android:textColor="@color/white"
+                android:layout_marginLeft="5sp"
+                android:text="@string/logout"
+                app:rd_enable="true"/>
+
+        </LinearLayout>
 
         <com.rey.material.widget.ProgressView
             android:id="@+id/progressView"
@@ -91,6 +111,8 @@
             android:layout_marginRight="41sp"
             android:layout_marginLeft="41sp"
             android:visibility="gone"/>
+
+
 
 		<TextView
 			android:id="@+id/textView_debug"

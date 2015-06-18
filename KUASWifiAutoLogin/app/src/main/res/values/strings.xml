@@ -16,10 +16,10 @@
     <string name="login_cyber_successfully" formatted="false">Cyber login successful,Welcome to KUAS (%s)!</string>
     <string name="login_dorm_successfully" formatted="false">Dorm login successful,Welcome back to KUAS Dorm (%s)!</string>
     <string name="login_ready">Already logged in.</string>
-    <string name="logout_sucessful">Logout successful.</string>
+    <string name="logout_successful">Logout successful.</string>
     <string name="connected_to_ssid" formatted="false">Connected to %s.</string>
 	<string name="ssid_no_support" formatted="false">SSID not supported：%s.</string>
-    <string name="login_to_ssid" formatted="false">Login to %s&#8230;.</string>
+    <string name="login_to_ssid" formatted="false">Login to %s&#8230;</string>
     <string name="already_logged_in">Already logged in.</string>
     <string name="failed_to_login">Failed to login.</string>
     <string name="login_timeout">Connection Timeout.</string>
