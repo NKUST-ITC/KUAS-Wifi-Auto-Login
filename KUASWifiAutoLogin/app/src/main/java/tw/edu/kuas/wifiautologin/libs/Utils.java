@@ -48,13 +48,15 @@ public class Utils {
                 return user + "@kuas.edu.tw" + ",1,Student";
             else
                 return user + "@gm.kuas.edu.tw" + ",@gm.kuas.edu.tw,Student";
+        else if (user.length() == 5)
+            return user + "@kuas.edu.tw" + ",,Teacher";
         else if (user.contains("@") && !user.contains("@guest"))
             return user + ",,Cyber";
         else
-        if (user.contains("@guest"))
-            return user + ",,Guest";
-        else
-            return user + "@guest,,Guest";
+            if (user.contains("@guest"))
+                return user + ",,Guest";
+            else
+                return user + "@guest,,Guest";
     }
 
 }

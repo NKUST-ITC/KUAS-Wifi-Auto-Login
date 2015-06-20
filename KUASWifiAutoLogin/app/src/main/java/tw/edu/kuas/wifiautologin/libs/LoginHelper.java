@@ -34,6 +34,7 @@ import tw.edu.kuas.wifiautologin.R;
 import tw.edu.kuas.wifiautologin.callbacks.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
 import tw.edu.kuas.wifiautologin.callbacks.Memory;
+import tw.edu.kuas.wifiautologin.callbacks.Reason;
 
 public class LoginHelper {
     private static AsyncHttpClient mClient = init();
@@ -100,8 +101,9 @@ public class LoginHelper {
                     if (callback != null)
                     {
                         loginSuccess(context, loginType, callback,
-                                (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17")) ? Constant.JIANGONG_WIFI_SERVER : Constant.YANCHAO_WIFI_SERVER
-                                , resultString, false);
+                                (_IP.split("\\.")[0].equals("172") && _IP.split("\\.")[1].equals("17")) ?
+                                        Constant.JIANGONG_WIFI_SERVER : Constant.YANCHAO_WIFI_SERVER
+                                        , resultString, false);
                         Toast.makeText(context, resultString, Toast.LENGTH_SHORT).show();
 
                         tracker.send(new HitBuilders.EventBuilder()
@@ -166,7 +168,7 @@ public class LoginHelper {
             @Override
             public void run() {
                 try{
-                    Connection.Response response = Jsoup.connect(String.format("http://%s/cgi-bin/ace_web_auth.cgi", loginServer))
+                    final Connection.Response response = Jsoup.connect(String.format("http://%s/cgi-bin/ace_web_auth.cgi", loginServer))
                             .data(paramsMap)
                             .userAgent(Constant.USER_AGENT)
                             .timeout(Constant.TIMEOUT_LOGIN)
@@ -177,35 +179,37 @@ public class LoginHelper {
                             .execute();
 
                     final String _response = response.body();
-                    final int _statusCode = response.statusCode();
 
-                    if(_statusCode == HttpStatus.SC_OK) {
+                    if (_response.contains("reason=27&") || _response.contains("reason=35&")) {
                         refresh.post(new Runnable() {
                             public void run() {
-                                mClient.get(context, "http://www.example.com/", new AsyncHttpResponseHandler() {
-                                    @Override
-                                    public void onSuccess(final int statusCode, Header[] headers, byte[] bytes) {
-                                        if (statusCode == HttpStatus.SC_OK)
-                                            loginSuccess(context, loginType, callback, loginServer, "", true);
-                                        else
-                                            retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "",
-                                                    retry ? "" : _response);
-                                    }
-
-                                    @Override
-                                    public void onFailure(final int statusCode, Header[] headers, byte[] bytes, Throwable e) {
-                                        e.printStackTrace();
-
-                                        retryLogin(context, paramsMap, loginType, callback, retry, loginServer, "",
-                                                retry ? "" : _response);
-                                    }
-                                });
+                                retryLogin(context, paramsMap, loginType, callback, false, loginServer,
+                                        context.getString(R.string.user_pwd_error), _response);
                             }
                         });
-                    }
-                    else {
-                        if (_statusCode == HttpStatus.SC_MOVED_TEMPORARILY)
-                            Log.d(Constant.TAG, Integer.toString(_statusCode));
+                    } else if (_response.contains("reason=")) {
+                        final String _reason = _response.substring(_response.indexOf("reason=") + 7,
+                                _response.indexOf("&", _response.indexOf("reason=")));
+                        refresh.post(new Runnable() {
+                            public void run() {
+                                retryLogin(context, paramsMap, loginType, callback, false, loginServer,
+                                        Reason.dumpReason(Integer.parseInt(_reason)), _response);
+                            }
+                        });
+                    } else if (_response.contains("404 - Not Found")) {
+                        refresh.post(new Runnable() {
+                            public void run() {
+                                retryLogin(context, paramsMap, loginType, callback, retry, loginServer,
+                                        context.getString(R.string.login_timeout), "Time Out");
+                            }
+                        });
+                    } else if (_response.contains("login_online_detail.php")) {
+                        refresh.post(new Runnable() {
+                            public void run() {
+                                loginSuccess(context, loginType, callback, loginServer, "", true);
+                            }
+                        });
+                    } else {
                         refresh.post(new Runnable() {
                             public void run() {
                                 mClient.get(context, "http://www.example.com/", new AsyncHttpResponseHandler() {
@@ -246,66 +250,81 @@ public class LoginHelper {
         if (!checkSSID(context, callback)) return;
         initGA(context);
 
+        mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         mClient.setTimeout(Constant.TIMEOUT_LOGOUT);
         mClient.get(String.format("http://%s/", Constant.JIANGONG_WIFI_SERVER),
                 new AsyncHttpResponseHandler() {
-                    String loginServer = "";
+                    String location = "";
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                        if (statusCode == HttpStatus.SC_TEMPORARY_REDIRECT) {
-                            if (headers != null) {
-                                for (Header header : headers) {
-                                    if (header.getName().toLowerCase().equals("location")) {
-                                        Uri uri = Uri.parse(header.getValue());
-                                        loginServer = uri.getAuthority();
-                                        break;
-                                    }
+                        if (headers != null) {
+                            for (Header header : headers) {
+                                if (header.getName().toLowerCase().equals("location")) {
+                                    location = header.getValue();
+                                    break;
                                 }
                             }
-                            if (!loginServer.equals("")) {
-                                if (loginServer.contains("login_online"))
-                                    logout(context, callback, Constant.JIANGONG_WIFI_SERVER);
-                                else if (loginServer.contains("auth_entry")) {
-                                    tracker.send(new HitBuilders.EventBuilder()
-                                            .setCategory("onFailure")
-                                            .setAction("Logout")
-                                            .setLabel("Already logged out")
-                                            .build());
-                                    callback.onFail(context.getText(R.string.already_logged_out).toString());
-                                } else
-                                    logout(context, callback, Constant.YANCHAO_WIFI_SERVER);
-                            } else {
-                                callback.onFail(context.getText(R.string.failed_to_logout).toString());
-                                tracker.send(new HitBuilders.EventBuilder()
-                                        .setCategory("onFailure")
-                                        .setAction("Logout")
-                                        .setLabel("Null headers")
-                                        .build());
-                            }
-                        } else {
-                            callback.onFail(context.getText(R.string.failed_to_logout).toString());
-                            tracker.send(new HitBuilders.EventBuilder()
-                                    .setCategory("onFailure")
-                                    .setAction("Logout")
-                                    .setLabel(Integer.toString(statusCode))
-                                    .build());
+                            checkLogoutLocation(context, callback, location);
                         }
+                        else
+                            checkLogoutLocation(context, callback, "");
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] errorResponse,
                                           Throwable e) {
+                        if (statusCode == HttpStatus.SC_NOT_FOUND) {
+                            callback.onFail(context.getText(R.string.login_timeout).toString());
 
-                        callback.onFail(context.getText(R.string.login_timeout).toString());
-                        tracker.send(new HitBuilders.EventBuilder()
-                                .setCategory("onFailure")
-                                .setAction("Logout")
-                                .setLabel("Time Out")
-                                .build());
+                            tracker.send(new HitBuilders.EventBuilder()
+                                    .setCategory("onFailure")
+                                    .setAction("Logout")
+                                    .setLabel("Time Out")
+                                    .build());
+                        } else {
+                            if (headers != null) {
+                                for (Header header : headers) {
+                                    if (header.getName().toLowerCase().equals("location")) {
+                                        location = header.getValue();
+                                        break;
+                                    }
+                                }
+                                checkLogoutLocation(context, callback, location);
+                            }
+                            else
+                                checkLogoutLocation(context, callback, "");
+                        }
                     }
                 });
     }
+
+    private static void checkLogoutLocation(final Context context, final GeneralCallback callback, String location)
+    {
+        if (!location.equals("")) {
+            if (location.contains("login_online"))
+                logout(context, callback, Constant.JIANGONG_WIFI_SERVER);
+            else if (location.contains("auth_entry")) {
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("onFailure")
+                        .setAction("Logout")
+                        .setLabel("Already logged out")
+                        .build());
+                callback.onFail(context.getText(R.string.already_logged_out).toString());
+            } else
+                logout(context, callback, Constant.YANCHAO_WIFI_SERVER);
+        } else {
+            callback.onFail(context.getText(R.string.failed_to_logout).toString());
+            tracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("onFailure")
+                    .setAction("Logout")
+                    .setLabel("Null headers")
+                    .build());
+        }
+    }
+
 
     private static void logout(final Context context, final GeneralCallback callback, final String logoutServer) {
         mClient.get(String.format("http://%s/cgi-bin/ace_web_auth.cgi?logout", logoutServer),
@@ -319,13 +338,19 @@ public class LoginHelper {
                         tracker.send(new HitBuilders.EventBuilder()
                                 .setCategory("onSuccess")
                                 .setAction("Logout")
-                                .setLabel("logout successful")
+                                .setLabel(logoutServer.equals(Constant.JIANGONG_WIFI_SERVER) ? "建工" : "燕巢")
                                 .build());
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                         callback.onFail(context.getText(R.string.failed_to_logout).toString());
+
+                        tracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("onFailure")
+                                .setAction("Logout")
+                                .setLabel("Time Out")
+                                .build());
                     }
                 });
     }
@@ -366,8 +391,7 @@ public class LoginHelper {
                 .bigText(resultString));
 
         if (!(callback == null && errorTimes >= 3))
-            mNotificationManager
-                    .notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+            mNotificationManager.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
 
         errorTimes++;
         Memory.setInt(context, Constant.MEMORY_KEY_ERRORTIMES, errorTimes);
@@ -397,6 +421,11 @@ public class LoginHelper {
                     break;
                 case "Dorm":
                     resultString = String.format(context.getString(R.string.login_dorm_successfully),
+                            (loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? context.getString(R.string.jiangong) :
+                                    context.getString(R.string.yanchao)));
+                    break;
+                case "Teacher":
+                    resultString = String.format(context.getString(R.string.login_teacher_successfully),
                             (loginServer.equals(Constant.JIANGONG_WIFI_SERVER) ? context.getString(R.string.jiangong) :
                                     context.getString(R.string.yanchao)));
                     break;
