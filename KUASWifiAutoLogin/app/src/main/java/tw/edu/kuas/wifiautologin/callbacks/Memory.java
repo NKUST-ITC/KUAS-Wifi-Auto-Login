@@ -68,8 +68,7 @@ public class Memory {
 		prefsEditor.commit();
 	}
 
-	public static boolean getBoolean(Context context, String key,
-			boolean defValue) {
+	public static boolean getBoolean(Context context, String key, boolean defValue) {
 		init(context);
 
 		return appSharedPrefs.getBoolean(key, defValue);

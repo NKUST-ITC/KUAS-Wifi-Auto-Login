@@ -14,6 +14,7 @@ import tw.edu.kuas.wifiautologin.libs.LoginHelper;
 import tw.edu.kuas.wifiautologin.libs.Utils;
 
 public class WifiReceiver extends BroadcastReceiver {
+
 	@Override
 	public void onReceive(final Context context, Intent intent) {
 		String action = intent.getAction();
@@ -31,12 +32,13 @@ public class WifiReceiver extends BroadcastReceiver {
 					String password = Memory.getString(context, Constant.MEMORY_KEY_PASSWORD, null);
 					if (user != null && password != null) {
 						String userData = Utils.tranUser(user);
-                        if (ssid.equals(Constant.EXPECTED_SSIDS[2]))
-						    LoginHelper.login(context, userData.split(",")[0],
-								    password, "Dorm", null);
-                        else
-                            LoginHelper.login(context, userData.split(",")[0],
-                                    password, userData.split(",")[2], null);
+						if (ssid.equals(Constant.EXPECTED_SSIDS[2])) {
+							LoginHelper
+									.login(context, userData.split(",")[0], password, "Dorm", null);
+						} else {
+							LoginHelper.login(context, userData.split(",")[0], password,
+									userData.split(",")[2], null);
+						}
 					}
 				}
 			}

@@ -22,14 +22,12 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class AboutActivity extends ActionBarActivity implements
-		OnItemClickListener {
+public class AboutActivity extends ActionBarActivity implements OnItemClickListener {
 
-	@InjectView(R.id.listView_main)
-	ListView mMainListView;
+	@InjectView(R.id.listView_main) ListView mMainListView;
 
-	private int[] resItems = { R.string.open_source_info,
-			R.string.usage_policy, R.string.open_source_licenses };
+	private int[] resItems =
+			{R.string.open_source_info, R.string.usage_policy, R.string.open_source_licenses};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,37 +45,33 @@ public class AboutActivity extends ActionBarActivity implements
 			map.put("title", getText(resItem));
 			listItems.add(map);
 		}
-		mMainListView.setAdapter(new SimpleAdapter(this, listItems,
-				android.R.layout.simple_list_item_1, new String[] { "title" },
-				new int[] { android.R.id.text1 }));
+		mMainListView.setAdapter(
+				new SimpleAdapter(this, listItems, android.R.layout.simple_list_item_1,
+						new String[]{"title"}, new int[]{android.R.id.text1}));
 		mMainListView.setOnItemClickListener(this);
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		if (position == 0) {
-			final SpannableString message = new SpannableString(
-					getText(R.string.open_source_info_content));
+			final SpannableString message =
+					new SpannableString(getText(R.string.open_source_info_content));
 			Linkify.addLinks(message, Linkify.WEB_URLS);
 
-			AlertDialog dialog = new AlertDialog.Builder(this)
-					.setTitle(R.string.open_source_info).setMessage(message)
-					.setPositiveButton(android.R.string.ok, null).show();
+			AlertDialog dialog = new AlertDialog.Builder(this).setTitle(R.string.open_source_info)
+					.setMessage(message).setPositiveButton(android.R.string.ok, null).show();
 			// Make the link clickable
 			((TextView) dialog.findViewById(android.R.id.message))
 					.setMovementMethod(LinkMovementMethod.getInstance());
 		} else if (position == 1) {
 			WebView webView = new WebView(this);
 			webView.loadUrl("file:///android_asset/usage_policy.html");
-			new AlertDialog.Builder(this).setTitle(R.string.usage_policy)
-					.setView(webView)
+			new AlertDialog.Builder(this).setTitle(R.string.usage_policy).setView(webView)
 					.setPositiveButton(android.R.string.ok, null).show();
 		} else if (position == 2) {
 			WebView webView = new WebView(this);
 			webView.loadUrl("file:///android_asset/used_licenses.html");
-			new AlertDialog.Builder(this)
-					.setTitle(R.string.open_source_licenses).setView(webView)
+			new AlertDialog.Builder(this).setTitle(R.string.open_source_licenses).setView(webView)
 					.setPositiveButton(android.R.string.ok, null).show();
 		}
 	}
