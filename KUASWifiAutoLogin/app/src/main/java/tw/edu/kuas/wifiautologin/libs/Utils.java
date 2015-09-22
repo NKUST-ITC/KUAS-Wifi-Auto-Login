@@ -6,8 +6,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
-import tw.edu.kuas.wifiautologin.callbacks.Constant;
-
 public class Utils {
 
 	public static String getCurrentSsid(Context context) {

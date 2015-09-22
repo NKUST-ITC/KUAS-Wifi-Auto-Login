@@ -19,9 +19,9 @@ import com.google.android.gms.analytics.Tracker;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import tw.edu.kuas.wifiautologin.callbacks.Constant;
+import tw.edu.kuas.wifiautologin.libs.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
-import tw.edu.kuas.wifiautologin.callbacks.Memory;
+import tw.edu.kuas.wifiautologin.libs.Memory;
 import tw.edu.kuas.wifiautologin.libs.LoginHelper;
 import tw.edu.kuas.wifiautologin.libs.Utils;
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onSuccess(String message) {
-				mDebugTextView.setTextColor(getResources().getColor(R.color.md_grey_900));
+				mDebugTextView.setTextColor(getResources().getColor(R.color.black_text));
 				showMessage(message);
 			}
 
@@ -131,18 +131,28 @@ public class MainActivity extends AppCompatActivity {
 		mLogoutButton.setEnabled(false);
 		mProgressBar.setVisibility(View.VISIBLE);
 
+		mLoginButton.setBackgroundResource(R.drawable.button_disable);
+		mLogoutButton.setBackgroundResource(R.drawable.button_disable);
+
 		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(mUsernameEditText.getWindowToken(), 0);
 		imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
 
 		mUsernameEditText.clearFocus();
 		mPasswordEditText.clearFocus();
+		mUsernameEditText.setEnabled(false);
+		mPasswordEditText.setEnabled(false);
 	}
 
 	private void enableViews() {
 		mLoginButton.setEnabled(true);
 		mLogoutButton.setEnabled(true);
+		mUsernameEditText.setEnabled(true);
+		mPasswordEditText.setEnabled(true);
 		mProgressBar.setVisibility(View.GONE);
+
+		mLoginButton.setBackgroundResource(R.drawable.button_login);
+		mLogoutButton.setBackgroundResource(R.drawable.button_logout);
 	}
 
 	private void saveAndLogin() {
@@ -173,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onSuccess(String message) {
-				mDebugTextView.setTextColor(getResources().getColor(R.color.md_grey_900));
+				mDebugTextView.setTextColor(getResources().getColor(R.color.black_text));
 				showMessage(message);
 				finish();
 			}

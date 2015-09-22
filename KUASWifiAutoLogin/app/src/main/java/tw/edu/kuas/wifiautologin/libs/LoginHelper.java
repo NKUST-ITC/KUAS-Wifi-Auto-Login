@@ -31,10 +31,7 @@ import java.util.LinkedHashMap;
 
 import tw.edu.kuas.wifiautologin.MainActivity;
 import tw.edu.kuas.wifiautologin.R;
-import tw.edu.kuas.wifiautologin.callbacks.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
-import tw.edu.kuas.wifiautologin.callbacks.Memory;
-import tw.edu.kuas.wifiautologin.callbacks.Reason;
 
 public class LoginHelper {
 	private static AsyncHttpClient mClient = init();
@@ -497,8 +494,10 @@ public class LoginHelper {
 
 		mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(resultString));
 
-		if (!(callback == null && errorTimes >= 3)) {
+		if (!(callback == null || errorTimes >= 3)) {
 			mNotificationManager.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
+		} else {
+			errorTimes = 0;
 		}
 
 		errorTimes++;

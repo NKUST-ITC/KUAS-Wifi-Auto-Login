@@ -1,4 +1,4 @@
-package tw.edu.kuas.wifiautologin.callbacks;
+package tw.edu.kuas.wifiautologin.libs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

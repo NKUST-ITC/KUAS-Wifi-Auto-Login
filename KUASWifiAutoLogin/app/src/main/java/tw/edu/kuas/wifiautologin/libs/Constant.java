@@ -1,4 +1,4 @@
-package tw.edu.kuas.wifiautologin.callbacks;
+package tw.edu.kuas.wifiautologin.libs;
 
 public class Constant {
 

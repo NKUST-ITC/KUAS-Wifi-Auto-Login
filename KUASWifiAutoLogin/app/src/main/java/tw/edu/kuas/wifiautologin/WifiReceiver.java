@@ -8,8 +8,8 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
-import tw.edu.kuas.wifiautologin.callbacks.Constant;
-import tw.edu.kuas.wifiautologin.callbacks.Memory;
+import tw.edu.kuas.wifiautologin.libs.Constant;
+import tw.edu.kuas.wifiautologin.libs.Memory;
 import tw.edu.kuas.wifiautologin.libs.LoginHelper;
 import tw.edu.kuas.wifiautologin.libs.Utils;
 
