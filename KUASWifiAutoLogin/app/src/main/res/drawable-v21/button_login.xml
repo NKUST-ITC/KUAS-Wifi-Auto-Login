@@ -4,6 +4,14 @@
 	android:color="@color/ripple_light">
 	<item>
 		<selector android:exitFadeDuration="@android:integer/config_shortAnimTime">
+
+			<item android:state_enabled="true">
+				<shape>
+					<solid android:color="@color/md_blue_grey_700"/>
+					<corners android:radius="2dp"/>
+				</shape>
+			</item>
+
 			<item android:state_pressed="true">
 				<shape>
 					<solid android:color="@color/md_light_blue_500"/>
@@ -21,13 +29,6 @@
 			<item>
 				<shape>
 					<solid android:color="@color/md_light_blue_600"/>
-					<corners android:radius="2dp"/>
-				</shape>
-			</item>
-
-			<item android:state_enabled="false">
-				<shape>
-					<solid android:color="@color/md_blue_grey_700"/>
 					<corners android:radius="2dp"/>
 				</shape>
 			</item>
