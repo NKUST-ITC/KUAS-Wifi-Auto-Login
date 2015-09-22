@@ -9,22 +9,22 @@
 	<string name="logout">登出</string>
 	<string name="kuas_wifi_auto_login">高應無線通</string>
 	<string name="login_sucessful">登入成功。</string>
-    <string name="jiangong">建工</string>
-    <string name="yanchao">燕巢</string>
-    <string name="login_successfully" formatted="false">Wi-Fi登入成功,歡迎來到高應大%s校區！</string>
-    <string name="login_guest_successfully" formatted="false">賓客登入成功,歡迎來到高應大%s校區！</string>
-    <string name="login_cyber_successfully" formatted="false">漫遊登入成功,歡迎來到高應大%s校區！</string>
-    <string name="login_dorm_successfully" formatted="false">宿舍登入成功,歡迎回到高應大%s宿舍！</string>
-    <string name="login_teacher_successfully" formatted="false">教師登入成功,歡迎回到高應大%s校區！</string>
-    <string name="login_ready">您已經登入或是有可用網路了。</string>
+	<string name="jiangong">建工</string>
+	<string name="yanchao">燕巢</string>
+	<string name="login_successfully" formatted="false">Wi-Fi登入成功,歡迎來到高應大%s校區！</string>
+	<string name="login_guest_successfully" formatted="false">賓客登入成功,歡迎來到高應大%s校區！</string>
+	<string name="login_cyber_successfully" formatted="false">漫遊登入成功,歡迎來到高應大%s校區！</string>
+	<string name="login_dorm_successfully" formatted="false">宿舍登入成功,歡迎回到高應大%s宿舍！</string>
+	<string name="login_teacher_successfully" formatted="false">教師登入成功,歡迎回到高應大%s校區！</string>
+	<string name="login_ready">您已經登入或是有可用網路了。</string>
 	<string name="logout_successful">WiFi登出成功。</string>
 	<string name="connected_to_ssid" formatted="false">已連接到 %s。</string>
 	<string name="ssid_no_support" formatted="false">不支援的 SSID：%s。</string>
 	<string name="login_to_ssid" formatted="false">正在登入 %s&#8230;</string>
 	<string name="already_logged_in">已經登入了。</string>
 	<string name="failed_to_login">登入失敗，請再嘗試一次。</string>
-    <string name="user_pwd_error">認證失敗，請檢查您的帳號及密碼。</string>
-    <string name="login_timeout">請求 Wi-Fi 伺服器的連線逾時。</string>
+	<string name="user_pwd_error">認證失敗，請檢查您的帳號及密碼。</string>
+	<string name="login_timeout">請求 Wi-Fi 伺服器的連線逾時。</string>
 	<string name="already_logged_out">您已經登出或是尚未登入WiFi。</string>
 	<string name="failed_to_logout">登出失敗。</string>
 	<string name="about">關於</string>
@@ -35,5 +35,7 @@
 	<string name="open_source_info_content">本軟體由使用 Apache 2.0
 		授權。更多資訊及原始碼詳見：https://github.com/hiking93/NCU-WLAN-Login</string>
 	<string name="ime_submit">登入</string>
+	<string name="id_hint">學號</string>
+	<string name="password_hint">密碼</string>
 
 </resources>

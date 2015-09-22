@@ -6,11 +6,105 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2b4cb34-65b3-4e4b-9454-9d936ef1c01a" name="Default" comment="" />
-    <ignored path="KUAS-Wifi-Auto-Login-v2.iws" />
+    <list default="true" id="790c35b4-6580-4d3d-94b1-4269c1bce18c" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_login.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v21/button_login.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_logout.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v21/button_logout.xml" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\BaseViewAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\Techniques.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\YoYo.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\BounceAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\FlashAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\PulseAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\RubberBandAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\ShakeAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\StandUpAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\SwingAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\TadaAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\WaveAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\attention\WobbleAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\bouncing_entrances\BounceInAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\bouncing_entrances\BounceInDownAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\bouncing_entrances\BounceInLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\bouncing_entrances\BounceInRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\bouncing_entrances\BounceInUpAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_entrances\FadeInAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_entrances\FadeInDownAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_entrances\FadeInLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_entrances\FadeInRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_entrances\FadeInUpAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_exits\FadeOutAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_exits\FadeOutDownAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_exits\FadeOutLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_exits\FadeOutRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\fading_exits\FadeOutUpAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\flippers\FlipInXAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\flippers\FlipInYAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\flippers\FlipOutXAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\flippers\FlipOutYAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_entrances\RotateInAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_entrances\RotateInDownLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_entrances\RotateInDownRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_entrances\RotateInUpLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_entrances\RotateInUpRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_exits\RotateOutAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_exits\RotateOutDownLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_exits\RotateOutDownRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_exits\RotateOutUpLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\rotating_exits\RotateOutUpRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\sliders\SlideInDownAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\sliders\SlideInLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\sliders\SlideInRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\sliders\SlideInUpAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\sliders\SlideOutDownAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\sliders\SlideOutLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\sliders\SlideOutRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\sliders\SlideOutUpAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\specials\HingeAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\specials\RollInAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\specials\RollOutAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\specials\in\DropOutAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\specials\in\LandingAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\specials\out\TakingOffAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_entrances\ZoomInAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_entrances\ZoomInDownAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_entrances\ZoomInLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_entrances\ZoomInRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_entrances\ZoomInUpAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_exits\ZoomOutAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_exits\ZoomOutDownAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_exits\ZoomOutLeftAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_exits\ZoomOutRightAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\java\com\daimajia\androidanimations\library\zooming_exits\ZoomOutUpAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\res\drawable\button_blue.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\res\drawable\button_bluegrey.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\res\drawable\button_red.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\res\drawable\login_table_bottom.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\res\drawable\login_table_top.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/AboutActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/AboutActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rTW/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rTW/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
+    <ignored path="KUASWifiAutoLogin.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,7 +126,7 @@
     </system>
   </component>
   <component name="FavoritesManager">
-    <favorites_list name="KUAS-Wifi-Auto-Login-v2" />
+    <favorites_list name="KUASWifiAutoLogin" />
   </component>
   <component name="FileEditorManager">
     <leaf>
@@ -40,8 +134,21 @@
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+              <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AboutActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/AboutActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#837#862#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,71 +157,41 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="141" column="33" selection-start-line="141" selection-start-column="33" selection-end-line="141" selection-end-column="33" />
-              <folding />
+              <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2490#2523#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WifiReceiver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiReceiver.java">
+      <file leaf-file-name="Constant.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Constant.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.54385966">
               <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constant.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Constant.java">
+      <file leaf-file-name="button_logout.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v21/button_logout.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+              <caret line="5" column="83" selection-start-line="5" selection-start-column="83" selection-end-line="5" selection-end-column="83" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GeneralCallback.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/GeneralCallback.java">
+      <file leaf-file-name="button_logout.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/button_logout.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Memory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Memory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Reason.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Reason.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AboutActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/AboutActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2631579">
-              <caret line="57" column="84" selection-start-line="57" selection-start-column="84" selection-end-line="57" selection-end-column="84" />
-              <folding>
-                <element signature="e#876#897#0" expanded="true" />
-                <element signature="e#899#928#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -123,15 +200,46 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/libs/LoginHelper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="329" column="56" selection-start-line="329" selection-start-column="56" selection-end-line="329" selection-end-column="56" />
-              <folding>
-                <element signature="e#17388#17431#0" expanded="true" />
-              </folding>
+              <caret line="45" column="27" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="proguard-butterknife.pro" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/proguard-butterknife.pro">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="proguard-rules.pro" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="proguard-jsoup.pro" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/proguard-jsoup.pro">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GradleLocalSettings">
     <option name="availableProjects">
@@ -139,7 +247,7 @@
         <entry>
           <key>
             <ExternalProjectPojo>
-              <option name="name" value="KUAS-Wifi-Auto-Login-v2" />
+              <option name="name" value="KUASWifiAutoLogin" />
               <option name="path" value="$PROJECT_DIR$" />
             </ExternalProjectPojo>
           </key>
@@ -150,7 +258,7 @@
                 <option name="path" value="$PROJECT_DIR$/app" />
               </ExternalProjectPojo>
               <ExternalProjectPojo>
-                <option name="name" value="KUAS-Wifi-Auto-Login-v2" />
+                <option name="name" value="KUASWifiAutoLogin" />
                 <option name="path" value="$PROJECT_DIR$" />
               </ExternalProjectPojo>
             </list>
@@ -164,17 +272,17 @@
           <value>
             <list>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the components produced by root project 'KUAS-Wifi-Auto-Login-v2'. [incubating]" />
+                <option name="description" value="Displays the components produced by root project 'KUASWifiAutoLogin'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="components" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays all dependencies declared in root project 'KUAS-Wifi-Auto-Login-v2'." />
+                <option name="description" value="Displays all dependencies declared in root project 'KUASWifiAutoLogin'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the insight into a specific dependency in root project 'KUAS-Wifi-Auto-Login-v2'." />
+                <option name="description" value="Displays the insight into a specific dependency in root project 'KUASWifiAutoLogin'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependencyInsight" />
               </ExternalTaskPojo>
@@ -189,22 +297,22 @@
                 <option name="name" value="init" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the configuration model of root project 'KUAS-Wifi-Auto-Login-v2'. [incubating]" />
+                <option name="description" value="Displays the configuration model of root project 'KUASWifiAutoLogin'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="model" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the sub-projects of root project 'KUAS-Wifi-Auto-Login-v2'." />
+                <option name="description" value="Displays the sub-projects of root project 'KUASWifiAutoLogin'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="projects" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the properties of root project 'KUAS-Wifi-Auto-Login-v2'." />
+                <option name="description" value="Displays the properties of root project 'KUASWifiAutoLogin'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="properties" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the tasks runnable from root project 'KUAS-Wifi-Auto-Login-v2' (some of the displayed tasks may belong to subprojects)." />
+                <option name="description" value="Displays the tasks runnable from root project 'KUASWifiAutoLogin' (some of the displayed tasks may belong to subprojects)." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="tasks" />
               </ExternalTaskPojo>
@@ -568,18 +676,6 @@
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="preDexDebug" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="preDexDebugAndroidTest" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="preDexRelease" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="preReleaseBuild" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
@@ -592,24 +688,14 @@
                 <option name="name" value="prepareComAndroidSupportAppcompatV72221Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:cardview-v7:21.0.2" />
+                <option name="description" value="Prepare com.android.support:design:22.2.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComAndroidSupportCardviewV72102Library" />
+                <option name="name" value="prepareComAndroidSupportDesign2221Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.android.support:support-v4:22.2.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareComAndroidSupportSupportV42221Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare com.daimajia.easing:library:1.0.2" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComDaimajiaEasingLibrary102Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare com.github.rey5137:material:1.1.1" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComGithubRey5137Material111Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.google.android.gms:play-services-analytics:7.8.0" />
@@ -684,6 +770,18 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="processReleaseUnitTestJavaRes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="proguardDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="proguardDebugAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="proguardRelease" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Displays the signing info for each variant." />
@@ -1119,18 +1217,6 @@
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="preDexDebug" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="preDexDebugAndroidTest" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="preDexRelease" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="preReleaseBuild" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
@@ -1143,24 +1229,14 @@
                 <option name="name" value="prepareComAndroidSupportAppcompatV72221Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:cardview-v7:21.0.2" />
+                <option name="description" value="Prepare com.android.support:design:22.2.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComAndroidSupportCardviewV72102Library" />
+                <option name="name" value="prepareComAndroidSupportDesign2221Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.android.support:support-v4:22.2.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="prepareComAndroidSupportSupportV42221Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare com.daimajia.easing:library:1.0.2" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComDaimajiaEasingLibrary102Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare com.github.rey5137:material:1.1.1" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComGithubRey5137Material111Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.google.android.gms:play-services-analytics:7.8.0" />
@@ -1237,6 +1313,18 @@
                 <option name="name" value="processReleaseUnitTestJavaRes" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="proguardDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="proguardDebugAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="proguardRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Displays the sub-projects of project ':app'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="projects" />
@@ -1306,7 +1394,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="D:\Project\Android\KUAS-Wifi-Auto-Login-v2" value="4309801037813" />
+        <entry key="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin" value="4309903267823" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -1473,16 +1561,13 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar" />
                             <option value="D:/Program/Android SDK/extras/android/m2repository/com/android/support/appcompat-v7/22.2.1/appcompat-v7-22.2.1.aar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.loopj.android/android-async-http/1.4.7/cd78109020f9ec803ef4e652c17ee4615b03e20a/android-async-http-1.4.7.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.daimajia.easing/library/1.0.2/2603c395feab60debf696d672a8e4c09095f72f5/library-1.0.2.aar" />
+                            <option value="D:/Program/Android SDK/extras/android/m2repository/com/android/support/design/22.2.1/design-22.2.1.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.loopj.android/android-async-http/1.4.8/77bbfe240e437ecb396d982afa0d3bd4f9090ba7/android-async-http-1.4.8.jar" />
                             <option value="D:/Program/Android SDK/extras/google/m2repository/com/google/android/gms/play-services-analytics/7.8.0/play-services-analytics-7.8.0.aar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.8.2/64238922c4006c3d0a9951c4c03983ecc6a1e1a0/jsoup-1.8.2.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.rey5137/material/1.1.1/fcb0066d26c60c3e03ad203b52b83d2353cafd48/material-1.1.1.aar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/6.1.0/63735f48b82bcd24cdd33821342428252eb1ca5a/butterknife-6.1.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.8.3/65fd012581ded67bc20945d85c32b4598c3a9cf1/jsoup-1.8.3.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar" />
                             <option value="D:/Program/Android SDK/extras/android/m2repository/com/android/support/support-v4/22.2.1/support-v4-22.2.1.aar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar" />
                             <option value="D:/Program/Android SDK/extras/google/m2repository/com/google/android/gms/play-services-base/7.8.0/play-services-base-7.8.0.aar" />
-                            <option value="D:/Program/Android SDK/extras/android/m2repository/com/android/support/cardview-v7/21.0.2/cardview-v7-21.0.2.aar" />
                             <option value="D:/Program/Android SDK/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar" />
                           </list>
                         </option>
@@ -1622,15 +1707,34 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/libs/LoginHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/button_blue.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/button_red.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/button_logout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable-v21/button_logout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable-v21/button_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values-zh-rTW/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/color/text.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/AboutActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiReceiver.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Constant.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Memory.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Reason.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Constant.java" />
       </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
     </option>
   </component>
   <component name="NamedScopeManager">
@@ -1642,14 +1746,14 @@
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -1665,13 +1769,14 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="KUAS-Wifi-Auto-Login-v2" />
+              <option name="myItemId" value="KUASWifiAutoLogin" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1681,7 +1786,137 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="KUAS-Wifi-Auto-Login-v2" />
+              <option name="myItemId" value="KUASWifiAutoLogin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KUASWifiAutoLogin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KUASWifiAutoLogin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="button_logout.xml" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KUASWifiAutoLogin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KUASWifiAutoLogin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wifiautologin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KUASWifiAutoLogin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wifiautologin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KUASWifiAutoLogin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wifiautologin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="callbacks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KUASWifiAutoLogin" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1691,8 +1926,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1709,7 +1943,14 @@
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="IBMNWC599HDQEYR4" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="169.254.181.102:5555" />
+    <property name="SearchEverywhereHistoryKey" value="color&#9;FILE&#9;file://D:/GitHub/KUAS-Wifi-Auto-Login/KUASWifiAutoLogin/app/src/main/res/values/colors.xml&#10;activity_&#9;FILE&#9;file://D:/GitHub/KUAS-Wifi-Auto-Login/KUASWifiAutoLogin/app/src/main/res/layout/activity_main.xml&#10;mai&#9;FILE&#9;file://D:/GitHub/KUAS-Wifi-Auto-Login/KUASWifiAutoLogin/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java&#10;string&#9;FILE&#9;file://D:/GitHub/KUAS-Wifi-Auto-Login/KUASWifiAutoLogin/app/src/main/res/values/strings.xml&#10;Main&#9;FILE&#9;file://D:/GitHub/KUAS-Wifi-Auto-Login/KUASWifiAutoLogin/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\res\values-v21" />
+      <recent name="D:\GitHub\KUAS-Wifi-Auto-Login\KUASWifiAutoLogin\app\src\main\res\drawable-v21" />
+    </key>
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -1891,35 +2132,38 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b2b4cb34-65b3-4e4b-9454-9d936ef1c01a" name="Default" comment="" />
-      <created>1442805588796</created>
+      <changelist id="790c35b4-6580-4d3d-94b1-4269c1bce18c" name="Default" comment="" />
+      <created>1442902690481</created>
       <option name="number" value="Default" />
-      <updated>1442805588796</updated>
+      <updated>1442902690481</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960895" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960895" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960895" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20202559" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17750533" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960895" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24946696" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -1929,6 +2173,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1937,38 +2182,173 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/WifiReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <caret line="0" column="34" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Constant.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v21/button_login.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+          <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/GeneralCallback.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/button_login.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <caret line="8" column="11" selection-start-line="3" selection-start-column="0" selection-end-line="8" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Memory.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-zh-rTW/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.965517">
+          <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.0">
+          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.344828">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/color/text_disable.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.225806">
+          <caret line="79" column="53" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
+          <folding>
+            <element signature="e#491#524#0" expanded="true" />
+            <element signature="e#547#582#0" expanded="true" />
+            <element signature="e#606#641#0" expanded="true" />
+            <element signature="e#758#779#0" expanded="true" />
+            <element signature="e#810#831#0" expanded="true" />
+            <element signature="e#1372#1391#0" expanded="true" />
+            <element signature="e#1795#1814#0" expanded="true" />
+            <element signature="e#1985#2006#0" expanded="true" />
+            <element signature="e#2267#2291#0" expanded="true" />
+            <element signature="e#2357#2378#0" expanded="true" />
+            <element signature="e#2540#2562#0" expanded="true" />
+            <element signature="e#2659#2675#0" expanded="true" />
+            <element signature="e#2741#2762#0" expanded="true" />
+            <element signature="e#3182#3203#0" expanded="true" />
+            <element signature="e#3234#3255#0" expanded="true" />
+            <element signature="e#3303#3324#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.935484">
+          <caret line="80" column="49" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
+          <folding>
+            <element signature="e#166#199#0" expanded="true" />
+            <element signature="e#442#463#0" expanded="true" />
+            <element signature="e#699#720#0" expanded="true" />
+            <element signature="e#1371#1390#0" expanded="true" />
+            <element signature="e#1812#1831#0" expanded="true" />
+            <element signature="e#2014#2035#0" expanded="true" />
+            <element signature="e#2304#2328#0" expanded="true" />
+            <element signature="e#2396#2417#0" expanded="true" />
+            <element signature="e#2706#2722#0" expanded="true" />
+            <element signature="e#2790#2811#0" expanded="true" />
+            <element signature="e#3252#3274#0" expanded="true" />
+            <element signature="e#3306#3328#0" expanded="true" />
+            <element signature="e#3378#3399#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="315" column="0" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/proguard-jsoup.pro">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/proguard-butterknife.pro">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1976,17 +2356,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/libs/LoginHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="329" column="56" selection-start-line="329" selection-start-column="56" selection-end-line="329" selection-end-column="56" />
-          <folding>
-            <element signature="e#17388#17431#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="141" column="33" selection-start-line="141" selection-start-column="33" selection-end-line="141" selection-end-column="33" />
+          <caret line="45" column="27" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
           <folding />
         </state>
       </provider>
@@ -1994,27 +2364,54 @@
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Reason.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/AboutActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2631579">
-          <caret line="57" column="84" selection-start-line="57" selection-start-column="84" selection-end-line="57" selection-end-column="84" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
-            <element signature="e#876#897#0" expanded="true" />
-            <element signature="e#899#928#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#837#862#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v21/button_logout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="83" selection-start-line="5" selection-start-column="83" selection-end-line="5" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/button_logout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2490#2523#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tw/edu/kuas/wifiautologin/callbacks/Constant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.54385966">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

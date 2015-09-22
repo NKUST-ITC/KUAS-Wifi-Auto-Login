@@ -1,33 +1,17 @@
 <resources>
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+	<style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar"/>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-    </style>
+	<!-- Application theme. -->
+	<style name="AppTheme" parent="AppBaseTheme">
+		<item name="colorPrimary">@color/primary</item>
+		<item name="colorPrimaryDark">@color/primary_dark</item>
+		<item name="colorAccent">@color/accent</item>
+		<item name="actionModeStyle">@style/Widget.ActionMode</item>
+	</style>
 
-    <!-- Progress Style -->
-    <style name="ColorsLinearProgressDrawableStyle" parent="Material.Drawable.LinearProgress">
-        <item name="lpd_strokeColors">@array/progress_colors</item>
-        <item name="lpd_strokeSecondaryColor">#00000000</item>
-    </style>
-
-    <!-- Button Ripple Style -->
-    <style name="BlueButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
-        <item name="android:background">@null</item>
-        <item name="rd_backgroundColor">#33219AFF</item>
-        <item name="rd_rippleColor">#33219AFF</item>
-        <item name="rd_cornerRadius">4dp</item>
-    </style>
-
-    <style name="RedButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
-        <item name="android:background">@null</item>
-        <item name="rd_backgroundColor">#33e0e0e0</item>
-        <item name="rd_rippleColor">#33e0e0e0</item>
-        <item name="rd_cornerRadius">4dp</item>
-    </style>
+	<style name="Widget.ActionMode" parent="@style/Widget.AppCompat.ActionMode">
+		<item name="background">@color/primary_dark</item>
+	</style>
 
 </resources>

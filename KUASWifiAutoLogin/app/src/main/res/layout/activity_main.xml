@@ -1,122 +1,104 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true">
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:animateLayoutChanges="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
 		android:layout_gravity="center"
+		android:animateLayoutChanges="true"
+		android:focusable="true"
+		android:focusableInTouchMode="true"
 		android:gravity="center"
 		android:orientation="vertical"
 		android:paddingBottom="@dimen/activity_vertical_margin"
 		android:paddingLeft="@dimen/activity_horizontal_margin"
-		android:paddingRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="-20dp"
-		tools:context="com.devandroid.ncuwlogin.MainActivity">
+		android:paddingRight="@dimen/activity_horizontal_margin">
 
 		<ImageView
-            android:contentDescription="@string/app_name"
 			android:layout_width="match_parent"
 			android:layout_height="180dp"
-            android:layout_marginLeft="30sp"
-            android:layout_marginRight="30sp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_main"/>
+			android:layout_marginLeft="@dimen/margin_large"
+			android:layout_marginRight="@dimen/margin_large"
+			android:adjustViewBounds="true"
+			android:contentDescription="@null"
+			android:scaleType="fitCenter"
+			android:src="@drawable/ic_main"/>
 
-		<TableLayout
-            android:layout_marginTop="8dp"
-			android:layout_marginBottom="5dp"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="40sp"
-			android:layout_marginRight="40sp"
-            android:id="@+id/tableLayout">
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="280dp"
+			android:layout_height="wrap_content">
 
 			<EditText
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
 				android:id="@+id/editText_user"
-				android:hint="@string/username"
-				android:textSize="15sp"
-				android:background="@drawable/login_table_top"
-				android:singleLine="true"
-				android:inputType="textEmailAddress"
-				android:imeOptions="actionNext"/>
-
-			<EditText
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:id="@+id/editText_password"
-				android:hint="@string/password"
-				android:textSize="15sp"
-				android:background="@drawable/login_table_bottom"
-				android:inputType="textPassword"
+				android:imeOptions="actionGo"
+				android:inputType="number"
+				android:maxLength="10"
 				android:singleLine="true"
-				android:imeOptions="actionSend"/>
+				android:textSize="@dimen/text_title"/>
+		</android.support.design.widget.TextInputLayout>
 
-		</TableLayout>
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="280dp"
+			android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40sp"
-            android:layout_marginRight="40sp"
-            android:orientation="horizontal">
+			<EditText
+				android:id="@+id/editText_password"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:imeOptions="actionGo"
+				android:inputType="textPassword"
+				android:textSize="@dimen/text_title"/>
+		</android.support.design.widget.TextInputLayout>
 
-            <com.rey.material.widget.Button
-                style="@style/BlueButtonRippleStyle"
-                android:id="@+id/button_login"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_blue"
-                android:textColor="@color/white"
-                android:text="@string/save_and_login"
-                app:rd_enable="true"/>
+		<LinearLayout
+			android:layout_width="280dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/margin_small"
+			android:orientation="horizontal">
 
-            <com.rey.material.widget.Button
-                style="@style/RedButtonRippleStyle"
-                android:id="@+id/button_logout"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_red"
-                android:textColor="@color/white"
-                android:layout_marginLeft="5sp"
-                android:text="@string/logout"
-                app:rd_enable="true"/>
+			<Button
+				android:id="@+id/button_login"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@drawable/button_login"
+				android:text="@string/save_and_login"
+				android:textColor="@color/text_disable"
+				android:textSize="@dimen/text_subhead"/>
 
-        </LinearLayout>
+			<Button
+				android:id="@+id/button_logout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="@dimen/margin_xsmall"
+				android:layout_weight="1"
+				android:background="@drawable/button_logout"
+				android:text="@string/logout"
+				android:textColor="@color/text_disable"
+				android:textSize="@dimen/text_subhead"/>
+		</LinearLayout>
 
-        <com.rey.material.widget.ProgressView
-            android:id="@+id/progressView"
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_gravity="center"
-            app:pv_autostart = "true"
-            app:pv_circular="false"
-            app:pv_progressStyle="@style/ColorsLinearProgressDrawableStyle"
-            app:pv_progressMode="indeterminate"
-            android:layout_marginRight="41sp"
-            android:layout_marginLeft="41sp"
-            android:visibility="gone"/>
-
-
+		<ProgressBar
+			android:id="@+id/progressBar"
+			style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+			android:layout_width="280dp"
+			android:layout_height="wrap_content"
+			android:indeterminate="true"
+			android:visibility="gone"/>
 
 		<TextView
 			android:id="@+id/textView_debug"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="8dp"
-            android:layout_marginLeft="40sp"
-            android:layout_marginRight="40sp"
+			android:layout_marginLeft="@dimen/margin_large"
+			android:layout_marginRight="@dimen/margin_large"
 			android:gravity="center"
+			android:padding="@dimen/margin_small"
 			android:visibility="gone"/>
-
 	</LinearLayout>
 </ScrollView>

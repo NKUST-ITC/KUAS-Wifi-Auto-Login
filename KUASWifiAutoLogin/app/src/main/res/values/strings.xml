@@ -1,39 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">KUAS WLAN Login</string>
-    <string name="app_name_launcher">KUAS WLAN</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="save_and_login">Save &amp; Login</string>
-    <string name="logout">Logout</string>
-    <string name="kuas_wifi_auto_login">KUAS WiFi Auto Login</string>
-    <string name="login_sucessful">Login successful.</string>
-    <string name="jiangong">JianGong</string>
-    <string name="yanchao">YanChao</string>
-    <string name="login_successfully" formatted="false">Wi-Fi login successful,Welcome to KUAS (%s)!</string>
-    <string name="login_guest_successfully" formatted="false">Guest login successful,Welcome to KUAS (%s)!</string>
-    <string name="login_cyber_successfully" formatted="false">Cyber login successful,Welcome to KUAS (%s)!</string>
-    <string name="login_dorm_successfully" formatted="false">Dorm login successful,Welcome back to KUAS Dorm (%s)!</string>
-    <string name="login_teacher_successfully" formatted="false">Teacher login successful,Welcome to KUAS (%s)!</string>
-    <string name="login_ready">Already logged in.</string>
-    <string name="logout_successful">Logout successful.</string>
-    <string name="connected_to_ssid" formatted="false">Connected to %s.</string>
+	<string name="app_name">KUAS WLAN Login</string>
+	<string name="app_name_launcher">KUAS WLAN</string>
+	<string name="username">Username</string>
+	<string name="password">Password</string>
+	<string name="save_and_login">Save &amp; Login</string>
+	<string name="logout">Logout</string>
+	<string name="kuas_wifi_auto_login">KUAS WiFi Auto Login</string>
+	<string name="login_sucessful">Login successful.</string>
+	<string name="jiangong">JianGong</string>
+	<string name="yanchao">YanChao</string>
+	<string name="login_successfully" formatted="false">Wi-Fi login successful,Welcome to KUAS (%s)!</string>
+	<string name="login_guest_successfully" formatted="false">Guest login successful,Welcome to KUAS (%s)!</string>
+	<string name="login_cyber_successfully" formatted="false">Cyber login successful,Welcome to KUAS (%s)!</string>
+	<string name="login_dorm_successfully" formatted="false">Dorm login successful,Welcome back to KUAS Dorm (%s)!</string>
+	<string name="login_teacher_successfully" formatted="false">Teacher login successful,Welcome to KUAS (%s)!</string>
+	<string name="login_ready">Already logged in.</string>
+	<string name="logout_successful">Logout successful.</string>
+	<string name="connected_to_ssid" formatted="false">Connected to %s.</string>
 	<string name="ssid_no_support" formatted="false">SSID not supported：%s.</string>
-    <string name="login_to_ssid" formatted="false">Login to %s&#8230;</string>
-    <string name="already_logged_in">Already logged in.</string>
-    <string name="failed_to_login">Failed to login.</string>
-    <string name="user_pwd_error">The username or password is incorrect.</string>
-    <string name="login_timeout">Connection Timeout.</string>
-    <string name="already_logged_out">Already logged out.</string>
-    <string name="failed_to_logout">Failed to logout.</string>
-    <string name="about">About</string>
-    <string name="open_source_info">Open Source Information</string>
-    <string name="usage_policy">Usage Policy</string>
-    <string name="no_wifi_connection">No Wi-Fi connection.</string>
-    <string name="open_source_licenses">Open Source Licenses</string>
+	<string name="login_to_ssid" formatted="false">Login to %s&#8230;</string>
+	<string name="already_logged_in">Already logged in.</string>
+	<string name="failed_to_login">Failed to login.</string>
+	<string name="user_pwd_error">The username or password is incorrect.</string>
+	<string name="login_timeout">Connection Timeout.</string>
+	<string name="already_logged_out">Already logged out.</string>
+	<string name="failed_to_logout">Failed to logout.</string>
+	<string name="about">About</string>
+	<string name="open_source_info">Open Source Information</string>
+	<string name="usage_policy">Usage Policy</string>
+	<string name="no_wifi_connection">No Wi-Fi connection.</string>
+	<string name="open_source_licenses">Open Source Licenses</string>
     <string name="open_source_info_content">This app is an open-source project, licensed under
 	    the Apache License, Version 2.0.\n\nView descriptions and source code here: https://github.com/hiking93/NCU-WLAN-Login</string>
 	<string name="ime_submit">Login</string>
+	<string name="id_hint">Student ID</string>
+	<string name="password_hint">Password</string>
 
 </resources>

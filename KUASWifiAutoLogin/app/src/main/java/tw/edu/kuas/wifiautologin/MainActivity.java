@@ -1,24 +1,23 @@
 package tw.edu.kuas.wifiautologin;
 
-import android.app.Activity;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TableLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.rey.material.widget.Button;
-import com.rey.material.widget.ProgressView;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 import tw.edu.kuas.wifiautologin.callbacks.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
@@ -26,21 +25,21 @@ import tw.edu.kuas.wifiautologin.callbacks.Memory;
 import tw.edu.kuas.wifiautologin.libs.LoginHelper;
 import tw.edu.kuas.wifiautologin.libs.Utils;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
-	@InjectView(R.id.button_login) Button mLoginButton;
+	@Bind(R.id.button_login) Button mLoginButton;
 
-	@InjectView(R.id.button_logout) Button mLogoutButton;
+	@Bind(R.id.button_logout) Button mLogoutButton;
 
-	@InjectView(R.id.editText_user) EditText mUsernameEditText;
+	@Bind(R.id.editText_user) EditText mUsernameEditText;
 
-	@InjectView(R.id.editText_password) EditText mPasswordEditText;
+	@Bind(R.id.editText_password) EditText mPasswordEditText;
 
-	@InjectView(R.id.textView_debug) TextView mDebugTextView;
+	@Bind(R.id.textView_debug) TextView mDebugTextView;
 
-	@InjectView(R.id.tableLayout) TableLayout mTableLayout;
+	@Bind(R.id.progressBar) ProgressBar mProgressBar;
 
-	@InjectView(R.id.progressView) ProgressView mProgressView;
+	TextInputLayout mUserNameTextInputLayout, mPasswordTextInputLayout;
 
 	public static GoogleAnalytics analytics;
 	public static Tracker tracker;
@@ -50,8 +49,14 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
+		findViews();
 		setUpViews();
+	}
+
+	private void findViews() {
+		mUserNameTextInputLayout = (TextInputLayout) mUsernameEditText.getParent();
+		mPasswordTextInputLayout = (TextInputLayout) mPasswordEditText.getParent();
 	}
 
 	private void setUpViews() {
@@ -65,6 +70,11 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
+		mUserNameTextInputLayout.setHint(getString(R.string.id_hint));
+		mPasswordTextInputLayout.setHint(getString(R.string.password_hint));
+		mProgressBar.getIndeterminateDrawable()
+				.setColorFilter(getResources().getColor(R.color.md_light_green_500),
+						PorterDuff.Mode.SRC_IN);
 
 		initGA();
 	}
@@ -104,13 +114,13 @@ public class MainActivity extends Activity {
 			@Override
 			public void onSuccess(String message) {
 				mDebugTextView.setTextColor(getResources().getColor(R.color.md_grey_900));
-				showMessage(message, false);
+				showMessage(message);
 			}
 
 			@Override
 			public void onFail(String reason) {
 				mDebugTextView.setTextColor(getResources().getColor(R.color.md_red_a700));
-				showMessage(reason, true);
+				showMessage(reason);
 			}
 		});
 	}
@@ -119,13 +129,12 @@ public class MainActivity extends Activity {
 		mDebugTextView.setVisibility(View.GONE);
 		mLoginButton.setEnabled(false);
 		mLogoutButton.setEnabled(false);
-		mLoginButton.setBackgroundResource(R.drawable.button_bluegrey);
-		mLogoutButton.setBackgroundResource(R.drawable.button_bluegrey);
-		mTableLayout.setEnabled(false);
-		mProgressView.setVisibility(View.VISIBLE);
+		mProgressBar.setVisibility(View.VISIBLE);
+
 		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(mUsernameEditText.getWindowToken(), 0);
 		imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
+
 		mUsernameEditText.clearFocus();
 		mPasswordEditText.clearFocus();
 	}
@@ -133,10 +142,7 @@ public class MainActivity extends Activity {
 	private void enableViews() {
 		mLoginButton.setEnabled(true);
 		mLogoutButton.setEnabled(true);
-		mTableLayout.setEnabled(true);
-		mProgressView.setVisibility(View.GONE);
-		mLoginButton.setBackgroundResource(R.drawable.button_blue);
-		mLogoutButton.setBackgroundResource(R.drawable.button_red);
+		mProgressBar.setVisibility(View.GONE);
 	}
 
 	private void saveAndLogin() {
@@ -168,24 +174,21 @@ public class MainActivity extends Activity {
 			@Override
 			public void onSuccess(String message) {
 				mDebugTextView.setTextColor(getResources().getColor(R.color.md_grey_900));
-				showMessage(message, false);
+				showMessage(message);
 				finish();
 			}
 
 			@Override
 			public void onFail(String reason) {
 				mDebugTextView.setTextColor(getResources().getColor(R.color.md_red_a700));
-				showMessage(reason, true);
+				showMessage(reason);
 			}
 		});
 	}
 
-	private void showMessage(CharSequence message, boolean shake) {
+	private void showMessage(CharSequence message) {
 		mDebugTextView.setVisibility(View.VISIBLE);
 		mDebugTextView.setText(message);
-		if (shake) {
-			YoYo.with(Techniques.Shake).duration(700).playOn(mDebugTextView);
-		}
 		enableViews();
 
 		tracker.send(new HitBuilders.EventBuilder().setCategory("UX").setAction("showMessage")

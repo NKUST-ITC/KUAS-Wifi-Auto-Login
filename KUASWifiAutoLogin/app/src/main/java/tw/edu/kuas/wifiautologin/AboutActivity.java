@@ -19,12 +19,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class AboutActivity extends ActionBarActivity implements OnItemClickListener {
 
-	@InjectView(R.id.listView_main) ListView mMainListView;
+	@Bind(R.id.listView_main) ListView mMainListView;
 
 	private int[] resItems =
 			{R.string.open_source_info, R.string.usage_policy, R.string.open_source_licenses};
@@ -34,7 +34,7 @@ public class AboutActivity extends ActionBarActivity implements OnItemClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 		setUpViews();
 	}
 

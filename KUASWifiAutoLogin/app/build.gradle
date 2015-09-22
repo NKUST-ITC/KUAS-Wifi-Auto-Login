@@ -12,9 +12,27 @@ android {
         versionName "2.1.4"
     }
     buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro',
+                    'proguard-appcompat-v7.pro',
+                    'proguard-google-play-services.pro',
+                    'proguard-android-async-http.pro',
+                    'proguard-butterknife.pro',
+                    'proguard-jsoup.pro',
+                    'proguard-support-design.pro'
+        }
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro',
+                    'proguard-appcompat-v7.pro',
+                    'proguard-google-play-services.pro',
+                    'proguard-android-async-http.pro',
+                    'proguard-butterknife.pro',
+                    'proguard-jsoup.pro',
+                    'proguard-support-design.pro'
         }
     }
 }
@@ -22,11 +40,9 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.loopj.android:android-async-http:1.4.7'
-    compile 'com.daimajia.easing:library:1.0.2'
+    compile 'com.android.support:design:22.2.1'
+    compile 'com.loopj.android:android-async-http:1.4.8'
     compile 'com.google.android.gms:play-services-analytics:7.8.0'
-    compile 'org.jsoup:jsoup:1.8.2'
-    compile 'com.github.rey5137:material:1.1.1'
-    compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.nineoldandroids:parent:2.4.0'
+    compile 'org.jsoup:jsoup:1.8.3'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }
