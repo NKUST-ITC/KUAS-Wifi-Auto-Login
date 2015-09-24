@@ -49,25 +49,33 @@ Partial Class LoginFrm
         '
         'LogoutButton
         '
+        Me.LogoutButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(221, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(29, Byte), Integer))
+        Me.LogoutButton.FlatAppearance.BorderSize = 0
+        Me.LogoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.LogoutButton.Font = New System.Drawing.Font("微軟正黑體", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.LogoutButton.ForeColor = System.Drawing.Color.White
         Me.LogoutButton.Location = New System.Drawing.Point(153, 76)
         Me.LogoutButton.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.LogoutButton.Name = "LogoutButton"
         Me.LogoutButton.Size = New System.Drawing.Size(135, 40)
         Me.LogoutButton.TabIndex = 8
         Me.LogoutButton.Text = "登出"
-        Me.LogoutButton.UseVisualStyleBackColor = True
+        Me.LogoutButton.UseVisualStyleBackColor = False
         '
         'LoginButton
         '
+        Me.LoginButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(3, Byte), Integer), CType(CType(155, Byte), Integer), CType(CType(229, Byte), Integer))
+        Me.LoginButton.FlatAppearance.BorderSize = 0
+        Me.LoginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.LoginButton.Font = New System.Drawing.Font("微軟正黑體", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.LoginButton.ForeColor = System.Drawing.Color.White
         Me.LoginButton.Location = New System.Drawing.Point(12, 76)
         Me.LoginButton.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.LoginButton.Name = "LoginButton"
         Me.LoginButton.Size = New System.Drawing.Size(135, 40)
-        Me.LoginButton.TabIndex = 9
-        Me.LoginButton.Text = "登入"
-        Me.LoginButton.UseVisualStyleBackColor = True
+        Me.LoginButton.TabIndex = 10
+        Me.LoginButton.Text = "儲存並登入"
+        Me.LoginButton.UseVisualStyleBackColor = False
         '
         'LoginFrm
         '
