@@ -39,10 +39,15 @@ Public Class LoginFrm
         disableViews()
 
         Try
-            Dim response As HttpWebResponse = HttpWebResponseUtility.CreateGetHttpResponse("http://" + JIANGONG_WIFI_SERVER, 7000, Nothing, Nothing)
+            Dim response As HttpWebResponse = HttpWebResponseUtility.CreateGetHttpResponse("https://www.example.com/", 7000, Nothing, Nothing)
             Dim reader As StreamReader = New StreamReader(response.GetResponseStream, System.Text.Encoding.GetEncoding("UTF-8"))
             Dim respHTML As String = reader.ReadToEnd()
-            checkLoginLocation(response.Headers.[Get]("Location"))
+            If (response.StatusCode = 200) Then
+                MsgBox("您已經登入或是有可用網路了。", MsgBoxStyle.Information, "高應無線通")
+                enableViews()
+            Else
+                checkLoginLocation(response.Headers.[Get]("Location"))
+            End If
             response.Close()
         Catch ex As Exception
             MsgBox("請求 Wi-Fi 伺服器的連線逾時。", MsgBoxStyle.Critical, "高應無線通")
@@ -96,7 +101,7 @@ Public Class LoginFrm
             MsgBox("請求 Wi-Fi 伺服器的連線逾時。", MsgBoxStyle.Critical, "高應無線通")
             enableViews()
         Else
-            If (_location.Contains("auth_entry")) Then
+            If (_location.Contains("login.php")) Then
                 If match.Success Then
                     login(match.Value)
                 Else
@@ -104,9 +109,18 @@ Public Class LoginFrm
                     enableViews()
                 End If
             Else
-                If (_location.Contains("login_online") Or _location.Contains("login.php")) Then
+                If (_location.Contains("login_online")) Then
                     MsgBox("您已經登入或是有可用網路了。", MsgBoxStyle.Information, "高應無線通")
                     enableViews()
+                Else
+                    If (match.Success And match.Value.Equals(JIANGONG_WIFI_SERVER)) Then
+                        login(YANCHAO_WIFI_SERVER)
+                    ElseIf (match.Success And match.Value.Equals(YANCHAO_WIFI_SERVER)) Then
+                        login(JIANGONG_WIFI_SERVER)
+                    Else
+                        MsgBox("發生錯誤！", MsgBoxStyle.Critical, "高應無線通")
+                        enableViews()
+                    End If
                 End If
             End If
         End If
@@ -117,10 +131,11 @@ Public Class LoginFrm
             MsgBox("請求 Wi-Fi 伺服器的連線逾時。", MsgBoxStyle.Critical, "高應無線通")
             enableViews()
         Else
-            If (_location.Contains("login_online") Or _location.Contains("login.php")) Then
+            If (_location.Contains("login_online")) Then
                 logout(JIANGONG_WIFI_SERVER)
-            ElseIf (_location.Contains("auth_entry")) Then
+            ElseIf (_location.Contains("login.php")) Then
                 MsgBox("您已經登出或是尚未登入WiFi。", MsgBoxStyle.Critical, "高應無線通")
+                enableViews()
             Else
                 logout(YANCHAO_WIFI_SERVER)
             End If
@@ -282,6 +297,8 @@ Namespace SilentWebModule
         ''' <param name="cookies">隨同HTTP請求發送的Cookie信息，如果不需要身分驗證可以為空</param>
         ''' <returns></returns>
         Public Shared Function CreateGetHttpResponse(url As String, timeout As System.Nullable(Of Integer), userAgent As String, cookies As CookieContainer) As HttpWebResponse
+            System.Net.ServicePointManager.Expect100Continue = False '防止417
+
             If String.IsNullOrEmpty(url) Then
                 Throw New ArgumentNullException("url")
             End If

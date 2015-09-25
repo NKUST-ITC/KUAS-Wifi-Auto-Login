@@ -417,7 +417,7 @@ public class LoginHelper {
 		if (!location.equals("")) {
 			if (location.contains("login_online")) {
 				logout(context, callback, Constant.JIANGONG_WIFI_SERVER);
-			} else if (location.contains("auth_entry")) {
+			} else if (location.contains("login.php")) {
 				tracker.send(
 						new HitBuilders.EventBuilder().setCategory("onFailure").setAction("Logout")
 								.setLabel("Already logged out").build());
@@ -498,6 +498,7 @@ public class LoginHelper {
 			mNotificationManager.notify(Constant.NOTIFICATION_LOGIN_ID, mBuilder.build());
 		} else {
 			errorTimes = 0;
+			mNotificationManager.cancel(Constant.NOTIFICATION_LOGIN_ID);
 		}
 
 		errorTimes++;
