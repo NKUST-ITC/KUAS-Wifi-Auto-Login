@@ -39,15 +39,10 @@ Public Class LoginFrm
         disableViews()
 
         Try
-            Dim response As HttpWebResponse = HttpWebResponseUtility.CreateGetHttpResponse("https://www.example.com/", 7000, Nothing, Nothing)
+            Dim response As HttpWebResponse = HttpWebResponseUtility.CreateGetHttpResponse("http://" + JIANGONG_WIFI_SERVER, 7000, Nothing, Nothing)
             Dim reader As StreamReader = New StreamReader(response.GetResponseStream, System.Text.Encoding.GetEncoding("UTF-8"))
             Dim respHTML As String = reader.ReadToEnd()
-            If (response.StatusCode = 200) Then
-                MsgBox("您已經登入或是有可用網路了。", MsgBoxStyle.Information, "高應無線通")
-                enableViews()
-            Else
-                checkLoginLocation(response.Headers.[Get]("Location"))
-            End If
+            checkLoginLocation(response.Headers.[Get]("Location"))
             response.Close()
         Catch ex As Exception
             MsgBox("請求 Wi-Fi 伺服器的連線逾時。", MsgBoxStyle.Critical, "高應無線通")
