@@ -12,8 +12,10 @@ public class Utils {
 		String ssid = null;
 		ConnectivityManager connManager =
 				(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		if (networkInfo.isConnected()) {
+		NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+		if (networkInfo != null && networkInfo.isConnected() &&
+				(networkInfo.getType() == ConnectivityManager.TYPE_WIFI ||
+						networkInfo.getType() == ConnectivityManager.TYPE_WIMAX)) {
 			final WifiManager wifiManager =
 					(WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 			final WifiInfo connectionInfo = wifiManager.getConnectionInfo();
@@ -22,7 +24,7 @@ public class Utils {
 				ssid = connectionInfo.getSSID();
 			}
 		}
-		return ssid == null ? ssid : ssid.replace("\"", "");
+		return ssid == null ? null : ssid.replace("\"", "");
 	}
 
 	public static boolean isExpectedSsid(String ssid) {
@@ -34,27 +36,28 @@ public class Utils {
 		return false;
 	}
 
-    public static String tranUser(String user)
-    {
-        if (user.contains("@kuas.edu.tw") || user.contains("@gm.kuas.edu.tw"))
-            if (user.contains("@kuas.edu.tw"))
-                return user + ",1,Student";
-            else
-                return user + ",@gm.kuas.edu.tw,Student";
-        else if (user.length() == 10 && !user.substring(0,2).equals("09"))
-            if (Integer.parseInt(user.substring(1,4)) <= 102)
-                return user + "@kuas.edu.tw" + ",1,Student";
-            else
-                return user + "@gm.kuas.edu.tw" + ",@gm.kuas.edu.tw,Student";
-        else if (user.length() == 5)
-            return user + "@kuas.edu.tw" + ",,Teacher";
-        else if (user.contains("@") && !user.contains("@guest"))
-            return user + ",,Cyber";
-        else
-            if (user.contains("@guest"))
-                return user + ",,Guest";
-            else
-                return user + "@guest,,Guest";
-    }
+	public static String tranUser(String user) {
+		if (user.contains("@kuas.edu.tw") || user.contains("@gm.kuas.edu.tw")) {
+			if (user.contains("@kuas.edu.tw")) {
+				return user + ",1,Student";
+			} else {
+				return user + ",@gm.kuas.edu.tw,Student";
+			}
+		} else if (user.length() == 10 && !user.substring(0, 2).equals("09")) {
+			if (Integer.parseInt(user.substring(1, 4)) <= 102) {
+				return user + "@kuas.edu.tw" + ",1,Student";
+			} else {
+				return user + "@gm.kuas.edu.tw" + ",@gm.kuas.edu.tw,Student";
+			}
+		} else if (user.length() == 5) {
+			return user + "@kuas.edu.tw" + ",,Teacher";
+		} else if (user.contains("@") && !user.contains("@guest")) {
+			return user + ",,Cyber";
+		} else if (user.contains("@guest")) {
+			return user + ",,Guest";
+		} else {
+			return user + "@guest,,Guest";
+		}
+	}
 
 }

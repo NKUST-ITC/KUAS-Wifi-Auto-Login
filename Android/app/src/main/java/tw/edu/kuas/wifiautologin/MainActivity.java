@@ -3,6 +3,7 @@ package tw.edu.kuas.wifiautologin;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -113,13 +114,15 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onSuccess(String message) {
-				mDebugTextView.setTextColor(getResources().getColor(R.color.black_text));
+				mDebugTextView.setTextColor(
+						ContextCompat.getColor(MainActivity.this, R.color.black_text));
 				showMessage(message);
 			}
 
 			@Override
 			public void onFail(String reason) {
-				mDebugTextView.setTextColor(getResources().getColor(R.color.md_red_a700));
+				mDebugTextView.setTextColor(
+						ContextCompat.getColor(MainActivity.this, R.color.md_red_a700));
 				showMessage(reason);
 			}
 		});
@@ -183,14 +186,16 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onSuccess(String message) {
-				mDebugTextView.setTextColor(getResources().getColor(R.color.black_text));
+				mDebugTextView.setTextColor(
+						ContextCompat.getColor(MainActivity.this, R.color.black_text));
 				showMessage(message);
 				finish();
 			}
 
 			@Override
 			public void onFail(String reason) {
-				mDebugTextView.setTextColor(getResources().getColor(R.color.md_red_a700));
+				mDebugTextView.setTextColor(
+						ContextCompat.getColor(MainActivity.this, R.color.md_red_a700));
 				showMessage(reason);
 			}
 		});

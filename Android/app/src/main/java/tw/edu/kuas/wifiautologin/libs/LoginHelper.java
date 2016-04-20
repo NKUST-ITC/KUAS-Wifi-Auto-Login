@@ -21,14 +21,14 @@ import com.google.android.gms.analytics.Tracker;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import org.apache.http.Header;
-import org.apache.http.HttpStatus;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpStatus;
 import tw.edu.kuas.wifiautologin.MainActivity;
 import tw.edu.kuas.wifiautologin.R;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
@@ -586,12 +586,13 @@ public class LoginHelper {
 	public static boolean checkSSID(Context context, GeneralCallback callback) {
 		String currentSsid = Utils.getCurrentSsid(context);
 		if (currentSsid == null || !Utils.isExpectedSsid(currentSsid)) {
-			if (currentSsid == null) {
-				currentSsid = context.getString(R.string.no_wifi_connection);
-			}
 			if (callback != null) {
-				callback.onFail(
-						String.format(context.getString(R.string.ssid_no_support), currentSsid));
+				if (currentSsid == null) {
+					callback.onFail(context.getString(R.string.no_wifi_connection));
+				} else {
+					callback.onFail(String.format(context.getString(R.string.ssid_no_support),
+							currentSsid));
+				}
 			}
 			return false;
 		}
