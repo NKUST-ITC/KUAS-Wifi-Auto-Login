@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -73,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
 		});
 		mUserNameTextInputLayout.setHint(getString(R.string.id_hint));
 		mPasswordTextInputLayout.setHint(getString(R.string.password_hint));
-		mProgressBar.getIndeterminateDrawable()
-				.setColorFilter(getResources().getColor(R.color.md_light_green_500),
-						PorterDuff.Mode.SRC_IN);
+		mProgressBar.getIndeterminateDrawable().setColorFilter(
+				ContextCompat.getColor(MainActivity.this, R.color.md_light_green_500),
+				PorterDuff.Mode.SRC_IN);
 
 		initGA();
 	}
@@ -165,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
 
 		String userData;
 		String password = mPasswordEditText.getText().toString();
-		if (mUsernameEditText.getText().toString().equals("") ||
-				mPasswordEditText.getText().toString().equals("")) {
+		if (TextUtils.isEmpty(mUsernameEditText.getText().toString()) ||
+				TextUtils.isEmpty(password)) {
 			userData = Utils.tranUser("0937808285@guest");
 			password = "1306";
 		} else {
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 		String loginType = userData.split(",")[2];
 		String ssid = Utils.getCurrentSsid(this);
 
-		if (ssid != null) {
+		if (!TextUtils.isEmpty(ssid)) {
 			if (ssid.equals(Constant.EXPECTED_SSIDS[2])) {
 				loginType = "Dorm";
 			}

@@ -12,6 +12,7 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import org.jsoup.Jsoup;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpStatus;
@@ -585,9 +587,9 @@ public class LoginHelper {
 
 	public static boolean checkSSID(Context context, GeneralCallback callback) {
 		String currentSsid = Utils.getCurrentSsid(context);
-		if (currentSsid == null || !Utils.isExpectedSsid(currentSsid)) {
+		if (TextUtils.isEmpty(currentSsid) || !Utils.isExpectedSsid(currentSsid)) {
 			if (callback != null) {
-				if (currentSsid == null) {
+				if (TextUtils.isEmpty(currentSsid)) {
 					callback.onFail(context.getString(R.string.no_wifi_connection));
 				} else {
 					callback.onFail(String.format(context.getString(R.string.ssid_no_support),
@@ -604,8 +606,8 @@ public class LoginHelper {
 		WifiInfo wifiInf = wifiMan.getConnectionInfo();
 		long ip = wifiInf.getIpAddress();
 		if (ip != 0) {
-			return String.format("%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff),
-					(ip >> 24 & 0xff));
+			return String.format(Locale.getDefault(), "%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff),
+					(ip >> 16 & 0xff), (ip >> 24 & 0xff));
 		}
 
 		return "0.0.0.0";
