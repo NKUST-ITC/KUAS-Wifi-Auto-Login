@@ -17,7 +17,8 @@ public class Constant {
 	public static final String DEFAULT_GUEST_PWD = "1306";
 
 	// Notification IDs
-	public static final int NOTIFICATION_ID = 122;
+	public static final int NOTIFICATION_LOGIN_ID = 121;
+	public static final int NOTIFICATION_SUCCESS_ID = 122;
 	public static final int NOTIFICATION_FAIL_ID = 123;
 	public static final int NOTIFICATION_ALREADY_ID = 124;
 

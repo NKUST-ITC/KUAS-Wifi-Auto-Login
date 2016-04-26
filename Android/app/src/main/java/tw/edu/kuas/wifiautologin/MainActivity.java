@@ -112,8 +112,9 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		LoginHelper.logout(this, new GeneralCallback() {
 			@Override
 			public void onSuccess(final String message) {
-				mTracker.send(new HitBuilders.EventBuilder().setCategory("logout")
-						.setAction("success").setLabel(message).build());
+				mTracker.send(
+						new HitBuilders.EventBuilder().setCategory("logout").setAction("success")
+								.setLabel(message).build());
 				if (isFinishing()) {
 					return;
 				}
@@ -128,8 +129,8 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 
 			@Override
 			public void onFail(final String reason) {
-				mTracker.send(new HitBuilders.EventBuilder().setCategory("logout")
-						.setAction("fail").setLabel(reason).build());
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("logout").setAction("fail")
+						.setLabel(reason).build());
 				if (isFinishing()) {
 					return;
 				}
@@ -216,8 +217,9 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 				if (isFinishing()) {
 					return;
 				}
-				mTracker.send(new HitBuilders.EventBuilder().setCategory("login")
-						.setAction("success").setLabel(message).build());
+				mTracker.send(
+						new HitBuilders.EventBuilder().setCategory("login").setAction("success")
+								.setLabel(message).build());
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
@@ -235,8 +237,8 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 
 			@Override
 			public void onFail(final String reason) {
-				mTracker.send(new HitBuilders.EventBuilder().setCategory("login")
-						.setAction("fail").setLabel(reason).build());
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("login").setAction("fail")
+						.setLabel(reason).build());
 				if (isFinishing()) {
 					return;
 				}

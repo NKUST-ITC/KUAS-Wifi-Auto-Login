@@ -21,7 +21,8 @@
 	<string name="already_logged_in">Already logged in.</string>
 	<string name="logout_successful">Logout successful.</string>
 	<string name="ssid_no_support">SSID not supported：%s.</string>
-	<string name="login_to_ssid">Login to %s&#8230;</string>
+	<string name="login_campus">Login to %s campus&#8230;</string>
+	<string name="login_dorm">Login to %s dorm&#8230;</string>
 	<string name="failed_to_login">Failed to login.</string>
 	<string name="user_pwd_error">The username or password is incorrect.</string>
 	<string name="login_timeout">Connection Timeout.</string>

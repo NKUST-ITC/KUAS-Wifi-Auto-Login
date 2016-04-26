@@ -39,7 +39,7 @@ public class NotificationHelper {
 				.setSmallIcon(R.drawable.ic_network_wifi_white_24dp).setProgress(0, 0, progress)
 				.setOngoing(progress);
 
-		if (id == Constant.NOTIFICATION_ID) {
+		if (id == Constant.NOTIFICATION_SUCCESS_ID) {
 			builder.setVibrate(vibrationPattern);
 			builder.setLights(Color.GREEN, 800, 800);
 		}

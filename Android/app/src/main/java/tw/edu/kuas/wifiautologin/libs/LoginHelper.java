@@ -47,35 +47,28 @@ public class LoginHelper {
 		client.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
-				if (callback != null) {
-					callback.onFail(context.getString(R.string.login_timeout));
-				}
+				loginFail(context, context.getString(R.string.login_timeout), callback);
 			}
 
 			@Override
 			public void onResponse(Call call, Response response) {
 				call.cancel();
 				if (response.code() == 200) {
-					if (context instanceof MainActivity) {
-						if (callback != null) {
-							callback.onAlready();
-						}
-					} else {
+					if (callback != null) {
+						callback.onAlready();
+					}
+					if (!(context instanceof MainActivity)) {
 						NotificationHelper.createNotification(context,
 								context.getString(R.string.already_logged_in), false, false,
 								Constant.NOTIFICATION_ALREADY_ID);
 					}
 				} else if (response.code() == 302) {
-					NotificationHelper.createNotification(context,
-							context.getString(R.string.login_to_ssid,
-									Utils.getCurrentSSID(context)), true, false,
-							Constant.NOTIFICATION_ID);
 					Uri uri = Uri.parse(response.header("location"));
-					login(context, uri.getAuthority(), model.loginType, requestBody, callback);
+					String location = uri.getAuthority();
+					showLoginNotification(context, model.loginType, location);
+					login(context, location, model.loginType, requestBody, callback);
 				} else {
-					if (callback != null) {
-						callback.onFail(context.getString(R.string.login_timeout));
-					}
+					loginFail(context, context.getString(R.string.login_timeout), callback);
 				}
 			}
 		});
@@ -109,10 +102,7 @@ public class LoginHelper {
 		client.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
-				NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_ID);
-				if (callback != null) {
-					callback.onFail(context.getString(R.string.login_timeout));
-				}
+				loginFail(context, context.getString(R.string.login_timeout), callback);
 			}
 
 			@Override
@@ -122,51 +112,24 @@ public class LoginHelper {
 					if (_response.contains("login_online_detail.php")) {
 						loginSuccess(context, location, loginType, callback);
 					} else {
-						NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_ID);
 						if (_response.contains("reason")) {
 							int _reason = Integer.parseInt(_response
 									.substring(_response.indexOf("reason=") + 7,
 											_response.indexOf("&", _response.indexOf("reason="))));
 							if (_reason == 27 || _reason == 35) {
-								if (callback != null) {
-									callback.onFail(context.getString(R.string.user_pwd_error));
-								} else {
-									NotificationHelper.createNotification(context,
-											context.getString(R.string.user_pwd_error), false,
-											false, Constant.NOTIFICATION_FAIL_ID);
-								}
+								loginFail(context, context.getString(R.string.user_pwd_error),
+										callback);
 							} else {
-								if (callback != null) {
-									callback.onFail(Reason.dumpReason(_reason));
-								} else {
-									NotificationHelper
-											.createNotification(context, Reason.dumpReason(_reason),
-													false, false, Constant.NOTIFICATION_FAIL_ID);
-								}
+								loginFail(context, Reason.dumpReason(_reason), callback);
 							}
 						} else if (_response.contains("404 - Not Found")) {
-							if (callback != null) {
-								callback.onFail(context.getString(R.string.login_timeout));
-							} else {
-								NotificationHelper.createNotification(context,
-										context.getString(R.string.login_timeout), false, false,
-										Constant.NOTIFICATION_FAIL_ID);
-							}
+							loginFail(context, context.getString(R.string.login_timeout), callback);
 						} else {
-							if (callback != null) {
-								callback.onFail(context.getString(R.string.login_timeout));
-							} else {
-								NotificationHelper.createNotification(context,
-										context.getString(R.string.login_timeout), false, false,
-										Constant.NOTIFICATION_FAIL_ID);
-							}
+							loginFail(context, context.getString(R.string.login_timeout), callback);
 						}
 					}
 				} catch (Exception e) {
-					NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_ID);
-					if (callback != null) {
-						callback.onFail(context.getString(R.string.login_timeout));
-					}
+					loginFail(context, context.getString(R.string.login_timeout), callback);
 				}
 			}
 		});
@@ -200,6 +163,7 @@ public class LoginHelper {
 		});
 	}
 
+	// TODO should check does yanchao campus working
 	private static void checkLogoutLocation(final Context context, String location,
 	                                        @NonNull final GeneralCallback callback) {
 		if (location.contains("login_online")) {
@@ -228,12 +192,26 @@ public class LoginHelper {
 			public void onResponse(Call call, Response response) {
 				if (response.code() == 200) {
 					callback.onSuccess(context.getString(R.string.logout_successful));
-					NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_ID);
+					NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_LOGIN_ID);
+					NotificationHelper
+							.cancelNotification(context, Constant.NOTIFICATION_SUCCESS_ID);
+					NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_FAIL_ID);
+					NotificationHelper
+							.cancelNotification(context, Constant.NOTIFICATION_ALREADY_ID);
 				} else {
 					callback.onFail(context.getString(R.string.failed_to_logout));
 				}
 			}
 		});
+	}
+
+	private static void showLoginNotification(Context context, UserModel.LoginType loginType,
+	                                          String location) {
+		NotificationHelper.createNotification(context, context.getString(
+				loginType == UserModel.LoginType.DORM ? R.string.login_dorm : R.string.login_campus,
+				context.getString(
+						location.equals(Constant.JIANGONG_WIFI_SERVER) ? R.string.jiangong :
+								R.string.yanchao)), true, false, Constant.NOTIFICATION_LOGIN_ID);
 	}
 
 	private static void loginSuccess(Context context, String location,
@@ -259,8 +237,9 @@ public class LoginHelper {
 				result = context.getString(R.string.login_guest_successfully, campus);
 		}
 
-		NotificationHelper
-				.createNotification(context, result, false, false, Constant.NOTIFICATION_ID);
+		NotificationHelper.createNotification(context, result, false, false,
+				Constant.NOTIFICATION_SUCCESS_ID);
+		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_LOGIN_ID);
 		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_FAIL_ID);
 		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_ALREADY_ID);
 
@@ -268,4 +247,16 @@ public class LoginHelper {
 			callback.onSuccess(result);
 		}
 	}
+
+	private static void loginFail(Context context, String reason, GeneralCallback callback) {
+		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_LOGIN_ID);
+		if (callback != null) {
+			callback.onFail(reason);
+		}
+		if (!(context instanceof MainActivity)) {
+			NotificationHelper.createNotification(context, reason, false, true,
+					Constant.NOTIFICATION_FAIL_ID);
+		}
+	}
+
 }

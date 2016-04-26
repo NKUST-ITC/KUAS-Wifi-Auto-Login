@@ -19,7 +19,8 @@
 	<string name="already_logged_in">您已經登入或是有可用網路了。</string>
 	<string name="logout_successful">WiFi 登出成功。</string>
 	<string name="ssid_no_support">不支援的 SSID：%s。</string>
-	<string name="login_to_ssid">正在登入%s&#8230;</string>
+	<string name="login_campus">正在登入%s校區&#8230;</string>
+	<string name="login_dorm">正在登入%s宿舍&#8230;</string>
 	<string name="failed_to_login">登入失敗，請再嘗試一次。</string>
 	<string name="user_pwd_error">認證失敗，請檢查您的帳號及密碼。</string>
 	<string name="login_timeout">請求 Wi-Fi 伺服器的連線逾時。</string>
