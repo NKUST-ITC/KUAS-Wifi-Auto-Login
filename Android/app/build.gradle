@@ -18,10 +18,9 @@ android {
                     'proguard-rules.pro',
                     'proguard-appcompat-v7.pro',
                     'proguard-google-play-services.pro',
-                    'proguard-android-async-http.pro',
                     'proguard-butterknife.pro',
-                    'proguard-jsoup.pro',
-                    'proguard-support-design.pro'
+                    'proguard-support-design.pro',
+                    'proguard-square-okhttp3.pro'
         }
         release {
             minifyEnabled true
@@ -29,10 +28,9 @@ android {
                     'proguard-rules.pro',
                     'proguard-appcompat-v7.pro',
                     'proguard-google-play-services.pro',
-                    'proguard-android-async-http.pro',
                     'proguard-butterknife.pro',
-                    'proguard-jsoup.pro',
-                    'proguard-support-design.pro'
+                    'proguard-support-design.pro',
+                    'proguard-square-okhttp3.pro'
         }
     }
 }
@@ -41,10 +39,9 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
-    compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.google.android.gms:play-services-analytics:8.4.0'
-    compile 'org.jsoup:jsoup:1.9.1'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

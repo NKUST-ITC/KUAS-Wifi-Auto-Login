@@ -2,6 +2,7 @@ package tw.edu.kuas.wifiautologin;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -21,13 +23,14 @@ import com.google.android.gms.analytics.Tracker;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import tw.edu.kuas.wifiautologin.libs.Constant;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
-import tw.edu.kuas.wifiautologin.libs.Memory;
+import tw.edu.kuas.wifiautologin.libs.Constant;
 import tw.edu.kuas.wifiautologin.libs.LoginHelper;
+import tw.edu.kuas.wifiautologin.libs.Memory;
 import tw.edu.kuas.wifiautologin.libs.Utils;
+import tw.edu.kuas.wifiautologin.models.UserModel;
 
-public class MainActivity extends AppCompatActivity {
+@SuppressWarnings("unused") public class MainActivity extends AppCompatActivity {
 
 	@Bind(R.id.button_login) Button mLoginButton;
 
@@ -43,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 	TextInputLayout mUserNameTextInputLayout, mPasswordTextInputLayout;
 
-	public static GoogleAnalytics analytics;
-	public static Tracker tracker;
+	private static Tracker mTracker;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,26 +81,22 @@ public class MainActivity extends AppCompatActivity {
 				PorterDuff.Mode.SRC_IN);
 
 		initGA();
+		Utils.forceUseWifi(this);
 	}
 
 	private void initGA() {
-		analytics = GoogleAnalytics.getInstance(this);
-		analytics.setLocalDispatchPeriod(30);
+		GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+		mTracker = analytics.newTracker("UA-46334408-1");
+		mTracker.enableExceptionReporting(true);
+		mTracker.enableAdvertisingIdCollection(true);
+		mTracker.enableAutoActivityTracking(true);
 
-		tracker = analytics.newTracker("UA-46334408-1");
-		tracker.enableExceptionReporting(true);
-		tracker.enableAdvertisingIdCollection(true);
-		tracker.enableAutoActivityTracking(true);
-
-		tracker.setScreenName("Main");
-
-		tracker.send(new HitBuilders.EventBuilder().setCategory("UX").setAction("onCreate")
-				.setLabel("Created").build());
+		mTracker.setScreenName("Main Screen");
 	}
 
 	@OnClick(R.id.button_login)
 	public void login() {
-		tracker.send(new HitBuilders.EventBuilder().setCategory("UX").setAction("Click")
+		mTracker.send(new HitBuilders.EventBuilder().setCategory("UX").setAction("Click")
 				.setLabel("Save & Login").build());
 
 		disableViews();
@@ -107,24 +105,57 @@ public class MainActivity extends AppCompatActivity {
 
 	@OnClick(R.id.button_logout)
 	public void logout() {
-		tracker.send(new HitBuilders.EventBuilder().setCategory("UX").setAction("Click")
+		mTracker.send(new HitBuilders.EventBuilder().setCategory("UX").setAction("Click")
 				.setLabel("Logout").build());
 
 		disableViews();
 		LoginHelper.logout(this, new GeneralCallback() {
-
 			@Override
-			public void onSuccess(String message) {
-				mDebugTextView.setTextColor(
-						ContextCompat.getColor(MainActivity.this, R.color.black_text));
-				showMessage(message);
+			public void onSuccess(final String message) {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("logout")
+						.setAction("success").setLabel(message).build());
+				if (isFinishing()) {
+					return;
+				}
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						mDebugTextView.setEnabled(true);
+						showMessage(message);
+					}
+				});
 			}
 
 			@Override
-			public void onFail(String reason) {
-				mDebugTextView.setTextColor(
-						ContextCompat.getColor(MainActivity.this, R.color.md_red_a700));
-				showMessage(reason);
+			public void onFail(final String reason) {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("logout")
+						.setAction("fail").setLabel(reason).build());
+				if (isFinishing()) {
+					return;
+				}
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						mDebugTextView.setEnabled(false);
+						showMessage(reason);
+					}
+				});
+			}
+
+			@Override
+			public void onAlready() {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("logout")
+						.setAction("alreadyLogout").build());
+				if (isFinishing()) {
+					return;
+				}
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						mDebugTextView.setEnabled(true);
+						showMessage(getString(R.string.already_logged_out));
+					}
+				});
 			}
 		});
 	}
@@ -160,54 +191,86 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void saveAndLogin() {
-		Memory.setString(this, Constant.MEMORY_KEY_USER, mUsernameEditText.getText().toString());
-		Memory.setString(this, Constant.MEMORY_KEY_PASSWORD,
-				mPasswordEditText.getText().toString());
+		String user = mUsernameEditText.getText().toString();
+		String pwd = mPasswordEditText.getText().toString();
 
-		String userData;
-		String password = mPasswordEditText.getText().toString();
-		if (TextUtils.isEmpty(mUsernameEditText.getText().toString()) ||
-				TextUtils.isEmpty(password)) {
-			userData = Utils.tranUser("0937808285@guest");
-			password = "1306";
+		Memory.setString(this, Constant.MEMORY_KEY_USER, user);
+		Memory.setString(this, Constant.MEMORY_KEY_PASSWORD, pwd);
+
+		UserModel model;
+		if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pwd)) {
+			model = Utils.tranUser(Constant.DEFAULT_GUEST_ACCOUNT, Constant.DEFAULT_GUEST_PWD);
 		} else {
-			userData = Utils.tranUser(mUsernameEditText.getText().toString());
+			model = Utils.tranUser(user, pwd);
 		}
 
-		String loginType = userData.split(",")[2];
-		String ssid = Utils.getCurrentSsid(this);
+		String ssid = Utils.getCurrentSSID(this);
 
-		if (!TextUtils.isEmpty(ssid)) {
-			if (ssid.equals(Constant.EXPECTED_SSIDS[2])) {
-				loginType = "Dorm";
-			}
+		if (Constant.EXPECTED_SSIDS.get(2).equals(ssid)) {
+			model.loginType = UserModel.LoginType.DORM;
 		}
 
-		LoginHelper.login(this, userData.split(",")[0], password, loginType, new GeneralCallback() {
-
+		LoginHelper.login(this, Utils.tranUser(user, pwd), new GeneralCallback() {
 			@Override
-			public void onSuccess(String message) {
-				mDebugTextView.setTextColor(
-						ContextCompat.getColor(MainActivity.this, R.color.black_text));
-				showMessage(message);
-				finish();
+			public void onSuccess(final String message) {
+				if (isFinishing()) {
+					return;
+				}
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("login")
+						.setAction("success").setLabel(message).build());
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						mDebugTextView.setEnabled(true);
+						showMessage(message);
+						new Handler().postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								finish();
+							}
+						}, 800);
+					}
+				});
 			}
 
 			@Override
-			public void onFail(String reason) {
-				mDebugTextView.setTextColor(
-						ContextCompat.getColor(MainActivity.this, R.color.md_red_a700));
-				showMessage(reason);
+			public void onFail(final String reason) {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("login")
+						.setAction("fail").setLabel(reason).build());
+				if (isFinishing()) {
+					return;
+				}
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						mDebugTextView.setEnabled(false);
+						showMessage(reason);
+					}
+				});
+			}
+
+			@Override
+			public void onAlready() {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("login")
+						.setAction("alreadyLogin").build());
+				if (isFinishing()) {
+					return;
+				}
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(MainActivity.this, R.string.already_logged_in,
+								Toast.LENGTH_SHORT).show();
+						finish();
+					}
+				});
 			}
 		});
 	}
 
-	private void showMessage(CharSequence message) {
+	private void showMessage(String message) {
 		mDebugTextView.setVisibility(View.VISIBLE);
 		mDebugTextView.setText(message);
 		enableViews();
-
-		tracker.send(new HitBuilders.EventBuilder().setCategory("UX").setAction("showMessage")
-				.setLabel(message.toString()).build());
 	}
 }

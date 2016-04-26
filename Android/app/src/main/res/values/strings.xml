@@ -11,17 +11,17 @@
 	<string name="login_sucessful">Login successful.</string>
 	<string name="jiangong">JianGong</string>
 	<string name="yanchao">YanChao</string>
-	<string name="login_successfully" formatted="false">Wi-Fi login successful,Welcome to KUAS (%s)!</string>
-	<string name="login_guest_successfully" formatted="false">Guest login successful,Welcome to KUAS (%s)!</string>
-	<string name="login_cyber_successfully" formatted="false">Cyber login successful,Welcome to KUAS (%s)!</string>
-	<string name="login_dorm_successfully" formatted="false">Dorm login successful,Welcome back to KUAS Dorm (%s)!</string>
-	<string name="login_teacher_successfully" formatted="false">Teacher login successful,Welcome to KUAS (%s)!</string>
-	<string name="login_ready">Already logged in.</string>
-	<string name="logout_successful">Logout successful.</string>
-	<string name="connected_to_ssid" formatted="false">Connected to %s.</string>
-	<string name="ssid_no_support" formatted="false">SSID not supported：%s.</string>
-	<string name="login_to_ssid" formatted="false">Login to %s&#8230;</string>
+	<string name="login_successfully">Wi-Fi login successful, Welcome to KUAS (%s)!</string>
+	<string name="login_guest_successfully">Guest login successful, Welcome to KUAS (%s)!</string>
+	<string name="login_cyber_successfully">Cyber login successful, Welcome to KUAS (%s)!</string>
+	<string name="login_dorm_successfully">Dorm login successful, Welcome back to KUAS Dorm
+		(%s)!</string>
+	<string name="login_teacher_successfully">Teacher login successful, Welcome to KUAS (%s)
+		!</string>
 	<string name="already_logged_in">Already logged in.</string>
+	<string name="logout_successful">Logout successful.</string>
+	<string name="ssid_no_support">SSID not supported：%s.</string>
+	<string name="login_to_ssid">Login to %s&#8230;</string>
 	<string name="failed_to_login">Failed to login.</string>
 	<string name="user_pwd_error">The username or password is incorrect.</string>
 	<string name="login_timeout">Connection Timeout.</string>

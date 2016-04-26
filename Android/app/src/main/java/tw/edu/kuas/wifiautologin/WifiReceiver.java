@@ -1,58 +1,86 @@
 package tw.edu.kuas.wifiautologin;
 
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
-import android.util.Log;
+import android.text.TextUtils;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
 import tw.edu.kuas.wifiautologin.libs.Constant;
-import tw.edu.kuas.wifiautologin.libs.Memory;
 import tw.edu.kuas.wifiautologin.libs.LoginHelper;
+import tw.edu.kuas.wifiautologin.libs.Memory;
 import tw.edu.kuas.wifiautologin.libs.Utils;
+import tw.edu.kuas.wifiautologin.models.UserModel;
 
 public class WifiReceiver extends BroadcastReceiver {
+
+	static Tracker mTracker;
+
+	private void initGA(Context context) {
+		GoogleAnalytics analytics = GoogleAnalytics.getInstance(context);
+		mTracker = analytics.newTracker("UA-46334408-1");
+		mTracker.enableExceptionReporting(true);
+		mTracker.enableAdvertisingIdCollection(true);
+		mTracker.enableAutoActivityTracking(true);
+
+		mTracker.setScreenName("Wifi Receiver");
+	}
 
 	@Override
 	public void onReceive(final Context context, Intent intent) {
 		String action = intent.getAction();
 
 		if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
-			WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+			Utils.forceUseWifi(context);
+			initGA(context);
+
 			NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 			NetworkInfo.State state = networkInfo.getState();
 
 			if (state == NetworkInfo.State.CONNECTED) {
-				String ssid = manager.getConnectionInfo().getSSID().replace("\"", "");
-				if (Utils.isExpectedSsid(ssid)) {
-					// connected
+				String ssid = Utils.getCurrentSSID(context);
+				if (Utils.isExpectedSSID(ssid)) {
 					String user = Memory.getString(context, Constant.MEMORY_KEY_USER, null);
-					String password = Memory.getString(context, Constant.MEMORY_KEY_PASSWORD, null);
-					if (user != null && password != null) {
-						String userData = Utils.tranUser(user);
-						if (ssid.equals(Constant.EXPECTED_SSIDS[2])) {
-							LoginHelper
-									.login(context, userData.split(",")[0], password, "Dorm", null);
-						} else {
-							LoginHelper.login(context, userData.split(",")[0], password,
-									userData.split(",")[2], null);
+					String pwd = Memory.getString(context, Constant.MEMORY_KEY_PASSWORD, null);
+					if (!TextUtils.isEmpty(user) && !TextUtils.isEmpty(pwd)) {
+						UserModel model = Utils.tranUser(user, pwd);
+						if (Constant.EXPECTED_SSIDS.get(2).equals(ssid)) {
+							model.loginType = UserModel.LoginType.DORM;
 						}
+						login(context, model);
 					}
-				}
-			}
-
-			if (state == NetworkInfo.State.DISCONNECTED) {
-				if (manager.isWifiEnabled()) {
-					// disconnected
-					String infoString = "Wi-Fi disconnected.";
-					Log.i(Constant.TAG, infoString);
-					NotificationManager notificationManager = (NotificationManager) context
-							.getSystemService(Context.NOTIFICATION_SERVICE);
-					notificationManager.cancel(Constant.NOTIFICATION_LOGIN_ID);
 				}
 			}
 		}
 	}
+
+	private void login(Context context, UserModel model) {
+		LoginHelper.login(context, model, new GeneralCallback() {
+			@Override
+			public void onSuccess(final String message) {
+				mTracker.send(
+						new HitBuilders.EventBuilder().setCategory("logout").setAction("success")
+								.setLabel(message).build());
+			}
+
+			@Override
+			public void onFail(final String reason) {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("logout").setAction("fail")
+						.setLabel(reason).build());
+			}
+
+			@Override
+			public void onAlready() {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("logout")
+						.setAction("alreadyLogout").build());
+			}
+		});
+	}
+
 }
