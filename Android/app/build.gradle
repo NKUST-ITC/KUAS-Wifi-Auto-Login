@@ -20,7 +20,8 @@ android {
                     'proguard-google-play-services.pro',
                     'proguard-butterknife.pro',
                     'proguard-support-design.pro',
-                    'proguard-square-okhttp3.pro'
+                    'proguard-square-okhttp3.pro',
+                    'proguard-square-okio.pro'
         }
         release {
             minifyEnabled true
@@ -30,7 +31,8 @@ android {
                     'proguard-google-play-services.pro',
                     'proguard-butterknife.pro',
                     'proguard-support-design.pro',
-                    'proguard-square-okhttp3.pro'
+                    'proguard-square-okhttp3.pro',
+                    'proguard-square-okio.pro'
         }
     }
 }
