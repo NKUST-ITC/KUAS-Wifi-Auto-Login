@@ -1,13 +1,10 @@
 KUAS Wifi Auto Login
 ===========
 
-## 已完成功能:
-- Login
-- Logout
-- Wifi Auto Login (Backgroud)
-- GPS定位校區 (改用Headers & IP判斷)
-- Windows版
-
 ## TODO-List:
-- TANetRoaming支援
-- 流量統計
+- [x] Login / Logout
+- [x] Wifi Auto Login (Service)
+- [x] 定位校區 (用 Location Header 判斷)
+- [x] Windows 版
+- [ ] TANetRoaming支援
+- [ ] 流量統計
