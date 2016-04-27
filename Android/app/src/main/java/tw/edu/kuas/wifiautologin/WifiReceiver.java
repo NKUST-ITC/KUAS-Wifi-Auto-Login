@@ -20,6 +20,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 
 public class WifiReceiver extends BroadcastReceiver {
 
+	private static boolean firstConnect = true;
 	static Tracker mTracker;
 
 	private void initGA(Context context) {
@@ -41,9 +42,8 @@ public class WifiReceiver extends BroadcastReceiver {
 			initGA(context);
 
 			NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-			NetworkInfo.State state = networkInfo.getState();
-
-			if (state == NetworkInfo.State.CONNECTED) {
+			if (networkInfo.isConnected() && firstConnect) {
+				firstConnect = false;
 				String ssid = Utils.getCurrentSSID(context);
 				if (Utils.isExpectedSSID(ssid)) {
 					String user = Memory.getString(context, Constant.MEMORY_KEY_USER, null);
@@ -56,6 +56,8 @@ public class WifiReceiver extends BroadcastReceiver {
 						login(context, model);
 					}
 				}
+			} else {
+				firstConnect = true;
 			}
 		}
 	}

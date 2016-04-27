@@ -19,7 +19,8 @@ public class Utils {
 		WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 		if (wifiInfo != null && !TextUtils.isEmpty(wifiInfo.getSSID())) {
-			return wifiInfo.getSSID().replace("\"", "");
+			String ssid = wifiInfo.getSSID();
+			return ssid.startsWith("\"") ? ssid.substring(1, ssid.length() - 1) : null;
 		}
 		return null;
 	}
