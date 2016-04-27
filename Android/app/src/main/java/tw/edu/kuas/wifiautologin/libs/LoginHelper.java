@@ -44,10 +44,12 @@ public class LoginHelper {
 	}
 
 	public static void login(final Context context, final UserModel model,
-	                         final GeneralCallback callback) {
+	                         @NonNull final GeneralCallback callback) {
 		if (!checkSSID(context, callback)) {
 			return;
 		}
+
+		Utils.requestNetwork(context);
 
 		final RequestBody requestBody =
 				new FormBody.Builder().add("username", model.username).add("userpwd", model.userpwd)
@@ -65,9 +67,7 @@ public class LoginHelper {
 			public void onResponse(Call call, Response response) {
 				call.cancel();
 				if (response.code() == 200) {
-					if (callback != null) {
-						callback.onAlready();
-					}
+					callback.onAlready(context);
 					if (!(context instanceof MainActivity)) {
 						NotificationHelper.createNotification(context,
 								context.getString(R.string.already_logged_in), false, false,
@@ -85,16 +85,14 @@ public class LoginHelper {
 		});
 	}
 
-	private static boolean checkSSID(Context context, GeneralCallback callback) {
+	private static boolean checkSSID(Context context, @NonNull GeneralCallback callback) {
 		String ssid = Utils.getCurrentSSID(context);
 		if (TextUtils.isEmpty(ssid) || !Utils.isExpectedSSID(ssid)) {
-			if (callback != null) {
-				if (TextUtils.isEmpty(ssid)) {
-					callback.onFail(context.getString(R.string.no_wifi_connection));
-				} else {
-					callback.onFail(
-							String.format(context.getString(R.string.ssid_no_support), ssid));
-				}
+			if (TextUtils.isEmpty(ssid)) {
+				callback.onFail(context, context.getString(R.string.no_wifi_connection));
+			} else {
+				callback.onFail(context,
+						String.format(context.getString(R.string.ssid_no_support), ssid));
 			}
 			return false;
 		}
@@ -103,7 +101,7 @@ public class LoginHelper {
 
 	private static void login(final Context context, final String location,
 	                          final UserModel.LoginType loginType, final RequestBody requestBody,
-	                          final GeneralCallback callback) {
+	                          @NonNull final GeneralCallback callback) {
 
 		String url = String.format(Locale.getDefault(), LOGIN_URL, location);
 
@@ -152,6 +150,7 @@ public class LoginHelper {
 			return;
 		}
 
+		Utils.requestNetwork(context);
 		initGA(context);
 
 		String url = String.format(Locale.getDefault(), TEST_LOGOUT_URL,
@@ -162,7 +161,7 @@ public class LoginHelper {
 		mClient.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
-				callback.onFail(context.getString(R.string.failed_to_logout));
+				callback.onFail(context, context.getString(R.string.failed_to_logout));
 			}
 
 			@Override
@@ -171,7 +170,7 @@ public class LoginHelper {
 				if (response.code() == 302) {
 					checkLogoutLocation(context, response.header("location"), recheck, callback);
 				} else {
-					callback.onFail(context.getString(R.string.failed_to_logout));
+					callback.onFail(context, context.getString(R.string.failed_to_logout));
 				}
 			}
 		});
@@ -186,7 +185,7 @@ public class LoginHelper {
 			if (recheck) {
 				logout(context, false, callback);
 			} else {
-				callback.onAlready();
+				callback.onAlready(context);
 			}
 		} else {
 			mTracker.send(
@@ -207,13 +206,13 @@ public class LoginHelper {
 		mClient.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
-				callback.onFail(context.getString(R.string.failed_to_logout));
+				callback.onFail(context, context.getString(R.string.failed_to_logout));
 			}
 
 			@Override
 			public void onResponse(Call call, Response response) {
 				if (response.code() == 200) {
-					callback.onSuccess(context.getString(R.string.logout_successful));
+					callback.onSuccess(context, context.getString(R.string.logout_successful));
 					NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_LOGIN_ID);
 					NotificationHelper
 							.cancelNotification(context, Constant.NOTIFICATION_SUCCESS_ID);
@@ -221,7 +220,7 @@ public class LoginHelper {
 					NotificationHelper
 							.cancelNotification(context, Constant.NOTIFICATION_ALREADY_ID);
 				} else {
-					callback.onFail(context.getString(R.string.failed_to_logout));
+					callback.onFail(context, context.getString(R.string.failed_to_logout));
 				}
 			}
 		});
@@ -237,7 +236,8 @@ public class LoginHelper {
 	}
 
 	private static void loginSuccess(Context context, String location,
-	                                 UserModel.LoginType loginType, GeneralCallback callback) {
+	                                 UserModel.LoginType loginType,
+	                                 @NonNull GeneralCallback callback) {
 		String campus = location.equals(Constant.JIANGONG_WIFI_SERVER) ?
 				context.getString(R.string.jiangong) : context.getString(R.string.yanchao);
 		String result;
@@ -265,16 +265,13 @@ public class LoginHelper {
 		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_FAIL_ID);
 		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_ALREADY_ID);
 
-		if (callback != null) {
-			callback.onSuccess(result);
-		}
+		callback.onSuccess(context, result);
 	}
 
-	private static void loginFail(Context context, String reason, GeneralCallback callback) {
+	private static void loginFail(Context context, String reason,
+	                              @NonNull GeneralCallback callback) {
 		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_LOGIN_ID);
-		if (callback != null) {
-			callback.onFail(reason);
-		}
+		callback.onFail(context, reason);
 		if (!(context instanceof MainActivity)) {
 			NotificationHelper.createNotification(context, reason, false, true,
 					Constant.NOTIFICATION_FAIL_ID);

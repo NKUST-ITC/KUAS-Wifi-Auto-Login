@@ -10,10 +10,14 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 
 import tw.edu.kuas.wifiautologin.models.UserModel;
 
 public class Utils {
+
+	private static ConnectivityManager.NetworkCallback mCallback;
+	private static ConnectivityManager mConnectivityManager;
 
 	public static String getCurrentSSID(Context context) {
 		WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -72,26 +76,73 @@ public class Utils {
 		return model;
 	}
 
-	@TargetApi(21)
-	public static void forceUseWifi(Context context) {
-		if (!Utils.postVersion(21)) {
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public static void requestNetwork(Context context) {
+		if (!Utils.postVersion(Build.VERSION_CODES.LOLLIPOP)) {
 			return;
 		}
-		final ConnectivityManager cm =
-				(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkRequest.Builder req = new NetworkRequest.Builder();
-		req.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
-		req.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
-		cm.requestNetwork(req.build(), new ConnectivityManager.NetworkCallback() {
+
+		setUpConnectivityManager(context);
+		NetworkRequest.Builder builder = new NetworkRequest.Builder();
+		builder.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+		builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
+
+		if (mCallback != null) {
+			try {
+				mConnectivityManager.unregisterNetworkCallback(mCallback);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+		}
+		mCallback = new ConnectivityManager.NetworkCallback() {
 			@Override
 			public void onAvailable(Network network) {
-				if (Utils.postVersion(23)) {
-					cm.bindProcessToNetwork(network);
-				} else {
-					ConnectivityManager.setProcessDefaultNetwork(network);
+				if (mCallback != null) {
+					Log.d(Constant.TAG, network.toString());
+					if (Utils.postVersion(Build.VERSION_CODES.M)) {
+						mConnectivityManager.bindProcessToNetwork(network);
+					} else {
+						ConnectivityManager.setProcessDefaultNetwork(network);
+					}
 				}
 			}
-		});
+		};
+
+		mConnectivityManager.requestNetwork(builder.build(), mCallback);
+	}
+
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public static void resetDefaultNetwork(Context context) {
+		if (!Utils.postVersion(Build.VERSION_CODES.LOLLIPOP)) {
+			return;
+		}
+
+		setUpConnectivityManager(context);
+		if (Utils.postVersion(Build.VERSION_CODES.M)) {
+			if (mConnectivityManager.getBoundNetworkForProcess() != null) {
+				mConnectivityManager.bindProcessToNetwork(null);
+			}
+		} else {
+			if (ConnectivityManager.getProcessDefaultNetwork() != null) {
+				ConnectivityManager.setProcessDefaultNetwork(null);
+			}
+		}
+
+		if (mCallback != null) {
+			try {
+				mConnectivityManager.unregisterNetworkCallback(mCallback);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+		}
+		mCallback = null;
+	}
+
+	private static void setUpConnectivityManager(Context context) {
+		if (mConnectivityManager == null) {
+			mConnectivityManager =
+					(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		}
 	}
 
 	public static boolean postVersion(int sdkInt) {

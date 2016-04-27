@@ -33,7 +33,6 @@ public class WifiReceiver extends BroadcastReceiver {
 		String action = intent.getAction();
 
 		if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
-			Utils.forceUseWifi(context);
 			initGA(context);
 
 			NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
@@ -60,14 +59,14 @@ public class WifiReceiver extends BroadcastReceiver {
 	private void login(Context context, UserModel model) {
 		LoginHelper.login(context, model, new GeneralCallback() {
 			@Override
-			public void onSuccess(final String message) {
+			public void onSuccess(String message) {
 				mTracker.send(
 						new HitBuilders.EventBuilder().setCategory("logout").setAction("success")
 								.setLabel(message).build());
 			}
 
 			@Override
-			public void onFail(final String reason) {
+			public void onFail(String reason) {
 				mTracker.send(new HitBuilders.EventBuilder().setCategory("logout").setAction("fail")
 						.setLabel(reason).build());
 			}

@@ -81,7 +81,6 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 				PorterDuff.Mode.SRC_IN);
 
 		initGA();
-		Utils.forceUseWifi(this);
 	}
 
 	private void initGA() {
