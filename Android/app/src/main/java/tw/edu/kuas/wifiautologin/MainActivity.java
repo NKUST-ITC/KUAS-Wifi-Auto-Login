@@ -16,13 +16,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tw.edu.kuas.wifiautologin.base.SilentApplication;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
 import tw.edu.kuas.wifiautologin.libs.Constant;
 import tw.edu.kuas.wifiautologin.libs.LoginHelper;
@@ -85,12 +85,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 	}
 
 	private void initGA() {
-		GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-		mTracker = analytics.newTracker("UA-46334408-1");
-		mTracker.enableExceptionReporting(true);
-		mTracker.enableAdvertisingIdCollection(true);
-		mTracker.enableAutoActivityTracking(true);
-
+		mTracker = ((SilentApplication) getApplication()).getDefaultTracker();
 		mTracker.setScreenName("Main Screen");
 	}
 
@@ -109,7 +104,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 				.setLabel("Logout").build());
 
 		disableViews();
-		LoginHelper.logout(this, new GeneralCallback() {
+		LoginHelper.logout(this, true, new GeneralCallback() {
 			@Override
 			public void onSuccess(final String message) {
 				mTracker.send(

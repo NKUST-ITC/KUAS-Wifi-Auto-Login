@@ -7,10 +7,10 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import tw.edu.kuas.wifiautologin.base.SilentApplication;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
 import tw.edu.kuas.wifiautologin.libs.Constant;
 import tw.edu.kuas.wifiautologin.libs.LoginHelper;
@@ -24,12 +24,7 @@ public class WifiReceiver extends BroadcastReceiver {
 	static Tracker mTracker;
 
 	private void initGA(Context context) {
-		GoogleAnalytics analytics = GoogleAnalytics.getInstance(context);
-		mTracker = analytics.newTracker("UA-46334408-1");
-		mTracker.enableExceptionReporting(true);
-		mTracker.enableAdvertisingIdCollection(true);
-		mTracker.enableAutoActivityTracking(true);
-
+		mTracker = ((SilentApplication) context.getApplicationContext()).getDefaultTracker();
 		mTracker.setScreenName("Wifi Receiver");
 	}
 
@@ -43,9 +38,9 @@ public class WifiReceiver extends BroadcastReceiver {
 
 			NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 			if (networkInfo.isConnected() && firstConnect) {
-				firstConnect = false;
 				String ssid = Utils.getCurrentSSID(context);
 				if (Utils.isExpectedSSID(ssid)) {
+					firstConnect = true;
 					String user = Memory.getString(context, Constant.MEMORY_KEY_USER, null);
 					String pwd = Memory.getString(context, Constant.MEMORY_KEY_PASSWORD, null);
 					if (!TextUtils.isEmpty(user) && !TextUtils.isEmpty(pwd)) {

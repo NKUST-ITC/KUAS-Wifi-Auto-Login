@@ -29,7 +29,7 @@ public class NotificationHelper {
 		NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-				.setContentTitle(context.getString(R.string.kuas_wifi_auto_login))
+				.setContentTitle(context.getString(R.string.app_name))
 				.setStyle(new NotificationCompat.BigTextStyle().bigText(content))
 				.setColor(ContextCompat.getColor(context, R.color.accent))
 				.extend(new NotificationCompat.WearableExtender().setHintShowBackgroundOnly(true))

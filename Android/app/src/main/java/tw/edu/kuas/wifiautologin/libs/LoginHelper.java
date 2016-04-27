@@ -135,13 +135,14 @@ public class LoginHelper {
 		});
 	}
 
-	public static void logout(final Context context, @NonNull final GeneralCallback callback) {
+	public static void logout(final Context context, final boolean recheck,
+	                          @NonNull final GeneralCallback callback) {
 		if (!checkSSID(context, callback)) {
 			return;
 		}
 
-		String url =
-				String.format(Locale.getDefault(), TEST_LOGOUT_URL, Constant.JIANGONG_WIFI_SERVER);
+		String url = String.format(Locale.getDefault(), TEST_LOGOUT_URL,
+				recheck ? Constant.JIANGONG_WIFI_SERVER : Constant.YANCHAO_WIFI_SERVER);
 
 		Request request = new Request.Builder().url(url).head().build();
 
@@ -155,7 +156,7 @@ public class LoginHelper {
 			public void onResponse(Call call, Response response) {
 				call.cancel();
 				if (response.code() == 302) {
-					checkLogoutLocation(context, response.header("location"), callback);
+					checkLogoutLocation(context, response.header("location"), recheck, callback);
 				} else {
 					callback.onFail(context.getString(R.string.failed_to_logout));
 				}
@@ -163,13 +164,16 @@ public class LoginHelper {
 		});
 	}
 
-	// TODO should check does yanchao campus working
-	private static void checkLogoutLocation(final Context context, String location,
-	                                        @NonNull final GeneralCallback callback) {
+	private static void checkLogoutLocation(Context context, String location, boolean recheck,
+	                                        @NonNull GeneralCallback callback) {
 		if (location.contains("login_online")) {
 			logout(context, Constant.JIANGONG_WIFI_SERVER, callback);
 		} else if (location.contains("login.php") || location.contains("auth_entry.php")) {
-			callback.onAlready();
+			if (recheck) {
+				logout(context, false, callback);
+			} else {
+				callback.onAlready();
+			}
 		} else {
 			logout(context, Constant.YANCHAO_WIFI_SERVER, callback);
 		}
