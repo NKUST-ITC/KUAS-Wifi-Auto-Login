@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("Silent")>
 <Assembly: AssemblyProduct("KUAS WiFi")>
-<Assembly: AssemblyCopyright("Copyright © Silent 2015")>
+<Assembly: AssemblyCopyright("Copyright © Silent 2016")> 
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' 指定為預設值: 
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.1.6.0")>
-<Assembly: AssemblyFileVersion("2.1.6.0")>
+<Assembly: AssemblyVersion("2.2.4.27")> 
+<Assembly: AssemblyFileVersion("2.2.4.27")> 

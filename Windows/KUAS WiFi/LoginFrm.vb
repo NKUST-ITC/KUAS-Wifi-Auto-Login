@@ -23,27 +23,35 @@ Public Class LoginFrm
     Public Const EM_SETCUEBANNER As Integer = &H1501
 
     Public XmlPath As String = "Configs.xml"
-    Dim Thread As Thread
+    Dim backgroundThread As Thread
 
     Private Sub LoginButton_Click(sender As Object, e As EventArgs) Handles LoginButton.Click
         Try
-            Thread.Abort()
+            If (backgroundThread.IsAlive) Then
+                backgroundThread.Abort()
+            End If
         Catch ex As Exception
 
         End Try
-        Thread = New Thread(AddressOf Me.tryLogin)
-        Thread.Start()
+        backgroundThread = New Thread(AddressOf Me.tryLogin)
+        backgroundThread.Start()
     End Sub
 
     Private Sub tryLogin()
         disableViews()
-
         Try
-            Dim response As HttpWebResponse = HttpWebResponseUtility.CreateGetHttpResponse("http://" + JIANGONG_WIFI_SERVER, 7000, Nothing, Nothing)
-            Dim reader As StreamReader = New StreamReader(response.GetResponseStream, System.Text.Encoding.GetEncoding("UTF-8"))
-            Dim respHTML As String = reader.ReadToEnd()
-            checkLoginLocation(response.Headers.[Get]("Location"))
+            Dim response As HttpWebResponse = HttpWebResponseUtility.CreateGetHttpResponse("http://www.example.com", 7000, Nothing, Nothing)
             response.Close()
+            If (response.StatusCode = 200) Then
+                MsgBox("您已經登入或是有可用網路了。", MsgBoxStyle.Information, "高應無線通")
+                enableViews()
+            ElseIf (response.StatusCode = 302) Then
+                Dim uri As New System.Uri(response.Headers.[Get]("Location"))
+                login(uri.Host)
+            Else
+                MsgBox("發生錯誤！", MsgBoxStyle.Critical, "高應無線通")
+                enableViews()
+            End If
         Catch ex As Exception
             MsgBox("請求 Wi-Fi 伺服器的連線逾時。", MsgBoxStyle.Critical, "高應無線通")
             enableViews()
@@ -52,23 +60,27 @@ Public Class LoginFrm
 
     Private Sub LogoutButton_Click(sender As Object, e As EventArgs) Handles LogoutButton.Click
         Try
-            Thread.Abort()
+            If (backgroundThread.IsAlive) Then
+                backgroundThread.Abort()
+            End If
         Catch ex As Exception
 
         End Try
-        Thread = New Thread(AddressOf Me.tryLogout)
-        Thread.Start()
+        backgroundThread = New Thread(AddressOf Me.tryLogout)
+        backgroundThread.Start(True)
     End Sub
 
-    Private Sub tryLogout()
+    Private Sub tryLogout(recheck As Boolean)
         disableViews()
-
         Try
-            Dim response As HttpWebResponse = HttpWebResponseUtility.CreateGetHttpResponse("http://" + JIANGONG_WIFI_SERVER, 7000, Nothing, Nothing)
-            Dim reader As StreamReader = New StreamReader(response.GetResponseStream, System.Text.Encoding.GetEncoding("UTF-8"))
-            Dim respHTML As String = reader.ReadToEnd()
-            checkLogoutLocation(response.Headers.[Get]("Location"))
+            Dim response As HttpWebResponse = HttpWebResponseUtility.CreateGetHttpResponse("http://" + IIf(recheck, JIANGONG_WIFI_SERVER, YANCHAO_WIFI_SERVER), 7000, Nothing, Nothing)
             response.Close()
+            If (response.StatusCode = 302) Then
+                checkLogoutLocation(response.Headers.[Get]("Location"), recheck)
+            Else
+                MsgBox("登出失敗。", MsgBoxStyle.Critical, "高應無線通")
+                enableViews()
+            End If
         Catch ex As Exception
             MsgBox("請求 Wi-Fi 伺服器的連線逾時。", MsgBoxStyle.Critical, "高應無線通")
             enableViews()
@@ -89,63 +101,31 @@ Public Class LoginFrm
         LogoutButton.Enabled = True
     End Sub
 
-    Private Sub checkLoginLocation(_location As String)
-        Dim regex As Regex = New Regex("\d+\.\d+\.\d+\.\d+")
-        Dim match As Match = regex.Match(_location)
-        If (_location.Length = 0) Then
-            MsgBox("請求 Wi-Fi 伺服器的連線逾時。", MsgBoxStyle.Critical, "高應無線通")
-            enableViews()
-        Else
-            If (_location.Contains("login.php")) Then
-                If match.Success Then
-                    login(match.Value)
-                Else
-                    MsgBox("發生錯誤！", MsgBoxStyle.Critical, "高應無線通")
-                    enableViews()
-                End If
+    Private Sub checkLogoutLocation(_location As String, recheck As Boolean)
+         If (_location.Contains("login_online")) Then
+            logout(JIANGONG_WIFI_SERVER)
+        ElseIf (_location.Contains("login.php") Or _location.Contains("auth_entry.php")) Then
+            If (recheck) Then
+                tryLogout(False)
             Else
-                If (_location.Contains("login_online")) Then
-                    MsgBox("您已經登入或是有可用網路了。", MsgBoxStyle.Information, "高應無線通")
-                    enableViews()
-                Else
-                    If (match.Success And match.Value.Equals(JIANGONG_WIFI_SERVER)) Then
-                        login(YANCHAO_WIFI_SERVER)
-                    ElseIf (match.Success And match.Value.Equals(YANCHAO_WIFI_SERVER)) Then
-                        login(JIANGONG_WIFI_SERVER)
-                    Else
-                        MsgBox("發生錯誤！", MsgBoxStyle.Critical, "高應無線通")
-                        enableViews()
-                    End If
-                End If
-            End If
-        End If
-    End Sub
-
-    Private Sub checkLogoutLocation(_location As String)
-        If (_location.Length = 0) Then
-            MsgBox("請求 Wi-Fi 伺服器的連線逾時。", MsgBoxStyle.Critical, "高應無線通")
-            enableViews()
-        Else
-            If (_location.Contains("login_online")) Then
-                logout(JIANGONG_WIFI_SERVER)
-            ElseIf (_location.Contains("login.php")) Then
-                MsgBox("您已經登出或是尚未登入WiFi。", MsgBoxStyle.Critical, "高應無線通")
+                MsgBox("您已經登出或是尚未登入 Wi-Fi。", MsgBoxStyle.Information, "高應無線通")
                 enableViews()
-            Else
-                logout(YANCHAO_WIFI_SERVER)
             End If
+        Else
+            logout(YANCHAO_WIFI_SERVER)
         End If
     End Sub
 
     Private Sub logout(_host As String)
         Dim response As HttpWebResponse = HttpWebResponseUtility.CreateGetHttpResponse("http://" + _host + "/cgi-bin/ace_web_auth.cgi?logout", 7000, Nothing, Nothing)
 
+        response.Close()
+
         If (response.StatusCode = 200) Then
-            MsgBox("WiFi登出成功。", MsgBoxStyle.Information, "高應無線通")
+            MsgBox("Wi-Fi 登出成功。", MsgBoxStyle.Information, "高應無線通")
         Else
             MsgBox("登出失敗。", MsgBoxStyle.Information, "高應無線通")
         End If
-        response.Close()
 
         enableViews()
     End Sub
@@ -161,21 +141,22 @@ Public Class LoginFrm
         Dim reader As StreamReader = New StreamReader(response.GetResponseStream, System.Text.Encoding.GetEncoding("UTF-8"))
         Dim respHTML As String = reader.ReadToEnd()
 
+        response.Close()
+
         If (respHTML.Contains("reason=")) Then
             Dim _reason As String = respHTML.Substring(respHTML.IndexOf("reason=") + 7, respHTML.IndexOf("&", respHTML.IndexOf("reason=") + 7) - respHTML.IndexOf("reason=") - 7)
-            MsgBox(dumpReason(_reason), MsgBoxStyle.Critical, "高應無線通")
+            MsgBox(dumpReason(Convert.ToInt32(_reason)), MsgBoxStyle.Critical, "高應無線通")
         ElseIf (respHTML.Contains("404 - Not Found") Or response.StatusCode = 404) Then
             MsgBox("請求 Wi-Fi 伺服器的連線逾時。", MsgBoxStyle.Critical, "高應無線通")
         ElseIf (respHTML.Contains("login_online_detail.php")) Then
             If (_host.Equals(JIANGONG_WIFI_SERVER)) Then
-                MsgBox("Wi-Fi登入成功, 歡迎來到高應大建工校區！", MsgBoxStyle.Information, "高應無線通")
+                MsgBox("Wi-Fi 登入成功，歡迎來到高應大建工校區！", MsgBoxStyle.Information, "高應無線通")
             Else
-                MsgBox("Wi-Fi登入成功, 歡迎來到高應大燕巢校區！", MsgBoxStyle.Information, "高應無線通")
+                MsgBox("Wi-Fi 登入成功，歡迎來到高應大燕巢校區！", MsgBoxStyle.Information, "高應無線通")
             End If
         Else
             MsgBox("發生錯誤！", MsgBoxStyle.Critical, "高應無線通")
         End If
-        response.Close()
 
         enableViews()
     End Sub
@@ -196,7 +177,9 @@ Public Class LoginFrm
     Private Sub LoginFrm_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         SaveSetting()
         Try
-            Thread.Abort()
+            If (backgroundThread.IsAlive) Then
+                backgroundThread.Abort()
+            End If
         Catch ex As Exception
 
         End Try

@@ -35,7 +35,7 @@ Partial Class LoginFrm
         Me.Pwd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Pwd.Name = "Pwd"
         Me.Pwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
-        Me.Pwd.Size = New System.Drawing.Size(276, 23)
+        Me.Pwd.Size = New System.Drawing.Size(276, 27)
         Me.Pwd.TabIndex = 7
         '
         'User
@@ -44,12 +44,12 @@ Partial Class LoginFrm
         Me.User.Location = New System.Drawing.Point(12, 13)
         Me.User.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.User.Name = "User"
-        Me.User.Size = New System.Drawing.Size(276, 23)
+        Me.User.Size = New System.Drawing.Size(276, 27)
         Me.User.TabIndex = 6
         '
         'LogoutButton
         '
-        Me.LogoutButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(221, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(29, Byte), Integer))
+        Me.LogoutButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.LogoutButton.FlatAppearance.BorderSize = 0
         Me.LogoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.LogoutButton.Font = New System.Drawing.Font("微軟正黑體", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -64,7 +64,7 @@ Partial Class LoginFrm
         '
         'LoginButton
         '
-        Me.LoginButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(3, Byte), Integer), CType(CType(155, Byte), Integer), CType(CType(229, Byte), Integer))
+        Me.LoginButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(3, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(244, Byte), Integer))
         Me.LoginButton.FlatAppearance.BorderSize = 0
         Me.LoginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.LoginButton.Font = New System.Drawing.Font("微軟正黑體", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -80,7 +80,7 @@ Partial Class LoginFrm
         'LoginFrm
         '
         Me.AcceptButton = Me.LoginButton
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(300, 130)
         Me.Controls.Add(Me.LoginButton)
