@@ -5,6 +5,9 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -18,19 +21,27 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import tw.edu.kuas.wifiautologin.MainActivity;
 import tw.edu.kuas.wifiautologin.R;
+import tw.edu.kuas.wifiautologin.base.SilentApplication;
 import tw.edu.kuas.wifiautologin.callbacks.GeneralCallback;
 import tw.edu.kuas.wifiautologin.models.UserModel;
 
 public class LoginHelper {
 
-	private static OkHttpClient client =
+	private static OkHttpClient mClient =
 			new OkHttpClient().newBuilder().followRedirects(false).followSslRedirects(false)
 					.connectTimeout(7, TimeUnit.SECONDS).writeTimeout(7, TimeUnit.SECONDS)
 					.readTimeout(7, TimeUnit.SECONDS).build();
 
+	private static Tracker mTracker;
+
 	private static final String LOGIN_URL = "http://%s/cgi-bin/ace_web_auth.cgi";
 	private static final String LOGOUT_URL = "http://%s/cgi-bin/ace_web_auth.cgi?logout";
 	private static final String TEST_LOGOUT_URL = "http://%s";
+
+	private static void initGA(Context context) {
+		mTracker = ((SilentApplication) context.getApplicationContext()).getDefaultTracker();
+		mTracker.setScreenName("Login Helper");
+	}
 
 	public static void login(final Context context, final UserModel model,
 	                         final GeneralCallback callback) {
@@ -44,7 +55,7 @@ public class LoginHelper {
 
 		Request request = new Request.Builder().url("http://www.example.com").head().build();
 
-		client.newCall(request).enqueue(new Callback() {
+		mClient.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				loginFail(context, context.getString(R.string.login_timeout), callback);
@@ -99,7 +110,7 @@ public class LoginHelper {
 		Request request = new Request.Builder().url(url).post(requestBody)
 				.addHeader("Accept-Encoding", "gzip, deflate").build();
 
-		client.newCall(request).enqueue(new Callback() {
+		mClient.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				loginFail(context, context.getString(R.string.login_timeout), callback);
@@ -141,12 +152,14 @@ public class LoginHelper {
 			return;
 		}
 
+		initGA(context);
+
 		String url = String.format(Locale.getDefault(), TEST_LOGOUT_URL,
-				recheck ? Constant.JIANGONG_WIFI_SERVER : Constant.YANCHAO_WIFI_SERVER);
+				!recheck ? Constant.JIANGONG_WIFI_SERVER : Constant.YANCHAO_WIFI_SERVER);
 
 		Request request = new Request.Builder().url(url).head().build();
 
-		client.newCall(request).enqueue(new Callback() {
+		mClient.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				callback.onFail(context.getString(R.string.failed_to_logout));
@@ -167,7 +180,8 @@ public class LoginHelper {
 	private static void checkLogoutLocation(Context context, String location, boolean recheck,
 	                                        @NonNull GeneralCallback callback) {
 		if (location.contains("login_online")) {
-			logout(context, Constant.JIANGONG_WIFI_SERVER, callback);
+			Uri uri = Uri.parse(location);
+			logout(context, uri.getAuthority(), callback);
 		} else if (location.contains("login.php") || location.contains("auth_entry.php")) {
 			if (recheck) {
 				logout(context, false, callback);
@@ -175,7 +189,11 @@ public class LoginHelper {
 				callback.onAlready();
 			}
 		} else {
-			logout(context, Constant.YANCHAO_WIFI_SERVER, callback);
+			mTracker.send(
+					new HitBuilders.EventBuilder().setCategory("logout").setAction("unknown url")
+							.setLabel(location).build());
+			logout(context, !recheck ? Constant.JIANGONG_WIFI_SERVER : Constant.YANCHAO_WIFI_SERVER,
+					callback);
 		}
 	}
 
@@ -186,7 +204,7 @@ public class LoginHelper {
 
 		final Request request = new Request.Builder().url(url).get().build();
 
-		client.newCall(request).enqueue(new Callback() {
+		mClient.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				callback.onFail(context.getString(R.string.failed_to_logout));

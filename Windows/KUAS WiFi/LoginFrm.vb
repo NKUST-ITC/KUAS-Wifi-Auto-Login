@@ -27,7 +27,7 @@ Public Class LoginFrm
 
     Private Sub LoginButton_Click(sender As Object, e As EventArgs) Handles LoginButton.Click
         Try
-            If (backgroundThread.IsAlive) Then
+            If (backgroundThread IsNot Nothing AndAlso backgroundThread.IsAlive) Then
                 backgroundThread.Abort()
             End If
         Catch ex As Exception
@@ -60,7 +60,7 @@ Public Class LoginFrm
 
     Private Sub LogoutButton_Click(sender As Object, e As EventArgs) Handles LogoutButton.Click
         Try
-            If (backgroundThread.IsAlive) Then
+            If (backgroundThread IsNot Nothing AndAlso backgroundThread.IsAlive) Then
                 backgroundThread.Abort()
             End If
         Catch ex As Exception
@@ -102,8 +102,9 @@ Public Class LoginFrm
     End Sub
 
     Private Sub checkLogoutLocation(_location As String, recheck As Boolean)
-         If (_location.Contains("login_online")) Then
-            logout(JIANGONG_WIFI_SERVER)
+        If (_location.Contains("login_online")) Then
+            Dim uri As New System.Uri(_location)
+            logout(uri.Host)
         ElseIf (_location.Contains("login.php") Or _location.Contains("auth_entry.php")) Then
             If (recheck) Then
                 tryLogout(False)
@@ -112,7 +113,7 @@ Public Class LoginFrm
                 enableViews()
             End If
         Else
-            logout(YANCHAO_WIFI_SERVER)
+            logout(IIf(recheck, YANCHAO_WIFI_SERVER, JIANGONG_WIFI_SERVER))
         End If
     End Sub
 
@@ -177,7 +178,7 @@ Public Class LoginFrm
     Private Sub LoginFrm_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         SaveSetting()
         Try
-            If (backgroundThread.IsAlive) Then
+            If (backgroundThread IsNot Nothing AndAlso backgroundThread.IsAlive) Then
                 backgroundThread.Abort()
             End If
         Catch ex As Exception
