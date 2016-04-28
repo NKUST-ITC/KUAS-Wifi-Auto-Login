@@ -36,7 +36,7 @@ public class WifiReceiver extends BroadcastReceiver {
 			initGA(context);
 
 			NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-			if (networkInfo.isConnected() && firstConnect) {
+			if (networkInfo.isConnected() && firstConnect && !Utils.checkGoogleBug()) {
 				String ssid = Utils.getCurrentSSID(context);
 				if (Utils.isExpectedSSID(ssid)) {
 					firstConnect = true;

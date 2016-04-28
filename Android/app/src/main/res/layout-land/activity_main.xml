@@ -73,6 +73,7 @@
 					android:layout_weight="1"
 					android:background="@drawable/button_login"
 					android:text="@string/save_and_login"
+					android:textAllCaps="false"
 					android:textColor="@color/text_disable"
 					android:textSize="@dimen/text_subhead"/>
 
@@ -84,6 +85,7 @@
 					android:layout_weight="1"
 					android:background="@drawable/button_logout"
 					android:text="@string/logout"
+					android:textAllCaps="false"
 					android:textColor="@color/text_disable"
 					android:textSize="@dimen/text_subhead"/>
 

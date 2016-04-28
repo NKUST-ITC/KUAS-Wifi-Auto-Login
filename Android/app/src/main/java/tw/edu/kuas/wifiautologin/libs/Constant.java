@@ -6,13 +6,17 @@ import java.util.List;
 
 public class Constant {
 
-	public static final List<String> EXPECTED_SSIDS =
-			new ArrayList<>(Arrays.asList("kuas_wireless", "KUAS", "KUAS-Dorm"));
 	public static final String TAG = "HearSilent";
 
+	// Support SSIDs
+	public static final List<String> EXPECTED_SSIDS =
+			new ArrayList<>(Arrays.asList("kuas_wireless", "KUAS", "KUAS-Dorm"));
+
+	// Server
 	public static final String JIANGONG_WIFI_SERVER = "172.16.61.253";
 	public static final String YANCHAO_WIFI_SERVER = "172.16.109.253";
 
+	// Default guest account
 	public static final String DEFAULT_GUEST_ACCOUNT = "0937808285@guest";
 	public static final String DEFAULT_GUEST_PWD = "1306";
 
@@ -25,6 +29,10 @@ public class Constant {
 	// Memory (Shared Preferences) Keys
 	public static final String MEMORY_KEY_USER = "MEMORY_KEY_USER";
 	public static final String MEMORY_KEY_PASSWORD = "MEMORY_KEY_PASSWORD";
-	public static final String MEMORY_KEY_ERRORTIMES = "MEMORY_KEY_ERRORTIMES";
+	public static final String MEMORY_KEY_ERROR_TIMES = "MEMORY_KEY_ERROR_TIMES";
+
+	// Request
+	public static final int REQUEST_PERMISSION = 100;
+	public static final int REQUEST_SETTINGS = 101;
 
 }

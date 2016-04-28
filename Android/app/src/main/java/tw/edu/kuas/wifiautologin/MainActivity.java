@@ -1,10 +1,12 @@
 package tw.edu.kuas.wifiautologin;
 
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -101,6 +105,17 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 	public void logout() {
 		mTracker.send(new HitBuilders.EventBuilder().setCategory("UX").setAction("Click")
 				.setLabel("Logout").build());
+
+		if (Utils.checkGoogleBug()) {
+			mTracker.send(new HitBuilders.EventBuilder().setCategory("Google Bug")
+					.setAction("Show Dialog").setLabel(
+							String.format(Locale.getDefault(), "%s %s %s", Build.MANUFACTURER,
+									Build.MODEL, Build.VERSION.RELEASE)).build());
+			new AlertDialog.Builder(this).setTitle(R.string.google_bug_title)
+					.setMessage(getString(R.string.google_bug_message, "\uD83D\uDE2D"))
+					.setPositiveButton(R.string.ok, null).show();
+			return;
+		}
 
 		disableViews();
 		LoginHelper.logout(this, true, new GeneralCallback() {
@@ -197,6 +212,18 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 			model = Utils.tranUser(Constant.DEFAULT_GUEST_ACCOUNT, Constant.DEFAULT_GUEST_PWD);
 		} else {
 			model = Utils.tranUser(user, pwd);
+		}
+
+		if (Utils.checkGoogleBug()) {
+			mTracker.send(new HitBuilders.EventBuilder().setCategory("Google Bug")
+					.setAction("Show Dialog").setLabel(
+							String.format(Locale.getDefault(), "%s %s %s", Build.MANUFACTURER,
+									Build.MODEL, Build.VERSION.RELEASE)).build());
+			new AlertDialog.Builder(this).setTitle(R.string.google_bug_title)
+					.setMessage(getString(R.string.google_bug_message, "\uD83D\uDE2D"))
+					.setPositiveButton(R.string.ok, null).show();
+			enableViews();
+			return;
 		}
 
 		String ssid = Utils.getCurrentSSID(this);

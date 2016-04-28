@@ -2,6 +2,7 @@ package tw.edu.kuas.wifiautologin.libs;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -9,12 +10,12 @@ import android.net.NetworkRequest;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 
 import tw.edu.kuas.wifiautologin.models.UserModel;
 
-public class Utils {
+@SuppressWarnings("unused") public class Utils {
 
 	private static ConnectivityManager.NetworkCallback mCallback;
 	private static ConnectivityManager mConnectivityManager;
@@ -76,6 +77,7 @@ public class Utils {
 		return model;
 	}
 
+	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	public static void requestNetwork(Context context) {
 		if (!Utils.postVersion(Build.VERSION_CODES.LOLLIPOP)) {
@@ -98,7 +100,6 @@ public class Utils {
 			@Override
 			public void onAvailable(Network network) {
 				if (mCallback != null) {
-					Log.d(Constant.TAG, network.toString());
 					if (Utils.postVersion(Build.VERSION_CODES.M)) {
 						mConnectivityManager.bindProcessToNetwork(network);
 					} else {
@@ -111,6 +112,7 @@ public class Utils {
 		mConnectivityManager.requestNetwork(builder.build(), mCallback);
 	}
 
+	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	public static void resetDefaultNetwork(Context context) {
 		if (!Utils.postVersion(Build.VERSION_CODES.LOLLIPOP)) {
@@ -147,6 +149,40 @@ public class Utils {
 
 	public static boolean postVersion(int sdkInt) {
 		return Build.VERSION.SDK_INT >= sdkInt;
+	}
+
+	public static boolean isPermissionGranted(Context context, String permission) {
+		return ContextCompat.checkSelfPermission(context, permission) ==
+				PackageManager.PERMISSION_GRANTED;
+	}
+
+	public static boolean isPermissionsGranted(Context context, String... permissions) {
+		for (String permission : permissions) {
+			if (ContextCompat.checkSelfPermission(context, permission) !=
+					PackageManager.PERMISSION_GRANTED) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean isPermissionDenied(Context context, String permission) {
+		return ContextCompat.checkSelfPermission(context, permission) ==
+				PackageManager.PERMISSION_DENIED;
+	}
+
+	public static boolean isPermissionsDenied(Context context, String... permissions) {
+		for (String permission : permissions) {
+			if (ContextCompat.checkSelfPermission(context, permission) !=
+					PackageManager.PERMISSION_DENIED) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean checkGoogleBug() {
+		return postVersion(Build.VERSION_CODES.LOLLIPOP) && Build.VERSION.RELEASE.equals("6.0");
 	}
 
 }

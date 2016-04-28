@@ -37,4 +37,10 @@
 	<string name="id_hint">Student ID</string>
 	<string name="password_hint">Password</string>
 
+	<string name="google_bug_title">Unfortunately, unsupported Android 6.0</string>
+	<string name="google_bug_message">Google produces a huge Bug, must waiting for your phone
+		manufacturer release Android 6.0.1 or higher version. %s</string>
+
+	<string name="ok">OK</string>
+
 </resources>
