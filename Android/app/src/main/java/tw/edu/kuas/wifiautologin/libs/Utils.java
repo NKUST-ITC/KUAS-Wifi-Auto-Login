@@ -2,17 +2,25 @@ package tw.edu.kuas.wifiautologin.libs;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
+import java.util.Locale;
+
+import tw.edu.kuas.wifiautologin.R;
 import tw.edu.kuas.wifiautologin.models.UserModel;
 
 @SuppressWarnings("unused") public class Utils {
@@ -183,6 +191,40 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 
 	public static boolean checkGoogleBug() {
 		return postVersion(Build.VERSION_CODES.LOLLIPOP) && Build.VERSION.RELEASE.equals("6.0");
+	}
+
+	/**
+	 * The above WRITE_SETTINGS checks are only required for 6.0
+	 */
+	@TargetApi(Build.VERSION_CODES.M)
+	public static boolean checkSystemWritePermission(Context context) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Build.VERSION.RELEASE.equals("6.0")) {
+			return Settings.System.canWrite(context);
+		}
+		// This is no longer needed in Android 6.0.1
+		return true;
+	}
+
+	@TargetApi(23)
+	public static void showSystemWritePermissionDialog(final Context context) {
+		if (Utils.postVersion(Build.VERSION_CODES.M)) {
+			new AlertDialog.Builder(context).setTitle(R.string.permission_request_6_0_title)
+					.setMessage(context.getString(R.string.permission_request_6_0_message,
+							"\uD83D\uDE09"))
+					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+							intent.setData(Uri.parse("package:" + context.getPackageName()));
+							context.startActivity(intent);
+						}
+					}).setCancelable(false).show();
+		}
+	}
+
+	public static String getPhoneName() {
+		return String.format(Locale.getDefault(), "%s %s %s", Build.MANUFACTURER, Build.MODEL,
+				Build.VERSION.RELEASE);
 	}
 
 }

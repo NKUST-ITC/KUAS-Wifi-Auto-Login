@@ -35,10 +35,9 @@
 	<string name="id_hint">學號</string>
 	<string name="password_hint">密碼</string>
 
-	<string name="permission_request_title">必要授權</string>
-	<string name="permission_request_message">「高應無線通」需要權限進行 Wi-Fi 自動登入。</string>
-	<string name="permission_denied_title">無法取得權限</string>
-	<string name="permission_denied_message">「高應無線通」需要權限進行 Wi-Fi 自動登入。\n\n前往「設定」>「應用程式」>「高應無線通」>「權限」進行授權！</string>
+	<string name="permission_request_6.0_title">權限需求</string>
+	<string name="permission_request_6.0_message">「高應無線通」僅在 Android 6.0
+		需要修改系統設定之權限，請允許修改系統設定，方可進行 Wi-Fi 自動登入 %s\n\n※ 在 Android 6.0.1（含）以上版本便不需要此權限</string>
 
 	<string name="google_bug_title">很抱歉，不支援 Android 6.0</string>
 	<string name="google_bug_message">Google 製造了飛天小女警無法消滅的 Bug，須等您的手機商系統更新至 Android

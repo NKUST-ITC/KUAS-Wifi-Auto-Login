@@ -1,12 +1,10 @@
 package tw.edu.kuas.wifiautologin;
 
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -20,8 +18,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -107,14 +103,15 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 				.setLabel("Logout").build());
 
 		if (Utils.checkGoogleBug()) {
-			mTracker.send(new HitBuilders.EventBuilder().setCategory("Google Bug")
-					.setAction("Show Dialog").setLabel(
-							String.format(Locale.getDefault(), "%s %s %s", Build.MANUFACTURER,
-									Build.MODEL, Build.VERSION.RELEASE)).build());
-			new AlertDialog.Builder(this).setTitle(R.string.google_bug_title)
-					.setMessage(getString(R.string.google_bug_message, "\uD83D\uDE2D"))
-					.setPositiveButton(R.string.ok, null).show();
-			return;
+			if (!Utils.checkSystemWritePermission(this)) {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
+						.setAction("Not allowed").setLabel(Utils.getPhoneName()).build());
+				Utils.showSystemWritePermissionDialog(this);
+				return;
+			} else {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
+						.setAction("Allowed").setLabel(Utils.getPhoneName()).build());
+			}
 		}
 
 		disableViews();
@@ -215,15 +212,16 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		}
 
 		if (Utils.checkGoogleBug()) {
-			mTracker.send(new HitBuilders.EventBuilder().setCategory("Google Bug")
-					.setAction("Show Dialog").setLabel(
-							String.format(Locale.getDefault(), "%s %s %s", Build.MANUFACTURER,
-									Build.MODEL, Build.VERSION.RELEASE)).build());
-			new AlertDialog.Builder(this).setTitle(R.string.google_bug_title)
-					.setMessage(getString(R.string.google_bug_message, "\uD83D\uDE2D"))
-					.setPositiveButton(R.string.ok, null).show();
-			enableViews();
-			return;
+			if (!Utils.checkSystemWritePermission(this)) {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
+						.setAction("Not allowed").setLabel(Utils.getPhoneName()).build());
+				Utils.showSystemWritePermissionDialog(this);
+				enableViews();
+				return;
+			} else {
+				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
+						.setAction("Allowed").setLabel(Utils.getPhoneName()).build());
+			}
 		}
 
 		String ssid = Utils.getCurrentSSID(this);
