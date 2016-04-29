@@ -22,8 +22,8 @@ android {
         applicationId "tw.edu.kuas.wifiautologin"
         minSdkVersion 9
         targetSdkVersion 23
-        versionCode 222
-        versionName "2.2.2"
+        versionCode 223
+        versionName "2.2.3"
     }
     buildTypes {
         debug {
