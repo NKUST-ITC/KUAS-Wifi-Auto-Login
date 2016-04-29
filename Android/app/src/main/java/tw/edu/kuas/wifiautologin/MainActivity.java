@@ -1,8 +1,12 @@
 package tw.edu.kuas.wifiautologin;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -33,20 +37,18 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 @SuppressWarnings("unused") public class MainActivity extends AppCompatActivity {
 
 	@Bind(R.id.button_login) Button mLoginButton;
-
 	@Bind(R.id.button_logout) Button mLogoutButton;
-
 	@Bind(R.id.editText_user) EditText mUsernameEditText;
-
 	@Bind(R.id.editText_password) EditText mPasswordEditText;
-
 	@Bind(R.id.textView_debug) TextView mDebugTextView;
-
 	@Bind(R.id.progressBar) ProgressBar mProgressBar;
-
-	TextInputLayout mUserNameTextInputLayout, mPasswordTextInputLayout;
+	@Bind(R.id.textInputLayout_user) TextInputLayout mUserNameTextInputLayout;
+	@Bind(R.id.textInputLayout_password) TextInputLayout mPasswordTextInputLayout;
 
 	private static Tracker mTracker;
+
+	private static int REQUEST_WRITE_SYSTEM_SETTINGS_LOGIN = 200;
+	private static int REQUEST_WRITE_SYSTEM_SETTINGS_LOGOUT = 201;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +56,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		setContentView(R.layout.activity_main);
 
 		ButterKnife.bind(this);
-		findViews();
 		setUpViews();
-	}
-
-	private void findViews() {
-		mUserNameTextInputLayout = (TextInputLayout) mUsernameEditText.getParent();
-		mPasswordTextInputLayout = (TextInputLayout) mPasswordEditText.getParent();
 	}
 
 	private void setUpViews() {
@@ -88,6 +84,35 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		mTracker.setScreenName("Main Screen");
 	}
 
+	@TargetApi(Build.VERSION_CODES.M)
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == REQUEST_WRITE_SYSTEM_SETTINGS_LOGIN ||
+				requestCode == REQUEST_WRITE_SYSTEM_SETTINGS_LOGOUT) {
+			if (Utils.checkGoogleBug()) {
+				if (Settings.System.canWrite(this)) {
+					mTracker.send(
+							new HitBuilders.EventBuilder().setCategory("Write System Permission")
+									.setAction("Request Allowed").setLabel(Utils.getPhoneName())
+									.build());
+					if (requestCode == REQUEST_WRITE_SYSTEM_SETTINGS_LOGIN) {
+						login();
+					} else {
+						logout();
+					}
+				} else {
+					mTracker.send(
+							new HitBuilders.EventBuilder().setCategory("Write System Permission")
+									.setAction("Request Denied").setLabel(Utils.getPhoneName())
+									.build());
+					Toast.makeText(this, R.string.permission_request_fail, Toast.LENGTH_SHORT)
+							.show();
+				}
+			}
+		}
+	}
+
 	@OnClick(R.id.button_login)
 	public void login() {
 		mTracker.send(new HitBuilders.EventBuilder().setCategory("UX").setAction("Click")
@@ -105,8 +130,8 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		if (Utils.checkGoogleBug()) {
 			if (!Utils.checkSystemWritePermission(this)) {
 				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
-						.setAction("Not allowed").setLabel(Utils.getPhoneName()).build());
-				Utils.showSystemWritePermissionDialog(this);
+						.setAction("Denied").setLabel(Utils.getPhoneName()).build());
+				Utils.showSystemWritePermissionDialog(this, REQUEST_WRITE_SYSTEM_SETTINGS_LOGIN);
 				return;
 			} else {
 				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
@@ -214,8 +239,8 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		if (Utils.checkGoogleBug()) {
 			if (!Utils.checkSystemWritePermission(this)) {
 				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
-						.setAction("Not allowed").setLabel(Utils.getPhoneName()).build());
-				Utils.showSystemWritePermissionDialog(this);
+						.setAction("Denied").setLabel(Utils.getPhoneName()).build());
+				Utils.showSystemWritePermissionDialog(this, REQUEST_WRITE_SYSTEM_SETTINGS_LOGOUT);
 				enableViews();
 				return;
 			} else {

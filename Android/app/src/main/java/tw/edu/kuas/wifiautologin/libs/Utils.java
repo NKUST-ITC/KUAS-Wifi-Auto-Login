@@ -1,6 +1,7 @@
 package tw.edu.kuas.wifiautologin.libs;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -166,23 +168,22 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 
 	public static boolean isPermissionsGranted(Context context, String... permissions) {
 		for (String permission : permissions) {
-			if (ContextCompat.checkSelfPermission(context, permission) !=
-					PackageManager.PERMISSION_GRANTED) {
+			if (!isPermissionGranted(context, permission)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public static boolean isPermissionDenied(Context context, String permission) {
-		return ContextCompat.checkSelfPermission(context, permission) ==
-				PackageManager.PERMISSION_DENIED;
+	public static boolean isPermissionAlwaysDenied(Activity activity, String permission) {
+		return ContextCompat.checkSelfPermission(activity, permission) ==
+				PackageManager.PERMISSION_DENIED &&
+				!ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
 	}
 
-	public static boolean isPermissionsDenied(Context context, String... permissions) {
+	public static boolean isPermissionsAlwaysDenied(Activity activity, String... permissions) {
 		for (String permission : permissions) {
-			if (ContextCompat.checkSelfPermission(context, permission) !=
-					PackageManager.PERMISSION_DENIED) {
+			if (!isPermissionAlwaysDenied(activity, permission)) {
 				return false;
 			}
 		}
@@ -201,24 +202,25 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Build.VERSION.RELEASE.equals("6.0")) {
 			return Settings.System.canWrite(context);
 		}
-		// This is no longer needed in Android 6.0.1
+		// This is no longer needed in Android 6.0.1 or lower than Android 6.0 version
 		return true;
 	}
 
 	@TargetApi(23)
-	public static void showSystemWritePermissionDialog(final Context context) {
+	public static void showSystemWritePermissionDialog(final Activity activity,
+	                                                   final int requestCode) {
 		if (Utils.postVersion(Build.VERSION_CODES.M)) {
-			new AlertDialog.Builder(context).setTitle(R.string.permission_request_6_0_title)
-					.setMessage(context.getString(R.string.permission_request_6_0_message,
+			new AlertDialog.Builder(activity).setTitle(R.string.permission_request_6_0_title)
+					.setMessage(activity.getString(R.string.permission_request_6_0_message,
 							"\uD83D\uDE09"))
-					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+					.setPositiveButton(R.string.setting, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-							intent.setData(Uri.parse("package:" + context.getPackageName()));
-							context.startActivity(intent);
+							intent.setData(Uri.parse("package:" + activity.getPackageName()));
+							activity.startActivityForResult(intent, requestCode);
 						}
-					}).setCancelable(false).show();
+					}).setNegativeButton(R.string.cancel, null).setCancelable(false).show();
 		}
 	}
 

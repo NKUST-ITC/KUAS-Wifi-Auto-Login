@@ -42,6 +42,7 @@
 		system settings permission in Android 6.0, please allow modify
 		Android system settings. %s\n\n※ This permission is no longer needed in Android 6.0.1 or
 		higher version.</string>
+	<string name="permission_request_fail">Permission Denied</string>
 
 	<string name="google_bug_title">Unfortunately, unsupported Android 6.0</string>
 	<string name="google_bug_message">Google produces a huge Bug, must waiting for your phone
@@ -50,5 +51,6 @@
 	<string name="ok">OK</string>
 	<string name="setting">Settings</string>
 	<string name="skip">Skip</string>
+	<string name="cancel">Cancel</string>
 
 </resources>

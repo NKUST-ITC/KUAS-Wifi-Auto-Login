@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<color name="primary">@color/md_blue_800</color>
-	<color name="primary_dark">@color/md_blue_700</color>
-	<color name="accent">@color/md_light_blue_700</color>
+	<color name="primary">@color/md_blue_grey_800</color>
+	<color name="primary_dark">@color/md_blue_grey_900</color>
+	<color name="accent">@color/md_blue_grey_900</color>
 	<color name="white">@color/md_white</color>
 	<color name="ripple_light">#6fff</color>
 

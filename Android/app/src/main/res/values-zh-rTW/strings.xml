@@ -38,6 +38,7 @@
 	<string name="permission_request_6.0_title">權限需求</string>
 	<string name="permission_request_6.0_message">「高應無線通」僅在 Android 6.0
 		需要修改系統設定之權限，請允許修改系統設定，方可進行 Wi-Fi 自動登入 %s\n\n※ 在 Android 6.0.1（含）以上版本便不需要此權限</string>
+	<string name="permission_request_fail">無法取得權限</string>
 
 	<string name="google_bug_title">很抱歉，不支援 Android 6.0</string>
 	<string name="google_bug_message">Google 製造了飛天小女警無法消滅的 Bug，須等您的手機商系統更新至 Android
@@ -46,5 +47,6 @@
 	<string name="ok">好</string>
 	<string name="setting">前往設定</string>
 	<string name="skip">稍後再說</string>
+	<string name="cancel">取消</string>
 
 </resources>
