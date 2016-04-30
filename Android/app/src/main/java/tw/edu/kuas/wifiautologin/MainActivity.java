@@ -131,7 +131,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 			if (!Utils.checkSystemWritePermission(this)) {
 				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
 						.setAction("Denied").setLabel(Utils.getPhoneName()).build());
-				Utils.showSystemWritePermissionDialog(this, REQUEST_WRITE_SYSTEM_SETTINGS_LOGIN);
+				Utils.showSystemWritePermissionDialog(this, REQUEST_WRITE_SYSTEM_SETTINGS_LOGOUT);
 				return;
 			} else {
 				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
@@ -240,7 +240,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 			if (!Utils.checkSystemWritePermission(this)) {
 				mTracker.send(new HitBuilders.EventBuilder().setCategory("Write System Permission")
 						.setAction("Denied").setLabel(Utils.getPhoneName()).build());
-				Utils.showSystemWritePermissionDialog(this, REQUEST_WRITE_SYSTEM_SETTINGS_LOGOUT);
+				Utils.showSystemWritePermissionDialog(this, REQUEST_WRITE_SYSTEM_SETTINGS_LOGIN);
 				enableViews();
 				return;
 			} else {
