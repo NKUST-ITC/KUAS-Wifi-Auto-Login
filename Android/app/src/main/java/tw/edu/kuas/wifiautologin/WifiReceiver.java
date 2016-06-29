@@ -59,6 +59,7 @@ public class WifiReceiver extends BroadcastReceiver {
 
 	private void login(Context context, UserModel model) {
 		LoginHelper.login(context, model, new GeneralCallback() {
+
 			@Override
 			public void onSuccess(String message) {
 				mTracker.send(

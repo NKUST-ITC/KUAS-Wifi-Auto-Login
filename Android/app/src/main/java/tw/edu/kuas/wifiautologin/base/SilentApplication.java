@@ -12,6 +12,7 @@ import tw.edu.kuas.wifiautologin.BuildConfig;
 import tw.edu.kuas.wifiautologin.R;
 
 public class SilentApplication extends Application {
+
 	private Tracker mTracker;
 
 	@Override

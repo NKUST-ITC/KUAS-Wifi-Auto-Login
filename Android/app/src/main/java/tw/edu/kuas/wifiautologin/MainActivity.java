@@ -64,6 +64,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		mPasswordEditText.setText(Memory.getString(this, Constant.MEMORY_KEY_PASSWORD, ""));
 		mPasswordEditText.setImeActionLabel(getText(R.string.ime_submit), KeyEvent.KEYCODE_ENTER);
 		mPasswordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				mLoginButton.performClick();
@@ -141,6 +142,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 
 		disableViews();
 		LoginHelper.logout(this, true, new GeneralCallback() {
+
 			@Override
 			public void onSuccess(final String message) {
 				mTracker.send(
@@ -150,6 +152,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 					return;
 				}
 				runOnUiThread(new Runnable() {
+
 					@Override
 					public void run() {
 						mDebugTextView.setEnabled(true);
@@ -166,6 +169,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 					return;
 				}
 				runOnUiThread(new Runnable() {
+
 					@Override
 					public void run() {
 						mDebugTextView.setEnabled(false);
@@ -182,6 +186,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 					return;
 				}
 				runOnUiThread(new Runnable() {
+
 					@Override
 					public void run() {
 						mDebugTextView.setEnabled(true);
@@ -256,6 +261,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		}
 
 		LoginHelper.login(this, Utils.tranUser(user, pwd), new GeneralCallback() {
+
 			@Override
 			public void onSuccess(final String message) {
 				if (isFinishing()) {
@@ -265,11 +271,13 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 						new HitBuilders.EventBuilder().setCategory("login").setAction("success")
 								.setLabel(message).build());
 				runOnUiThread(new Runnable() {
+
 					@Override
 					public void run() {
 						mDebugTextView.setEnabled(true);
 						showMessage(message);
 						new Handler().postDelayed(new Runnable() {
+
 							@Override
 							public void run() {
 								finish();
@@ -287,6 +295,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 					return;
 				}
 				runOnUiThread(new Runnable() {
+
 					@Override
 					public void run() {
 						mDebugTextView.setEnabled(false);
@@ -303,6 +312,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 					return;
 				}
 				runOnUiThread(new Runnable() {
+
 					@Override
 					public void run() {
 						Toast.makeText(MainActivity.this, R.string.already_logged_in,

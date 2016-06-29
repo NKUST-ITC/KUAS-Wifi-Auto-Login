@@ -35,7 +35,15 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 		if (wifiInfo != null && !TextUtils.isEmpty(wifiInfo.getSSID())) {
 			String ssid = wifiInfo.getSSID();
-			return ssid.startsWith("\"") ? ssid.substring(1, ssid.length() - 1) : null;
+			if (postVersion(Build.VERSION_CODES.JELLY_BEAN_MR1)) {
+				if (ssid.startsWith("\"") && ssid.endsWith("\"")) {
+					return ssid.substring(1, ssid.length() - 1);
+				} else {
+					return null;
+				}
+			} else {
+				return ssid;
+			}
 		}
 		return null;
 	}
@@ -107,6 +115,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 			}
 		}
 		mCallback = new ConnectivityManager.NetworkCallback() {
+
 			@Override
 			public void onAvailable(Network network) {
 				if (mCallback != null) {
@@ -214,6 +223,7 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 					.setMessage(activity.getString(R.string.permission_request_6_0_message,
 							"\uD83D\uDE09"))
 					.setPositiveButton(R.string.setting, new DialogInterface.OnClickListener() {
+
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);

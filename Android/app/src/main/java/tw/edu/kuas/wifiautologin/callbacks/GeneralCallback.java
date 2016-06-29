@@ -5,6 +5,7 @@ import android.content.Context;
 import tw.edu.kuas.wifiautologin.libs.Utils;
 
 public abstract class GeneralCallback {
+
 	public void onSuccess(Context context, String message) {
 		Utils.resetDefaultNetwork(context);
 		onSuccess(message);

@@ -58,6 +58,7 @@ public class LoginHelper {
 		Request request = new Request.Builder().url("http://www.example.com").head().build();
 
 		mClient.newCall(request).enqueue(new Callback() {
+
 			@Override
 			public void onFailure(Call call, IOException e) {
 				loginFail(context, context.getString(R.string.login_timeout), callback);
@@ -109,6 +110,7 @@ public class LoginHelper {
 				.addHeader("Accept-Encoding", "gzip, deflate").build();
 
 		mClient.newCall(request).enqueue(new Callback() {
+
 			@Override
 			public void onFailure(Call call, IOException e) {
 				loginFail(context, context.getString(R.string.login_timeout), callback);
@@ -159,6 +161,7 @@ public class LoginHelper {
 		Request request = new Request.Builder().url(url).head().build();
 
 		mClient.newCall(request).enqueue(new Callback() {
+
 			@Override
 			public void onFailure(Call call, IOException e) {
 				callback.onFail(context, context.getString(R.string.failed_to_logout));
@@ -204,6 +207,7 @@ public class LoginHelper {
 		final Request request = new Request.Builder().url(url).get().build();
 
 		mClient.newCall(request).enqueue(new Callback() {
+
 			@Override
 			public void onFailure(Call call, IOException e) {
 				callback.onFail(context, context.getString(R.string.failed_to_logout));
