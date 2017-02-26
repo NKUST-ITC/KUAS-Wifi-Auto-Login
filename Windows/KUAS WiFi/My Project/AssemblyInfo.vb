@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' 指定為預設值: 
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.2.4.27")> 
-<Assembly: AssemblyFileVersion("2.2.4.27")> 
+<Assembly: AssemblyVersion("2.3.2.27")> 
+<Assembly: AssemblyFileVersion("2.3.2.27")> 

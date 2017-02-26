@@ -133,8 +133,31 @@ Public Class LoginFrm
 
     Private Sub login(_host As String)
         Dim parameters As IDictionary(Of String, String) = New Dictionary(Of String, String)()
-        parameters.Add("username", System.Uri.EscapeDataString(User.Text))
-        parameters.Add("userpwd", System.Uri.EscapeDataString(Pwd.Text))
+        Dim username As String = User.Text
+        Dim password As String = Pwd.Text
+
+        If (username.EndsWith("@kuas.edu.tw")) Then
+            username = username
+        ElseIf (username.EndsWith("@gm.kuas.edu.tw")) Then
+            username = username
+        ElseIf (username.Length() = 10 And Not username.Substring(0, 2).Equals("09")) Then
+            If (Convert.ToInt32(username.Substring(1, 3) <= 102)) Then
+                username += "@kuas.edu.tw"
+            Else
+                username += "@gm.kuas.edu.tw"
+            End If
+        ElseIf (username.Length() = 5) Then
+            username += "@kuas.edu.tw"
+        ElseIf (username.Contains("@") And Not username.Contains("@guest")) Then
+            username = username
+        Else
+            username += IIf(username.Contains("@guest"), "", "@guest")
+        End If
+
+        Debug.Print(username)
+
+        parameters.Add("username", System.Uri.EscapeDataString(username))
+        parameters.Add("userpwd", System.Uri.EscapeDataString(password))
         parameters.Add("login", "")
         parameters.Add("orig_referer", "")
 
