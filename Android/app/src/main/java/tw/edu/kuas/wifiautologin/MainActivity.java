@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tw.edu.kuas.wifiautologin.base.SilentApplication;
@@ -36,14 +36,14 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 
 @SuppressWarnings("unused") public class MainActivity extends AppCompatActivity {
 
-	@Bind(R.id.button_login) Button mLoginButton;
-	@Bind(R.id.button_logout) Button mLogoutButton;
-	@Bind(R.id.editText_user) EditText mUsernameEditText;
-	@Bind(R.id.editText_password) EditText mPasswordEditText;
-	@Bind(R.id.textView_debug) TextView mDebugTextView;
-	@Bind(R.id.progressBar) ProgressBar mProgressBar;
-	@Bind(R.id.textInputLayout_user) TextInputLayout mUserNameTextInputLayout;
-	@Bind(R.id.textInputLayout_password) TextInputLayout mPasswordTextInputLayout;
+	@BindView(R.id.button_login) Button mLoginButton;
+	@BindView(R.id.button_logout) Button mLogoutButton;
+	@BindView(R.id.editText_user) EditText mUsernameEditText;
+	@BindView(R.id.editText_password) EditText mPasswordEditText;
+	@BindView(R.id.textView_debug) TextView mDebugTextView;
+	@BindView(R.id.progressBar) ProgressBar mProgressBar;
+	@BindView(R.id.textInputLayout_user) TextInputLayout mUserNameTextInputLayout;
+	@BindView(R.id.textInputLayout_password) TextInputLayout mPasswordTextInputLayout;
 
 	private static Tracker mTracker;
 

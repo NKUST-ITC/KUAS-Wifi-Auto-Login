@@ -42,9 +42,9 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:imeOptions="actionGo"
-					android:inputType="number"
+					android:inputType="textEmailAddress"
 					android:maxLength="10"
-					android:singleLine="true"
+					android:maxLines="1"
 					android:textSize="@dimen/text_title"/>
 			</android.support.design.widget.TextInputLayout>
 
@@ -59,6 +59,7 @@
 					android:layout_height="wrap_content"
 					android:imeOptions="actionGo"
 					android:inputType="textPassword"
+					android:maxLines="1"
 					android:textSize="@dimen/text_title"/>
 			</android.support.design.widget.TextInputLayout>
 

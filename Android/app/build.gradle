@@ -15,15 +15,15 @@ repositories {
 }
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "tw.edu.kuas.wifiautologin"
-        minSdkVersion 9
-        targetSdkVersion 24
-        versionCode 224
-        versionName "2.2.4"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 225
+        versionName "2.2.5"
     }
     buildTypes {
         debug {
@@ -49,16 +49,18 @@ android {
                     'proguard-crashlytics.pro'
         }
     }
+    return void
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:design:24.0.0'
-    compile 'com.google.android.gms:play-services-analytics:9.2.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.7@aar') {
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:design:25.2.0'
+    compile 'com.google.android.gms:play-services-analytics:10.2.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
         transitive = true;
     }
 }
