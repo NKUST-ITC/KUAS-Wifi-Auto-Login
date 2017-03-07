@@ -61,6 +61,7 @@ public class LoginHelper {
 
 			@Override
 			public void onFailure(Call call, IOException e) {
+				call.cancel();
 				loginFail(context, context.getString(R.string.login_timeout), callback);
 			}
 
@@ -113,11 +114,13 @@ public class LoginHelper {
 
 			@Override
 			public void onFailure(Call call, IOException e) {
+				call.cancel();
 				loginFail(context, context.getString(R.string.login_timeout), callback);
 			}
 
 			@Override
 			public void onResponse(Call call, Response response) {
+				call.cancel();
 				try {
 					String _response = response.body().string();
 					if (_response.contains("login_online_detail.php")) {
@@ -164,6 +167,7 @@ public class LoginHelper {
 
 			@Override
 			public void onFailure(Call call, IOException e) {
+				call.cancel();
 				callback.onFail(context, context.getString(R.string.failed_to_logout));
 			}
 
@@ -210,11 +214,13 @@ public class LoginHelper {
 
 			@Override
 			public void onFailure(Call call, IOException e) {
+				call.cancel();
 				callback.onFail(context, context.getString(R.string.failed_to_logout));
 			}
 
 			@Override
 			public void onResponse(Call call, Response response) {
+				call.cancel();
 				if (response.code() == 200) {
 					callback.onSuccess(context, context.getString(R.string.logout_successful));
 					NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_LOGIN_ID);
@@ -274,12 +280,15 @@ public class LoginHelper {
 
 	private static void loginFail(Context context, String reason,
 	                              @NonNull GeneralCallback callback) {
-		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_LOGIN_ID);
-		callback.onFail(context, reason);
 		if (!(context instanceof MainActivity)) {
 			NotificationHelper.createNotification(context, reason, false, true,
 					Constant.NOTIFICATION_FAIL_ID);
 		}
+		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_LOGIN_ID);
+		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_FAIL_ID);
+		NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_ALREADY_ID);
+
+		callback.onFail(context, reason);
 	}
 
 }
