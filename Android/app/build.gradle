@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.25.1'
     }
 }
 apply plugin: 'com.android.application'
@@ -15,19 +15,21 @@ repositories {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "tw.edu.kuas.wifiautologin"
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 226
         versionName "2.2.6"
     }
     buildTypes {
         debug {
+            debuggable true
             minifyEnabled true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro',
                     'proguard-appcompat-v7.pro',
@@ -38,7 +40,9 @@ android {
                     'proguard-crashlytics.pro'
         }
         release {
+            debuggable false
             minifyEnabled true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro',
                     'proguard-appcompat-v7.pro',
@@ -54,14 +58,14 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.google.android.gms:play-services-analytics:10.2.0'
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
-        transitive = true;
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:design:27.0.2'
+    compile 'com.google.android.gms:play-services-analytics:11.8.0'
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+        transitive = true
     }
 }
 
