@@ -29,8 +29,8 @@ public class LoginHelper {
 
 	private static OkHttpClient mClient =
 			new OkHttpClient().newBuilder().followRedirects(false).followSslRedirects(false)
-					.connectTimeout(7, TimeUnit.SECONDS).writeTimeout(7, TimeUnit.SECONDS)
-					.readTimeout(7, TimeUnit.SECONDS).build();
+					.connectTimeout(15, TimeUnit.SECONDS).writeTimeout(15, TimeUnit.SECONDS)
+					.readTimeout(15, TimeUnit.SECONDS).build();
 
 	private static Tracker mTracker;
 
@@ -67,7 +67,6 @@ public class LoginHelper {
 
 			@Override
 			public void onResponse(Call call, Response response) {
-				call.cancel();
 				if (response.code() == 200) {
 					callback.onAlready(context);
 					if (!(context instanceof MainActivity)) {
@@ -83,6 +82,7 @@ public class LoginHelper {
 				} else {
 					loginFail(context, context.getString(R.string.login_timeout), callback);
 				}
+				call.cancel();
 			}
 		});
 	}
@@ -120,7 +120,6 @@ public class LoginHelper {
 
 			@Override
 			public void onResponse(Call call, Response response) {
-				call.cancel();
 				try {
 					String _response = response.body().string();
 					if (_response.contains("login_online_detail.php")) {
@@ -145,6 +144,7 @@ public class LoginHelper {
 				} catch (Exception e) {
 					loginFail(context, context.getString(R.string.login_timeout), callback);
 				}
+				call.cancel();
 			}
 		});
 	}
@@ -173,12 +173,12 @@ public class LoginHelper {
 
 			@Override
 			public void onResponse(Call call, Response response) {
-				call.cancel();
 				if (response.code() == 302) {
 					checkLogoutLocation(context, response.header("location"), recheck, callback);
 				} else {
 					callback.onFail(context, context.getString(R.string.failed_to_logout));
 				}
+				call.cancel();
 			}
 		});
 	}
@@ -220,7 +220,6 @@ public class LoginHelper {
 
 			@Override
 			public void onResponse(Call call, Response response) {
-				call.cancel();
 				if (response.code() == 200) {
 					callback.onSuccess(context, context.getString(R.string.logout_successful));
 					NotificationHelper.cancelNotification(context, Constant.NOTIFICATION_LOGIN_ID);
@@ -232,6 +231,7 @@ public class LoginHelper {
 				} else {
 					callback.onFail(context, context.getString(R.string.failed_to_logout));
 				}
+				call.cancel();
 			}
 		});
 	}

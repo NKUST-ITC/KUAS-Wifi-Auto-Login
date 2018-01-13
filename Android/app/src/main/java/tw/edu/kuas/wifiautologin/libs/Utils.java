@@ -31,7 +31,11 @@ import tw.edu.kuas.wifiautologin.models.UserModel;
 	private static ConnectivityManager mConnectivityManager;
 
 	public static String getCurrentSSID(Context context) {
-		WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		WifiManager wifiManager = (WifiManager) context.getApplicationContext()
+				.getSystemService(Context.WIFI_SERVICE);
+		if (wifiManager == null) {
+			return null;
+		}
 		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 		if (wifiInfo != null && !TextUtils.isEmpty(wifiInfo.getSSID())) {
 			String ssid = wifiInfo.getSSID();
