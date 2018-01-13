@@ -53,4 +53,10 @@
 	<string name="skip">Skip</string>
 	<string name="cancel">Cancel</string>
 
+	<string name="save">Save</string>
+	<string name="finish">Finsh</string>
+
+	<string name="widget_default">Touch to connect KUAS wifi</string>
+	<string name="widget_connecting">connecting</string>
+	<string name="widget_already_connect">Already Login</string>
 </resources>

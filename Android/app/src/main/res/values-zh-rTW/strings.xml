@@ -49,4 +49,11 @@
 	<string name="skip">稍後再說</string>
 	<string name="cancel">取消</string>
 
+
+	<string name="save">儲存</string>
+	<string name="finish">完成</string>
+
+	<string name="widget_default">點擊登入KUAS WIFI</string>
+	<string name="widget_connecting">連線中..</string>
+	<string name="widget_already_connect">已登入</string>
 </resources>
